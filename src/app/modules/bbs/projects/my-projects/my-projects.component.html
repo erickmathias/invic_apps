@@ -1,0 +1,586 @@
+<div class="container-fluid">
+
+  <app-page-title title="Projects" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <!-- end row -->
+  <div class="row mb-mb-2">
+    <div class="col-sm-12">
+      <ngb-alert type="danger"  style="font-size: 16px; text-align: center" *ngIf="packageError" [dismissible]="false">{{ packageError }}</ngb-alert>
+      <div class="text-sm-end" *ngIf="packageError.length < 1">
+        <button type="button" (click)="openModal(content)" class="btn btn-success btn-sm btn-rounded mb-2 me-2"><i class="mdi mdi-plus mr-1"></i>
+          New Project</button>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="font-size: 12px;">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <!--<h4 class="card-title mb-4">My Clients</h4>-->
+          <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-tabs nav-tabs-custom">
+            <li [ngbNavItem]="1">
+              <a ngbNavLink>All</a>
+              <ng-template ngbNavContent>
+
+
+                <div class="row mb-md-2" *ngIf="!loading">
+                  <div class="col-sm-12 col-md-6">
+
+                    <div class="dataTables_length" id="tickets-table_length"><label
+                      class="d-inline-flex align-items-center">Show
+                      <select name="tickets-table_length" aria-controls="tickets-table"
+                              name="pageSize" [(ngModel)]="service.pageSize"
+                              class="custom-select custom-select-sm form-control form-control-sm mx-2">
+                        <option [ngValue]="10">10</option>
+                        <option [ngValue]="25">25</option>
+                        <option [ngValue]="50">50</option>
+                        <option [ngValue]="100">100</option>
+                      </select> entries</label></div>
+                  </div>
+                  <!-- Search -->
+                  <div class="col-sm-12 col-md-6">
+                    <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+                      class="d-inline-flex align-items-center">Search:
+                      <input type="text" name="searchTerm"
+                             class="form-control form-control-sm ms-2"
+                             aria-controls="tickets-table"
+                             [(ngModel)]="service.searchTerm"></label></div>
+                  </div>
+                  <!-- End search -->
+                </div>
+                <!-- Table -->
+
+                <div class="table-responsive" style="padding-bottom: 50px;">
+                  <table id="basic-datatable" class="table datatables dt-responsive nowrap">
+                  <thead>
+                  <tr>
+                    <th sortable="id" (sort)="onSort($event)">ID</th>
+                    <th sortable="name" (sort)="onSort($event)">TYPE</th>
+                    <th sortable="name" (sort)="onSort($event)">NAME</th>
+                    <th sortable="client" (sort)="onSort($event)">CLIENT</th>
+                    <th sortable="prepared_by" (sort)="onSort($event)">PREPAREDBY</th>
+                    <th sortable="date_prepared" (sort)="onSort($event)">PREPAREDDATE</th>
+                    <th sortable="checked_by" (sort)="onSort($event)">CHECKEDBY</th>
+                    <th sortable="date_checked" (sort)="onSort($event)">DATECHECHED</th>
+                    <th sortable="reviewed_by" (sort)="onSort($event)">REVIEWEDBY</th>
+                    <th sortable="date_reviewed" (sort)="onSort($event)">DATEREVIEWED</th>
+                    <th sortable="created_at" (sort)="onSort($event)">DATECREATED</th>
+                    <th>ACTIONS</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let table of activities$ | async; let i = index;">
+                    <td>
+                      {{i+1}}
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="table.type" [term]="service.searchTerm">
+                      </ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="table.name" [term]="service.searchTerm">
+                      </ngb-highlight>
+                    </td>
+
+                    <td>
+                      <ngb-highlight [result]="table.client.name" [term]="service.searchTerm">
+                      </ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="table.prepared_by" [term]="service.searchTerm">
+                      </ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="table.date_prepared" [term]="service.searchTerm">
+                      </ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="table.checked_by" [term]="service.searchTerm">
+                      </ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="table.date_checked" [term]="service.searchTerm">
+                      </ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="table.reviewed_by" [term]="service.searchTerm">
+                      </ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="table.date_reviewed" [term]="service.searchTerm">
+                      </ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="table.created_at" [term]="service.searchTerm">
+                      </ngb-highlight>
+                    </td>
+                    <td>
+                      <div ngbDropdown placement="bottom-left">
+                        <i class="mdi mdi-dots-vertical dropdown-toggle" ngbDropdownToggle data-toggle="dropdown"
+                           aria-expanded="true"></i>
+                        <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                          <a class="dropdown-item" (click)="openProjectModal(contentProject, table)"><i class="mdi mdi-arrow-right"></i>Manage</a>
+                          <a class="dropdown-item" (click)="editProject(content,table)"><i class="mdi mdi-file-edit"></i>Edit</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                </div>
+
+                <div class="card-body" style="text-align: center" *ngIf="loading">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+
+                <!-- End table -->
+                <div class="row justify-content-md-between align-items-md-center mt-2">
+                  <div class="col-sm-12 col-md-5">
+                    <div class="dataTables_info mb-2" id="tickets-table_info" role="status"
+                         aria-live="polite">
+                      Showing
+                      {{service.startIndex + 1}} to
+                      {{service.endIndex}} of {{service.totalRecords}}
+                      entries
+                    </div>
+                  </div>
+                  <!-- Pagination -->
+                  <div class="col-sm-12 col-md-5">
+                    <div class="text-md-right float-md-end pagination-rounded">
+                      <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page"
+                                      [pageSize]="service.pageSize">
+                      </ngb-pagination>
+                    </div>
+                  </div>
+                  <!-- End Pagination -->
+                </div>
+              </ng-template>
+            </li>
+          </ul>
+          <div [ngbNavOutlet]="nav" class="mt-4"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #content role="document" let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">New Project</h5>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <form [formGroup]="projectsForm">
+          <ngb-alert type="success" *ngIf="successmsg" [dismissible]="false">{{successmsg}}</ngb-alert>
+
+          <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert>
+          <div class="row">
+
+            <div class="col-md-12">
+              <div class="mb-3">
+                <label for="name">Project Name</label>
+                <input type="text" formControlName="name" class="form-control" id="name"
+                       [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+                       placeholder="Eg. CONSTRUCTION OF MPAPA MASANYITA WATER SUPPLY PROJECT ..">
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                  <div *ngIf="f.name.errors.required">Name is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label>Project Type</label>
+                <!--<input type="text" formControlName="client" class="form-control" id="client"
+                       [ngClass]="{ 'is-invalid': submitted && f.country.errors }"
+                       placeholder="Eg. Tanzania">-->
+                <ng-select
+                  formControlName="type"
+                  placeholder="Choose Project Type"
+                  [clearable]="true"
+                  [searchable]="false"
+                  (change)="onChangeClient($event)"
+                >
+                  <ng-option [value]="value.id"  *ngFor="let value of type" >
+                    {{value.name}}
+                  </ng-option>
+                </ng-select>
+
+                <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
+                  <div *ngIf="f.type.errors.required">Project Type is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label>Client Name</label>
+                <!--<input type="text" formControlName="client" class="form-control" id="client"
+                       [ngClass]="{ 'is-invalid': submitted && f.country.errors }"
+                       placeholder="Eg. Tanzania">-->
+                <ng-select
+                  formControlName="client"
+                  placeholder="Choose Client"
+                  [clearable]="true"
+                  [searchable]="true"
+                  (change)="onChangeClient($event)"
+                >
+                  <ng-option [value]="value.id"  *ngFor="let value of clients" >
+                    {{value.name}}
+                  </ng-option>
+                </ng-select>
+
+                <div *ngIf="submitted && f.client.errors" class="invalid-feedback">
+                  <div *ngIf="f.client.errors.required">Client is required</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="prepared_by">Prepared By</label>
+                <input type="text" [readOnly]="readonly" formControlName="prepared_by" class="form-control" id="prepared_by"
+                       [ngClass]="{ 'is-invalid': submitted && f.prepared_by.errors }"
+                       placeholder="Eg. Eng. Nelson MM">
+                <div *ngIf="submitted && f.prepared_by.errors" class="invalid-feedback">
+                  <div *ngIf="f.prepared_by.errors.required">Prepared By is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="checked_by">Checked By</label>
+                <input type="text" formControlName="checked_by" class="form-control" id="checked_by"
+                       [ngClass]="{ 'is-invalid': submitted && f.checked_by.errors }"
+                       placeholder="Enter Name">
+                <div *ngIf="submitted && f.checked_by.errors" class="invalid-feedback">
+                  <div *ngIf="f.checked_by.errors.required">Checked By is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="reviewed_by">Reviewed By</label>
+                <input type="text" formControlName="reviewed_by" class="form-control" id="reviewed_by"
+                       [ngClass]="{ 'is-invalid': submitted && f.reviewed_by.errors }"
+                       placeholder="Enter Name">
+                <div *ngIf="submitted && f.reviewed_by.errors" class="invalid-feedback">
+                  <div *ngIf="f.reviewed_by.errors.required">Revewer is required</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="date_prepared">Date Prepared</label>
+                <div class="input-group clockpicker">
+                  <input ngbDatepicker class="form-control" formControlName="date_prepared" id="date_prepared" placeholder="yyyy-mm-dd" #d="ngbDatepicker">
+                  <div class="input-group-append" (click)="d.toggle()">
+                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                  </div>
+                </div>
+                <div *ngIf="submitted && f.date_prepared.errors" class="invalid-feedback">
+                  <div *ngIf="f.date_prepared.errors.required">Date Prepared is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="date_checked">Date Checked</label>
+                <div class="input-group clockpicker">
+                  <input ngbDatepicker class="form-control" formControlName="date_checked" id="date_checked" placeholder="yyyy-mm-dd" #dd="ngbDatepicker">
+                  <div class="input-group-append" (click)="dd.toggle()">
+                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                  </div>
+                </div>
+                <div *ngIf="submitted && f.date_checked.errors" class="invalid-feedback">
+                  <div *ngIf="f.date_checked.errors.required">Checked Date is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="date_reviewed">Date Reviewed</label>
+                <div class="input-group clockpicker">
+                  <input ngbDatepicker class="form-control" formControlName="date_reviewed" id="date_reviewed" placeholder="yyyy-mm-dd" #ddd="ngbDatepicker">
+                  <div class="input-group-append" (click)="ddd.toggle()">
+                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                  </div>
+                </div>
+                <div *ngIf="submitted && f.date_reviewed.errors" class="invalid-feedback">
+                  <div *ngIf="f.date_reviewed.errors.required">Date Reviewed is required</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="d-flex flex-wrap gap-2 mt-2">
+            <!--<button type="submit" class="btn btn-primary">Save Profile</button>-->
+            <!--<button type="submit" class="btn btn-secondary">Cancel</button>-->
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button *ngIf="action==0" type="button" class="btn btn-primary" (click)="addProject(projectsForm.value)">Save</button>
+    <button *ngIf="action==1" type="button" class="btn btn-primary" (click)="updateProject(projectsForm.value)">Update</button>
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+
+  </div>
+</ng-template>
+
+<ng-template #contentProject role="document" let-modal>
+  <div class="modal-header">
+    <span class="modal-title mt-0">Manage Project</span>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+          <table class="dt-responsive" style="width: 100%;">
+            <tbody>
+            <tr>
+              <td><img [src]="company_logo" style="width:70px; height: 70px;"></td>
+              <td>
+                <table class="table" style="width: 100%;">
+                  <tbody>
+                  <tr>
+                    <td colspan="2" style="text-align: center;">{{selectedProject.name}} - {{selectedProject.client.name}}</td>
+                  </tr>
+                  <tr>
+                    <td>Date Created: {{selectedProject.created_at}}</td>
+                    <td style="text-align: right;">Date Reviewed: {{selectedProject.date_reviewed}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td><img [src]="company_logo" style="width:70px; height: 70px;"></td>
+            </tr>
+            </tbody>
+          </table>
+
+          <app-project-elements *ngIf="selectedProject.type == 'BBS'"
+          [selectedProject]="selectedProject"
+          >
+          </app-project-elements>
+
+          <app-sproperties *ngIf="selectedProject.type == 'SLAB'"
+            [selectedProject]="selectedProject"
+          >
+          </app-sproperties>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <!--<form [formGroup]="projectsForm">
+          <ngb-alert type="success" *ngIf="successmsg" [dismissible]="false">{{successmsg}}</ngb-alert>
+
+          <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert>
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="name">Project Name</label>
+                <input type="text" formControlName="name" class="form-control" id="name"
+                       [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+                       placeholder="Eg. CONSTRUCTION OF MPAPA MASANYITA WATER SUPPLY PROJECT ..">
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                  <div *ngIf="f.name.errors.required">Name is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label>Client Name</label>
+                &lt;!&ndash;<input type="text" formControlName="client" class="form-control" id="client"
+                       [ngClass]="{ 'is-invalid': submitted && f.country.errors }"
+                       placeholder="Eg. Tanzania">&ndash;&gt;
+                <ng-select
+                  formControlName="client"
+                  placeholder="Choose Client"
+                  [clearable]="true"
+                  [searchable]="true"
+                  (change)="onChangeClient($event)"
+                >
+                  <ng-option [value]="value.id"  *ngFor="let value of clients" >
+                    {{value.name}}
+                  </ng-option>
+                </ng-select>
+
+                <div *ngIf="submitted && f.client.errors" class="invalid-feedback">
+                  <div *ngIf="f.client.errors.required">Client is required</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="prepared_by">Prepared By</label>
+                <input type="text" formControlName="prepared_by" class="form-control" id="prepared_by"
+                       [ngClass]="{ 'is-invalid': submitted && f.prepared_by.errors }"
+                       placeholder="Eg. Eng. Nelson MM">
+                <div *ngIf="submitted && f.prepared_by.errors" class="invalid-feedback">
+                  <div *ngIf="f.prepared_by.errors.required">Prepared By is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="checked_by">Checked By</label>
+                <input type="text" formControlName="checked_by" class="form-control" id="checked_by"
+                       [ngClass]="{ 'is-invalid': submitted && f.checked_by.errors }"
+                       placeholder="Enter Name">
+                <div *ngIf="submitted && f.checked_by.errors" class="invalid-feedback">
+                  <div *ngIf="f.checked_by.errors.required">Checked By is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="reviewed_by">Reviewed By</label>
+                <input type="text" formControlName="reviewed_by" class="form-control" id="reviewed_by"
+                       [ngClass]="{ 'is-invalid': submitted && f.reviewed_by.errors }"
+                       placeholder="Enter Name">
+                <div *ngIf="submitted && f.reviewed_by.errors" class="invalid-feedback">
+                  <div *ngIf="f.reviewed_by.errors.required">Revewer is required</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="date_prepared">Date Prepared</label>
+                <div class="input-group clockpicker">
+                  <input ngbDatepicker class="form-control" formControlName="date_prepared" id="date_prepared" placeholder="yyyy-mm-dd" #d="ngbDatepicker">
+                  <div class="input-group-append" (click)="d.toggle()">
+                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                  </div>
+                </div>
+                <div *ngIf="submitted && f.date_prepared.errors" class="invalid-feedback">
+                  <div *ngIf="f.date_prepared.errors.required">Date Prepared is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="date_checked">Date Checked</label>
+                <div class="input-group clockpicker">
+                  <input ngbDatepicker class="form-control" formControlName="date_checked" id="date_checked" placeholder="yyyy-mm-dd" #dd="ngbDatepicker">
+                  <div class="input-group-append" (click)="dd.toggle()">
+                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                  </div>
+                </div>
+                <div *ngIf="submitted && f.date_checked.errors" class="invalid-feedback">
+                  <div *ngIf="f.date_checked.errors.required">Checked Date is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="date_reviewed">Date Reviewed</label>
+                <div class="input-group clockpicker">
+                  <input ngbDatepicker class="form-control" formControlName="date_reviewed" id="date_reviewed" placeholder="yyyy-mm-dd" #ddd="ngbDatepicker">
+                  <div class="input-group-append" (click)="ddd.toggle()">
+                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                  </div>
+                </div>
+                <div *ngIf="submitted && f.date_reviewed.errors" class="invalid-feedback">
+                  <div *ngIf="f.date_reviewed.errors.required">Date Reviewed is required</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="d-flex flex-wrap gap-2 mt-2">
+            &lt;!&ndash;<button type="submit" class="btn btn-primary">Save Profile</button>&ndash;&gt;
+            &lt;!&ndash;<button type="submit" class="btn btn-secondary">Cancel</button>&ndash;&gt;
+          </div>
+
+        </form>-->
+
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+<!--    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-primary" (click)="addProject(projectsForm.value)">Save Client</button>-->
+    <div class="text-sm-end">
+      <button *ngIf="selectedProject.type == 'BBS'" type="button" (click)="downloadCoverPage(reportCover, selectedProject.id)" class="btn btn-outline-success btn-sm btn-rounded mb-2 me-2"><i class="mdi mdi-printer mr-1"></i>Project Cover</button>
+      <button type="button" (click)="downloadContentPage(reportCover, selectedProject)" class="btn btn-outline-success btn-sm btn-rounded mb-2 me-2"><i class="mdi mdi-printer mr-1"></i>Project Report</button>
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+
+  </div>
+</ng-template>
+
+<ng-template #reportCover let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="myHeaderExecModalLabel">BBS-SCHEDULE</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Close click')"></button>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <!--<div class="card-header card-header-info">
+          <h4 class="card-title">STUDENT ID</h4>
+          <p class="card-category"></p>
+        </div>-->
+        <div class="card-body">
+          <iframe *ngIf="pdfSrc" width="500" height="1000" style="width: 100%"
+                  [src]="pdfSrc" type="application/pdf">
+          </iframe>
+
+          <div class="d-flex justify-content-center spinner-container" *ngIf="loader">
+            Please Wait! Downloading Pdf Contents ...
+          </div>
+          <!--<div class="d-flex justify-content-center spinner-container"
+               *ngIf="loader">
+            <mat-progress-bar
+              color="primary"
+              mode="query"
+              value=50
+              bufferValue=75>
+            </mat-progress-bar>
+          </div>-->
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</ng-template>

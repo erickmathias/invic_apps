@@ -1,0 +1,171 @@
+<div class="container-fluid">
+
+  <app-page-title title="Subscriptions" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <!-- end row -->
+  <!--<div class="row mb-mb-2">
+    <div class="col-sm-12">
+      <ngb-alert type="danger"  style="font-size: 16px; text-align: center" *ngIf="packageError" [dismissible]="false">{{ packageError }}</ngb-alert>
+      <div class="text-sm-end" *ngIf="packageError.length < 1">
+        <button type="button" (click)="openModal(content)" class="btn btn-success btn-sm btn-rounded mb-2 me-2"><i class="mdi mdi-plus mr-1"></i>
+          New Project</button>
+      </div>
+    </div>
+  </div>-->
+  <div class="row" style="font-size: 12px;">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <!--<h4 class="card-title mb-4">My Clients</h4>-->
+          <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-tabs nav-tabs-custom">
+            <li [ngbNavItem]="1">
+              <a ngbNavLink>All</a>
+              <ng-template ngbNavContent>
+
+
+                <div class="row mb-md-2" *ngIf="!loading">
+                  <div class="col-sm-12 col-md-6">
+
+                    <div class="dataTables_length" id="tickets-table_length"><label
+                      class="d-inline-flex align-items-center">Show
+                      <select name="tickets-table_length" aria-controls="tickets-table"
+                              name="pageSize" [(ngModel)]="service.pageSize"
+                              class="custom-select custom-select-sm form-control form-control-sm mx-2">
+                        <option [ngValue]="10">10</option>
+                        <option [ngValue]="25">25</option>
+                        <option [ngValue]="50">50</option>
+                        <option [ngValue]="100">100</option>
+                      </select> entries</label></div>
+                  </div>
+                  <!-- Search -->
+                  <div class="col-sm-12 col-md-6">
+                    <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+                      class="d-inline-flex align-items-center">Search:
+                      <input type="text" name="searchTerm"
+                             class="form-control form-control-sm ms-2"
+                             aria-controls="tickets-table"
+                             [(ngModel)]="service.searchTerm"></label></div>
+                  </div>
+                  <!-- End search -->
+                </div>
+                <!-- Table -->
+
+                <div class="table-responsive">
+                  <table id="basic-datatable" class="table datatables dt-responsive nowrap">
+                    <thead>
+                    <tr>
+                      <th sortable="id" (sort)="onSort($event)">ID</th>
+                      <th sortable="name" (sort)="onSort($event)">MODULE</th>
+                      <th sortable="client" (sort)="onSort($event)">PACK-NAME</th>
+                      <th sortable="prepared_by" (sort)="onSort($event)">MONTHS</th>
+                      <th sortable="date_prepared" (sort)="onSort($event)">AMTBILLED</th>
+                      <th sortable="checked_by" (sort)="onSort($event)">AMTPAID</th>
+                      <th sortable="date_checked" (sort)="onSort($event)">PAID</th>
+                      <th sortable="date_checked" (sort)="onSort($event)">PAIDDATE</th>
+                      <th sortable="date_checked" (sort)="onSort($event)">DUEDATE</th>
+                      <th sortable="reviewed_by" (sort)="onSort($event)">STATUS</th>
+                      <th sortable="date_reviewed" (sort)="onSort($event)">CREATEDDATE</th>
+                      <th>ACTIONS</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let table of activities$ | async; let i = index;">
+                      <td>
+                        {{i+1}}
+                      </td>
+                      <td>
+                        <ngb-highlight [result]="table.package.module" [term]="service.searchTerm"></ngb-highlight>
+                      </td>
+                      <td>
+                        <ngb-highlight [result]="table.package.name" [term]="service.searchTerm"></ngb-highlight>
+                      </td>
+                      <td>
+                        <ngb-highlight [result]="table.total_months.toString()" [term]="service.searchTerm"></ngb-highlight>
+                      </td>
+                      <td>
+                        <ngb-highlight [result]="table.total_amount_billed | number" [term]="service.searchTerm"></ngb-highlight>
+                      </td>
+                      <td>
+                        <ngb-highlight [result]="table.total_amount_paid | number" [term]="service.searchTerm">
+                        </ngb-highlight>
+                      </td>
+                      <td>
+                        <ngb-highlight [result]="getPaidState(table.paid_status)" [term]="service.searchTerm">
+                        </ngb-highlight>
+                      </td>
+                      <td>
+                        <ngb-highlight [result]="table.paid_date | date:'medium'" [term]="service.searchTerm">
+                        </ngb-highlight>
+                      </td>
+                      <td>
+                        <ngb-highlight [result]="table.due_date | date: 'medium'" [term]="service.searchTerm">
+                        </ngb-highlight>
+                      </td>
+
+                      <td>
+                        <ngb-highlight [result]="getStatus(table.status)" [term]="service.searchTerm">
+                        </ngb-highlight>
+                      </td>
+                      <td>
+                        <ngb-highlight [result]="table.created_at | date: 'medium'" [term]="service.searchTerm">
+                        </ngb-highlight>
+                      </td>
+                      <td>
+                        <div ngbDropdown placement="bottom-left">
+                          <i class="mdi mdi-dots-vertical dropdown-toggle" ngbDropdownToggle data-toggle="dropdown"
+                             aria-expanded="true"></i>
+                          <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                            <a class="dropdown-item"><i class="mdi mdi-arrow-right"></i>Payment</a>
+<!--
+                            <a class="dropdown-item" href="javascript: void(0);"><i class="mdi mdi-delete"></i>Delete</a>
+-->
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="card-body" style="text-align: center" *ngIf="loading">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+
+                <!-- End table -->
+                <div class="row justify-content-md-between align-items-md-center mt-2">
+                  <div class="col-sm-12 col-md-5">
+                    <div class="dataTables_info mb-2" id="tickets-table_info" role="status"
+                         aria-live="polite">
+                      Showing
+                      {{service.startIndex + 1}} to
+                      {{service.endIndex}} of {{service.totalRecords}}
+                      entries
+                    </div>
+                  </div>
+                  <!-- Pagination -->
+                  <div class="col-sm-12 col-md-5">
+                    <div class="text-md-right float-md-end pagination-rounded">
+                      <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page"
+                                      [pageSize]="service.pageSize">
+                      </ngb-pagination>
+                    </div>
+                  </div>
+                  <!-- End Pagination -->
+                </div>
+              </ng-template>
+            </li>
+          </ul>
+          <div [ngbNavOutlet]="nav" class="mt-4"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+

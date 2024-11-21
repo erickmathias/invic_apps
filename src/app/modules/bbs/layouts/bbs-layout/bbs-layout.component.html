@@ -1,0 +1,14 @@
+<div id="layout-wrapper">
+  <app-bbs-topbar (settingsButtonClicked)="onSettingsButtonClicked()" (mobileMenuButtonClicked)="onToggleMobileMenu()"></app-bbs-topbar>
+
+  <app-bbs-sidebar [isCondensed]="isCondensed"></app-bbs-sidebar>
+  <div class="main-content">
+    <div class="page-content">
+      <!-- content -->
+      <router-outlet></router-outlet>
+    </div>
+
+    <!-- footer -->
+    <app-bbs-footer></app-bbs-footer>
+  </div>
+</div>

@@ -1,0 +1,275 @@
+<div class="container-fluid">
+
+  <!-- start page title -->
+  <app-page-title title="Profile" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <!-- end page title -->
+
+  <div class="row" *ngIf="showProfileForm">
+    <div class="col-8">
+      <form [formGroup]="profileForm" (ngSubmit)="addProfile(profileForm.value)">
+        <ngb-alert type="success" *ngIf="successmsg" [dismissible]="false">{{successmsg}}</ngb-alert>
+
+        <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert>
+        <div class="row">
+
+          <div class="col-md-6">
+          <div class="mb-3">
+            <label for="name">Company/Individual/Student Name</label>
+            <input type="text" formControlName="name" class="form-control" id="name"
+                   [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+                   [readOnly]="this.userProfile?.name?.length > 0"
+                   placeholder="Eg. INVIC GROUP">
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+              <div *ngIf="f.name.errors.required">Name is required</div>
+            </div>
+          </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="main_activity">Main Activity</label>
+              <input type="text"  formControlName="main_activity" class="form-control" id="main_activity"
+                     [ngClass]="{ 'is-invalid': submitted && f.main_activity.errors }"
+                     [readOnly]="this.userProfile?.main_activity?.length > 0"
+                     placeholder="Eg. Consulting Engineers & Planners">
+              <div *ngIf="submitted && f.main_activity.errors" class="invalid-feedback">
+                <div *ngIf="f.main_activity.errors.required">Main Activity is required</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+<!--        <div class="row">
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="mobile">Telephone Number</label><br>
+              <input type="text" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'tz'}" (keypress)="numericOnly($event)" (countryChange)="onCountryChange($event)" formControlName="mobile"
+                     [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"
+                     class="form-control" id="mobile" placeholder="Eg. 0765992233">
+              <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+                <div *ngIf="f.mobile.errors.required">Phone Number is required</div>
+                <div *ngIf="f.mobile.errors.minlength">Phone must be at least 10 numbers.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="email">Email</label>
+              <input type="email" formControlName="email"
+                     [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                     class="form-control" id="email" placeholder="Eg. info@invic.co.tz">
+              <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.required">Email is required</div>
+                <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+              </div>
+
+            </div>
+          </div>
+
+
+        </div>-->
+
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="fax">Fax [Optional]</label>
+              <input type="text" formControlName="fax" class="form-control" id="fax"
+                     [ngClass]="{ 'is-invalid': submitted && f.fax.errors }"
+                     placeholder="Enter Fax Number">
+              <div *ngIf="submitted && f.fax.errors" class="invalid-feedback">
+                <div *ngIf="f.fax.errors.required">Fax is required</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="website">Website [Optional]</label>
+              <input type="text" formControlName="website"
+                     [ngClass]="{ 'is-invalid': submitted && f.website.errors }"
+                     class="form-control" id="website" placeholder="Eg. www.invic.co.tz">
+              <div *ngIf="submitted && f.website.errors" class="invalid-feedback">
+                <div *ngIf="f.website.errors.required">Website is required</div>
+                <div *ngIf="f.email.errors.email">Website must be a valid Website</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="country">Country/Nationality</label>
+              <input type="text" formControlName="country" class="form-control" id="country"
+                     [ngClass]="{ 'is-invalid': submitted && f.country.errors }"
+                     placeholder="Eg. Tanzania">
+              <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
+                <div *ngIf="f.country.errors.required">Country is required</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="region">Region</label>
+              <input type="text" formControlName="region" class="form-control" id="region"
+                     [ngClass]="{ 'is-invalid': submitted && f.region.errors }"
+                     placeholder="Eg. Mwanza">
+              <div *ngIf="submitted && f.region.errors" class="invalid-feedback">
+                <div *ngIf="f.region.errors.required">Region is required</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="municipal">Municipal</label>
+              <input type="text" formControlName="municipal" class="form-control" id="municipal"
+                     [ngClass]="{ 'is-invalid': submitted && f.municipal.errors }"
+                     placeholder="Eg. Ilemela">
+              <div *ngIf="submitted && f.municipal.errors" class="invalid-feedback">
+                <div *ngIf="f.municipal.errors.required">Municipal is required</div>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+
+
+        <div class="row">
+
+          <div class="col-md-12">
+            <div class="mb-3">
+              <label for="postal_address">Postal Address</label>
+              <input type="text" formControlName="postal_address" class="form-control" id="postal_address"
+                     [ngClass]="{ 'is-invalid': submitted && f.postal_address.errors }"
+                     placeholder="Enter Address">
+              <div *ngIf="submitted && f.postal_address.errors" class="invalid-feedback">
+                <div *ngIf="f.postal_address.errors.required">Address is required</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="d-flex flex-wrap gap-2 mt-2">
+          <button type="submit" class="btn btn-primary">Save Profile</button>
+          <!--<button type="submit" class="btn btn-secondary">Cancel</button>-->
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+  <!-- end row -->
+
+  <div class="row" *ngIf="showProfile">
+    <div class="col-md-6">
+      <!-- end card -->
+
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title mb-4">Profile Information</h4>
+
+          <!--<p class="text-muted mb-4">Hi I'm Cynthia Price,has been the industry's standard dummy text To an English
+            person, it will seem like simplified English, as a skeptical Cambridge.</p>-->
+          <div class="table-responsive">
+            <table class="table table-nowrap mb-0">
+              <tbody>
+              <tr>
+                <th scope="row">Individual/Business Name :</th>
+                <td>{{this.userProfile.name}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Email :</th>
+                <td>{{this.userProfile.email}} </td>
+              </tr>
+              <tr>
+                <th scope="row">Telephone Number :</th>
+                <td>+{{this.userProfile.dial_code}}{{this.userProfile.mobile}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Fax</th>
+                <td>{{this.userProfile.fax}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Main Activity :</th>
+                <td>{{this.userProfile.main_activity}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Postal Address :</th>
+                <td>{{this.userProfile.postal_address}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Country :</th>
+                <td>{{this.userProfile.country}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Region :</th>
+                <td>{{this.userProfile.region}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Municipal:</th>
+                <td>{{this.userProfile.municipal}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Website:</th>
+                <td>{{this.userProfile.website}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Profile Register Date:</th>
+                <td>{{this.userProfile.created_at}}</td>
+              </tr>
+
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="2" *ngIf="username.length == 0">
+                    <div class="d-flex flex-wrap gap-2 mt-2">
+                      <button type="submit" class="btn btn-secondary" (click)="editProfile(this.userProfile)"><i class="fa fa-edit"></i> Edit Profile</button>
+                      <!--<button type="submit" class="btn btn-secondary">Cancel</button>-->
+                    </div>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- end card -->
+
+      <!-- end card -->
+    </div>
+
+    <div class="col-md-3">
+      <!-- end card -->
+
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title mb-4">Logo</h4>
+<!--
+          <img [src]="this.userProfile.photoBase64" [height]="400" class="img-fluid mx-auto d-block"/>
+-->
+          <app-image-upload
+            [userProfile]="userProfile"
+            [selectedUsername]="username"
+          ></app-image-upload>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div> <!-- container-fluid -->

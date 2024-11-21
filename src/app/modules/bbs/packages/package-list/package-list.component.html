@@ -1,0 +1,170 @@
+<div class="container-fluid">
+
+  <app-page-title title="Packages" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <!-- end row -->
+  <div class="row mb-mb-2">
+    <div class="col-sm-12">
+      <div class="text-sm-end">
+        <!--<button type="button" (click)="openModal(content)" class="btn btn-success btn-sm btn-rounded mb-2 me-2"><i class="mdi mdi-plus mr-1"></i>
+          Add New Client</button>-->
+      </div>
+    </div>
+  </div>
+  <div class="row" style="font-size: 12px;">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+
+          <h4 style="text-align: center; color: #333;">Bar Bending Schedules Packages</h4>
+
+          <div class="card-body" style="text-align: center" *ngIf="loading">
+            <div class="spinner-border text-primary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+
+          <div class="packages" style="display: flex;vjustify-content: center; margin-top: 40px;" *ngIf="!loading">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let item of packages"
+                   style="background-color: #fff;
+                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                 border-radius: 5px;
+                 padding: 20px;
+                 margin: 10px;
+                 text-align: center;
+                 font-size: 24px;
+                 color: #007bff;
+            ">
+                <h5 style="color: #333;">{{item.name}} Package</h5>
+                <p class="price" style="font-size: 16px; margin-top: 10px; color: maroon;">Tsh {{item.cost | number}}/month</p>
+                <ul style="list-style: none; padding: 0; margin-top: 12px; font-size: 14px; color: #2a3042;">
+                  <li style="margin-bottom: 10px;">{{item.description}}</li>
+                  <li style="margin-bottom: 10px;">{{item.max_projects}} Maximum Projects</li>
+                  <li style="margin-bottom: 10px;">{{watermark(item.watermark)}}</li>
+                </ul>
+                <button class="btn btn-secondary" (click)="openOrderSummary(item, content)">Select</button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #content role="document" let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">{{selectedPackage.module}}-{{selectedPackage.name}} Package Subscription</h5>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title mb-3">{{selectedPackage.name}} Package Order Summary</h4>
+
+            <div class="table-responsive">
+              <table class="table mb-0">
+                <tbody>
+                <tr>
+                  <td>Term & Period :</td>
+                  <td>{{selectedTerm.factor}} {{selectedTerm.label}}</td>
+                </tr>
+                <tr>
+                  <td>Original Price : </td>
+                  <td>TZS {{selectedTerm.price_og | number}}</td>
+                </tr>
+                <tr>
+                  <td>Discount : </td>
+                  <td>- 0</td>
+                </tr>
+
+                <tr>
+                  <td>Estimated Tax : </td>
+                  <td>TZS {{selectedTerm.tax | number}}</td>
+                </tr>
+                <tr>
+                  <th>Total Price:</th>
+                  <th>TZS {{selectedTerm.price | number}}</th>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- end table-responsive -->
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <form [formGroup]="orderForm">
+          <ngb-alert type="success" *ngIf="successmsg" [dismissible]="false">{{successmsg}}</ngb-alert>
+
+          <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert>
+          <div class="row">
+
+
+            <div class="col-md-12">
+              <div class="mb-3">
+                <label>Package Type</label>
+                <!--<input type="text" formControlName="client" class="form-control" id="client"
+                       [ngClass]="{ 'is-invalid': submitted && f.country.errors }"
+                       placeholder="Eg. Tanzania">-->
+                <ng-select
+                  formControlName="package"
+                  placeholder="Choose Package"
+                  [clearable]="true"
+                  [searchable]="true"
+                  (change)="onChangePackage($event)"
+                >
+                  <ng-option [value]="value.id"  *ngFor="let value of packages" >
+                    {{value.name}}
+                  </ng-option>
+                </ng-select>
+
+                <div *ngIf="submitted && f.client.errors" class="invalid-feedback">
+                  <div *ngIf="f.client.errors.required">Package is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-16">
+              <div class="mb-3">
+                <label>Term & Price</label>
+                <ng-select
+                  formControlName="total_months"
+                  placeholder="Choose Term"
+                  [clearable]="true"
+                  [searchable]="true"
+                  (change)="onChangeTerm($event)"
+                >
+                  <ng-option [value]="value.id"  *ngFor="let value of term" >
+                    {{value.period}} {{value.label}} @ {{value.price_og}} {{value.currency}}
+                  </ng-option>
+                </ng-select>
+                <div *ngIf="submitted && f.total_months.errors" class="invalid-feedback">
+                  <div *ngIf="f.prepared_by.errors.required">Term required</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="d-flex flex-wrap gap-2 mt-2">
+            <!--<button type="submit" class="btn btn-primary">Save Profile</button>-->
+            <!--<button type="submit" class="btn btn-secondary">Cancel</button>-->
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="comfirmOrder(orderForm.value)">Save</button>
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+
+  </div>
+</ng-template>

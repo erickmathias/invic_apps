@@ -1,0 +1,187 @@
+<div class="container-fluid">
+
+  <app-page-title title="Subscriptions" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <!-- end row -->
+  <!--<div class="row mb-mb-2">
+    <div class="col-sm-12">
+      <ngb-alert type="danger"  style="font-size: 16px; text-align: center" *ngIf="packageError" [dismissible]="false">{{ packageError }}</ngb-alert>
+      <div class="text-sm-end" *ngIf="packageError.length < 1">
+        <button type="button" (click)="openModal(content)" class="btn btn-success btn-sm btn-rounded mb-2 me-2"><i class="mdi mdi-plus mr-1"></i>
+          New Project</button>
+      </div>
+    </div>
+  </div>-->
+  <div class="row" style="font-size: 12px;">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-md-2" *ngIf="!loading">
+            <div class="col-sm-12 col-md-6">
+
+              <div class="dataTables_length" id="tickets-table_length"><label
+                class="d-inline-flex align-items-center">Show
+                <select name="tickets-table_length" aria-controls="tickets-table"
+                        name="pageSize" [(ngModel)]="service.pageSize"
+                        class="custom-select custom-select-sm form-control form-control-sm mx-2">
+                  <option [ngValue]="10">10</option>
+                  <option [ngValue]="25">25</option>
+                  <option [ngValue]="50">50</option>
+                  <option [ngValue]="100">100</option>
+                </select> entries</label></div>
+            </div>
+            <!-- Search -->
+            <div class="col-sm-12 col-md-6">
+              <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+                class="d-inline-flex align-items-center">Search:
+                <input type="text" name="searchTerm"
+                       class="form-control form-control-sm ms-2"
+                       aria-controls="tickets-table"
+                       [(ngModel)]="service.searchTerm"></label></div>
+            </div>
+            <!-- End search -->
+          </div>
+          <!-- Table -->
+
+          <div class="table-responsive">
+            <table id="basic-datatable" class="table datatables dt-responsive nowrap">
+              <thead>
+              <tr>
+                <th sortable="id" (sort)="onSort($event)">ID</th>
+                <th sortable="name" (sort)="onSort($event)">NAME</th>
+                <th sortable="name" (sort)="onSort($event)">USERNAME</th>
+                <th sortable="client" (sort)="onSort($event)">ROLE</th>
+                <th sortable="prepared_by" (sort)="onSort($event)">EMAIL</th>
+                <th sortable="date_prepared" (sort)="onSort($event)">MOBILE</th>
+                <th sortable="checked_by" (sort)="onSort($event)">ADDRESS</th>
+                <th sortable="date_checked" (sort)="onSort($event)">COUNTRY</th>
+                <th sortable="date_checked" (sort)="onSort($event)">ACTIVITY</th>
+                <th sortable="date_reviewed" (sort)="onSort($event)">CREATEDDATE</th>
+                <th>ACTIONS</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let table of activities$ | async; let i = index;">
+                <td>
+                  {{i+1}}
+                </td>
+                <td>
+                  <ngb-highlight [result]="table.name" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="table.user.username" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="getRole(table.user.role)" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="table.email" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="table.mobile" [term]="service.searchTerm">
+                  </ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="table.postal_address" [term]="service.searchTerm">
+                  </ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="table.country" [term]="service.searchTerm">
+                  </ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="table.main_activity" [term]="service.searchTerm">
+                  </ngb-highlight>
+                </td>
+
+                <td>
+                  <ngb-highlight [result]="table.created_at | date: 'medium'" [term]="service.searchTerm">
+                  </ngb-highlight>
+                </td>
+                <td>
+                  <div ngbDropdown placement="bottom-left">
+                    <i class="mdi mdi-dots-vertical dropdown-toggle" ngbDropdownToggle data-toggle="dropdown"
+                       aria-expanded="true"></i>
+                    <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                      <a class="dropdown-item" (click)="viewProfile(table.user.username, contentProfile)"><i class="mdi mdi-arrow-right"></i>Profile</a>
+                      <a class="dropdown-item" (click)="viewSubscriptions(table.id, contentSubscriptions)"><i class="mdi mdi-arrow-right"></i>Subscriptions</a>
+                      <!--
+                                                  <a class="dropdown-item" href="javascript: void(0);"><i class="mdi mdi-delete"></i>Delete</a>
+                      -->
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card-body" style="text-align: center" *ngIf="loading">
+            <div class="spinner-border text-primary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+
+          <!-- End table -->
+          <div class="row justify-content-md-between align-items-md-center mt-2">
+            <div class="col-sm-12 col-md-5">
+              <div class="dataTables_info mb-2" id="tickets-table_info" role="status"
+                   aria-live="polite">
+                Showing
+                {{service.startIndex + 1}} to
+                {{service.endIndex}} of {{service.totalRecords}}
+                entries
+              </div>
+            </div>
+            <!-- Pagination -->
+            <div class="col-sm-12 col-md-5">
+              <div class="text-md-right float-md-end pagination-rounded">
+                <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page"
+                                [pageSize]="service.pageSize">
+                </ngb-pagination>
+              </div>
+            </div>
+            <!-- End Pagination -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #contentProfile role="document" let-modal>
+  <div class="modal-header">
+    <span class="modal-title mt-0">View Profile</span>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+      <app-profile
+        [username]="selectedUsername"
+      ></app-profile>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #contentSubscriptions role="document" let-modal>
+  <div class="modal-header">
+    <span class="modal-title mt-0">View Subscribed Packages</span>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <app-subscription-list
+      [userId]="selectedUserId"
+    ></app-subscription-list>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+
+
+
+
+

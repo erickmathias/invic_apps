@@ -1,0 +1,237 @@
+import {Component, OnInit, TemplateRef} from '@angular/core';
+import {HttpErrorResponse} from "@angular/common/http";
+import {Subscription} from "rxjs";
+import {PackagesService} from "../../../../shared/services/packages.service";
+import {FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
+import {BbsProfileService} from "../../../../shared/services/bbs-profile.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NotificationService} from "../../../../shared/services/notification.service";
+import {InvicCommonService} from "../../../../shared/services/invic-common.service";
+
+class Term{
+  id: number;
+  period: number;
+  factor: number;
+  label: string;
+  price: number;
+  currency: string;
+  tax: number;
+  price_og: number;
+}
+
+@Component({
+  selector: 'app-package-list',
+  templateUrl: './package-list.component.html',
+  styleUrls: ['./package-list.component.scss']
+})
+export class PackageListComponent implements OnInit {
+  breadCrumbItems: Array<{}>;
+  private subscriptions: Subscription[] = [];
+   error: string;
+  packages: any[];
+  orderForm: FormGroup;
+  successmsg: string;
+  submitted: boolean;
+  term: Term[] = [
+    {
+    id: 1,
+    period: 1,
+    factor: 1,
+    label: 'Month',
+    price: null,
+    price_og: null,
+    currency: 'TZS',
+    tax: null,
+    },
+    {
+      id: 2,
+      period: 3,
+      factor: 3,
+      label: 'Month',
+      price: null,
+      price_og: null,
+      currency: 'TZS',
+      tax: null,
+    },
+    {
+      id: 3,
+      period: 6,
+      factor: 6,
+      label: 'Month',
+      price: null,
+      price_og: null,
+      currency: 'TZS',
+      tax: null,
+    },
+    {
+      id: 4,
+      period: 1,
+      factor: 12,
+      label: 'Year',
+      price: null,
+      price_og: null,
+      currency: 'TZS',
+      tax: null,
+    },
+    {
+      id: 5,
+      period: 2,
+      factor: 24,
+      label: 'Years',
+      price: null,
+      price_og: null,
+      currency: 'TZS',
+      tax: null,
+    }
+    ];
+  selectedPackage: any;
+  selectedTerm: Term;
+  factor = 1;
+  subsctiption: any;
+  loading: boolean;
+  constructor(private packagesService: PackagesService,
+  private router: Router,
+  private profileService: BbsProfileService,
+  private invicCommonService: InvicCommonService,
+  private modalService: NgbModal,
+  private formBuilder: FormBuilder,
+  private notification: NotificationService,) { }
+
+  ngOnInit(): void {
+    this.breadCrumbItems = [{ label: 'BBS' }, { label: 'Packages', active: true }];
+    this.loadPackages();
+    // this.loadRegisteredUsers();
+
+    this.orderForm = this.formBuilder.group({
+      //company: ['', Validators.required],
+      package: [null, Validators.required],
+      //user: [null, Validators.required],
+      total_months: [null, Validators.required],
+      //date_prepared: ['', Validators.required],
+      // total_amount_billed: ['', Validators.required],
+    });
+  }
+
+  get f() { return this.orderForm.controls; }
+
+
+  loadPackages(){
+    this.loading = true;
+    this.subscriptions.push(
+      this.packagesService.getPackages().subscribe(
+        (response: any) => {
+          console.log(response);
+          // this.service.responceData = response.data;
+          this.packages = response.data;
+
+          this.loading = false;
+        },
+        (error: HttpErrorResponse) => {
+          this.error = error.message;
+          this.loading = false;
+        }
+      )
+    );
+  }
+
+  watermark(watermark: any) {
+    if(watermark === 1){
+      return 'Watermarks';
+    }else {
+      return 'No Watermarks';
+    }
+  }
+
+  openOrderSummary(item: any, content: TemplateRef<any>) {
+    this.modalService.open(content, { size: 'l', centered: false });
+    this.selectedPackage = item;
+    this.orderForm.get('package').setValue(item.id);
+    this.orderForm.get('total_months').setValue(1);
+    this.term.forEach(key =>{
+      let cost = this.selectedPackage.cost * key.factor;
+      key.tax = cost * 0.18;
+      key.price = cost + key.tax;
+      key.price_og = cost;
+
+    });
+
+    /*console.log('Hello World..');
+    console.log(this.selectedTerm);*/
+    this.setOrderSummary()
+  }
+
+  setOrderSummary(){
+    this.selectedTerm = new Term()
+    this.selectedTerm.label = 'Month';
+    this.selectedTerm.factor = this.factor;
+    this.selectedTerm.price_og = this.selectedPackage.cost * this.factor;
+    this.selectedTerm.tax = this.selectedPackage.cost * this.factor * 0.18;
+    this.selectedTerm.price = this.selectedTerm.price_og + this.selectedTerm.tax;
+
+    console.log('Order Summary');
+    console.log(this.selectedTerm);
+  }
+
+  onChangePackage($event: any) {
+    this.selectedPackage = this.packages.filter(x=> x.id === $event )[0];
+
+    console.log(this.selectedPackage[0]);
+    this.setOrderSummary();
+
+  }
+
+  onChangeTerm($event: any) {
+    this.selectedTerm = this.term.filter(x=>x.id === $event)[0]
+    this.factor = this.selectedTerm.factor;
+    this.setOrderSummary();
+  }
+
+  comfirmOrder(value: any) {
+    const data = {
+          'total_months': this.factor,
+          'package': this.selectedPackage.id,
+          //'total_amount_billed': this.selectedTerm.price,
+    }
+
+    console.log('Confirmed Package..');
+    console.log(data);
+
+    if(this.orderForm.invalid){
+      Object.keys(this.orderForm.controls).forEach(key => {
+        const controlErrors: ValidationErrors = this.orderForm.get(key).errors;
+        if (controlErrors != null) {
+          Object.keys(controlErrors).forEach(keyError => {
+            console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
+          });
+        }
+      });
+      return;
+    }else{
+      this.subscriptions.push(
+        this.packagesService.addSubsctiption(data).subscribe(
+          (response: any) => {
+            console.log(response);
+            this.successmsg = response.message;
+            console.log('Success......');
+            console.log(response);
+            this.error = '';
+            this.subsctiption = response.data;
+            this.submitted = false;
+            this.orderForm.reset();
+          },
+          (error: HttpErrorResponse) => {
+            this.successmsg = '';
+            if (error.error?.message) {
+              this.error = error.error?.message;
+            } else {
+              this.error = 'An Error Occurred Please Try Again Later';
+            }
+          }
+        )
+      );
+    }
+
+  }
+
+}
