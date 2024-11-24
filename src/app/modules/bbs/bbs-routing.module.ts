@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: 'clients', loadChildren: () => import('./clients/clients.module').then(m => m.ClientsModule), canActivate: [AuthGuard] },
   { path: 'projects', loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule), canActivate: [AuthGuard] },
   { path: 'packages', loadChildren: () => import('./packages/packages.module').then(m => m.PackagesModule), canActivate: [AuthGuard] },
-  { path: 'subscriptions', loadChildren: () => import('./subscriptions/subscriptions.module').then(m => m.SubscriptionsModule), canActivate: [AuthGuard] },
+  // { path: 'subscriptions', loadChildren: () => import('./subscriptions/subscriptions.module').then(m => m.SubscriptionsModule), canActivate: [AuthGuard] },
 ];
 
 @NgModule({

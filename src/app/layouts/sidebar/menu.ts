@@ -41,10 +41,11 @@ export class MainMenu{
     menu.push(this.homeMenu())
     menu.push(this.profileMenu())
     menu.push(this.clientsMenu())
+    menu.push(this.projectsMenu())
     menu.push(this.packageMenu())
     menu.push(this.subscriptionMenu())
     menu.push(this.usersMenu())
-    menu.push(this.serviceMenu())
+    // menu.push(this.serviceMenu())
     return menu;
   }
 
@@ -100,9 +101,19 @@ export class MainMenu{
   static clientsMenu(): MenuItem {
     const menu: MenuItem = {
       id: 5,
-      label: 'Clients',
+      label: 'My Clients',
       icon: 'bx bxs-contact',
       link: '/clients',
+    };
+    return menu;
+  }
+
+  static projectsMenu(): MenuItem {
+    const menu: MenuItem = {
+      id: 5,
+      label: 'Projects',
+      icon: 'bx bxs-contact',
+      link: '/projects',
     };
     return menu;
   }
@@ -120,7 +131,7 @@ export class MainMenu{
   static profileMenu(): MenuItem {
     const menu: MenuItem = {
       id: 5,
-      label: 'Proflie',
+      label: 'My Profile',
       icon: 'bxs-user-detail',
       link: '/profile',
     };

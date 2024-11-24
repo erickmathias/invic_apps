@@ -7,11 +7,16 @@ import {AuthGuard} from "../core/guards/auth.guard";
 import {PackageListComponent} from "../modules/bbs/packages/package-list/package-list.component";
 import {SubscriptionListComponent} from "../modules/bbs/subscriptions/subscription-list/subscription-list.component";
 import {MyClientsComponent} from "../modules/bbs/clients/my-clients/my-clients.component";
+import {ProfileComponent} from "../modules/bbs/profile/profile/profile.component";
+import {Projects} from "../shared/models/projects.model";
+import {MyProjectsComponent} from "../modules/bbs/projects/my-projects/my-projects.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard' },
   { path: 'dashboard', component: DefaultComponent, canActivate: [AuthGuard] },
   { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'projects', component: MyProjectsComponent, canActivate: [AuthGuard] },
   { path: 'clients', component: MyClientsComponent, canActivate: [AuthGuard] },
   { path: 'packages', component: PackageListComponent, canActivate: [AuthGuard] },
   { path: 'subscriptions', component: SubscriptionListComponent, canActivate: [AuthGuard] },
