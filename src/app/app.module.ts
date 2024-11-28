@@ -22,6 +22,7 @@ import { JwtInterceptor } from './core/helpers/jwt.interceptor';
 import { FakeBackendInterceptor } from './core/helpers/fake-backend';
 import {Ng2TelInputModule} from "ng2-tel-input";
 import {DecimalPipe, HashLocationStrategy, LocationStrategy} from "@angular/common";
+import {NgSelectModule} from "@ng-select/ng-select";
 
 if (environment.defaultauth === 'firebase') {
   initFirebaseBackend(environment.firebaseConfig);
@@ -59,6 +60,7 @@ export function createTranslateLoader(http: HttpClient): any {
     ScrollToModule.forRoot(),
     NgbModule,
     Ng2TelInputModule,
+    NgSelectModule,
   ],
   bootstrap: [AppComponent],
   providers: [
