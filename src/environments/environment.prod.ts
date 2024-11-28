@@ -17,3 +17,5 @@ export const environment = {
   baseUrl: 'https://invic.co.tz:8082',
   reportsBaseUrl: 'https://invic.co.tz/bbs/api'
 };
+
+//https://invic.co.tz8074/api
