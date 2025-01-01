@@ -539,7 +539,9 @@
 <!--    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
     <button type="button" class="btn btn-primary" (click)="addProject(projectsForm.value)">Save Client</button>-->
     <div class="text-sm-end">
+<!--
       <button *ngIf="selectedProject.type == 'BBS'" type="button" (click)="downloadCoverPage(reportCover, selectedProject.id)" class="btn btn-outline-success btn-sm btn-rounded mb-2 me-2"><i class="mdi mdi-printer mr-1"></i>Project Cover</button>
+-->
       <button type="button" (click)="downloadContentPage(reportCover, selectedProject)" class="btn btn-outline-success btn-sm btn-rounded mb-2 me-2"><i class="mdi mdi-printer mr-1"></i>Project Report</button>
       <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
     </div>
@@ -549,7 +551,7 @@
 
 <ng-template #reportCover let-modal>
   <div class="modal-header">
-    <h5 class="modal-title" id="myHeaderExecModalLabel">BBS-SCHEDULE</h5>
+    <h5 class="modal-title" id="myHeaderExecModalLabel">PROJECT-SCHEDULE-REPORT</h5>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Close click')"></button>
   </div>
 

@@ -31,4 +31,19 @@ export class MaterialLoadingProperties{
   positive_long_span: number;
   created_at: Date;
   updated_at: Date;
+  steel_checks: SteelChecks;
+}
+
+export class SteelChecks{
+  crack_control_checks: SteelChecksDetails[];
+  reinforcement_steel_percentage_checks: SteelChecksDetails[];
+  reinforcement_details_cheks: SteelChecksDetails[];
+  deflection_cheks: SteelChecksDetails[];
+}
+
+export class SteelChecksDetails{
+  label: string;
+  value: string;
+  status: string;
+  remarks: string;
 }

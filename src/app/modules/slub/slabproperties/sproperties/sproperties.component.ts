@@ -147,6 +147,7 @@ export class SpropertiesComponent implements OnInit {
   }
 
   get f() { return this.spPropertyForm.controls; }
+
   loadSlabPanelProperties(projectId: number){
     this.loading = true;
     this.subscriptions.push(
@@ -156,7 +157,7 @@ export class SpropertiesComponent implements OnInit {
           this.service.responceData = response.data;
           this.elements = response.data;
 
-          this.selectedSlabPanelProperty = response.data;
+          // this.selectedSlabPanelProperty = response.data;
 
           console.log('Slab Panel Properties...');
           console.log(this.elements);
@@ -206,14 +207,14 @@ export class SpropertiesComponent implements OnInit {
       return;
     }else{
       this.subscriptions.push(
-        this.profileService.updateElement(value, this.selectedSlabPanelProperty.id).subscribe(
+        this.profileService.updateSpProperty(value, this.selectedSlabPanelProperty.id).subscribe(
           (response: any) => {
             console.log(response);
             this.successmsg = response.message;
             console.log('Success......');
             console.log(response);
             this.error = '';
-            this.element = response.data;
+            this.selectedSlabPanelProperty = response.data;
             // this.service.responceData.push(this.element);
             this.loadSlabPanelProperties(this.selectedProject.id);
             this.submitted = false;
@@ -320,10 +321,10 @@ export class SpropertiesComponent implements OnInit {
   }
 
 
-  openMadAndLoadPropertyModal(content, elements: SlabPanelProperties) {
+  openMadAndLoadPropertyModal(content, table: SlabPanelProperties) {
     this.action = 0;
     this.elementFormTitle = 'New Element';
-    this.selectedSlabPanelProperty = elements;
+    this.selectedSlabPanelProperty = table;
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', windowClass: 'manage-projects-modal-class', backdrop: 'static', keyboard: false, centered: false});
 
   }
@@ -334,6 +335,11 @@ export class SpropertiesComponent implements OnInit {
     this.elementFormTitle = 'Edit Element: '+table.name;
 
     this.spPropertyForm.get('name').setValue(table.name);
+    this.spPropertyForm.get('panel_support').setValue(table.panel_support.id);
+    this.spPropertyForm.get('property').setValue(table.property.id);
+    this.spPropertyForm.get('long_length').setValue(table.long_length);
+    this.spPropertyForm.get('short_length').setValue(table.short_length);
+    this.spPropertyForm.get('thickness').setValue(table.thickness);
 
 /*    this.spPropertyForm.get('project').setValue(table.project.id);
     this.spPropertyForm.get('std_code').setValue(table.std_code.id);

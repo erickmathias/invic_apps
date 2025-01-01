@@ -327,7 +327,7 @@ export class MyProjectsComponent implements OnInit {
     this.modalService.open(content, { ariaLabelledBy: 'project-report-modal-class', windowClass: 'manage-projects-modal-class', backdrop: 'static', keyboard: false, centered: false});
 
     if (project.type == 'BBS'){
-      this.profileService.downloadContentPage(project.id)
+      this.profileService.downloadBbsReportPdf(project.id)
         .subscribe((res) => {
             this.pdfSrc = this.domSanitizer.bypassSecurityTrustResourceUrl(
               URL.createObjectURL(res)

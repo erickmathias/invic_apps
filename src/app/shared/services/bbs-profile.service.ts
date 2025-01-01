@@ -98,6 +98,9 @@ export class BbsProfileService {
   addSpProperty(data) {
     return this.http.post<any>(`${this.slabUrl}/slab-panel-properties/`,data);
   }
+  updateSpProperty(data, spid) {
+    return this.http.put<any>(`${this.slabUrl}/slab-panel-properties/${spid}`,data);
+  }
   updateElement(data, elementId) {
     return this.http.put<any>(`${this.bbsUrl}/elements/${elementId}`,data);
   }
@@ -147,6 +150,10 @@ export class BbsProfileService {
 
   downloadSlabReportPdf(id: number) {
     return this.http.get<any>(`${this.slabUrl}/project/print/${id}/`, { responseType: 'blob' as 'json'});
+  }
+
+  downloadBbsReportPdf(id: number) {
+    return this.http.get<any>(`${this.bbsUrl}/project/print/${id}/`, { responseType: 'blob' as 'json'});
   }
 }
 
