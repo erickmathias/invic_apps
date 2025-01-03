@@ -32,11 +32,14 @@ import {UserProfile} from "../../shared/models/user-profile";
 
 export class MainMenu{
 
-  currentUser: UserProfile = JSON.parse(sessionStorage.getItem('user'))
-  role = this.currentUser.role;
+
 
   static getMenu():MenuItem[] {
+    const currentUser: UserProfile = JSON.parse(sessionStorage.getItem('user'))
+    const role = currentUser.role;
+
     const menu: MenuItem[] = [];
+
     menu.push(this.titleMenu())
     menu.push(this.homeMenu())
     menu.push(this.profileMenu())
@@ -44,7 +47,9 @@ export class MainMenu{
     menu.push(this.projectsMenu())
     menu.push(this.packageMenu())
     menu.push(this.subscriptionMenu())
-    menu.push(this.usersMenu())
+    if(role == 1){
+      menu.push(this.usersMenu())
+    }
     // menu.push(this.serviceMenu())
     return menu;
   }
