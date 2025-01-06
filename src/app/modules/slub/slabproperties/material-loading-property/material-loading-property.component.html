@@ -11,8 +11,10 @@
           <!--<h4 class="card-title mb-4"> Title Wizard</h4>-->
           <aw-wizard [navBarLayout]="'large-empty-symbols'">
 
-            <aw-wizard-step stepTitle="Concrete">
+            <aw-wizard-step stepTitle="Concrete & Steel/Reinforcement">
               <ng-template awWizardStepSymbol>1</ng-template>
+              <span style="color: maroon; font-weight: bold; font-style: oblique;">CONCRETE</span>
+
               <div class="row mt-3">
                 <div class="col-6">
                   <div class="row mb-3">
@@ -48,16 +50,8 @@
                   </div>
                 </div>
               </div>
-              <ul class="list-inline wizard mb-0">
-                <li class="next list-inline-item float-end"><button class="btn btn-primary" awNextStep>Next</button>
-                </li>
-              </ul>
-            </aw-wizard-step>
 
-            <aw-wizard-step stepTitle="Steel/Reinforcement">
-
-              <ng-template awWizardStepSymbol>2</ng-template>
-
+              <span style="color: maroon; font-weight: bold; font-style: oblique;">STEEL/REINFORCEMENT</span>
               <div class="row mt-3">
                 <div class="col-6">
                   <div class="row mb-3">
@@ -159,6 +153,17 @@
                   </div>
                 </div>
               </div>
+              <ul class="list-inline wizard mb-0">
+                <li class="next list-inline-item float-end"><button class="btn btn-primary" awNextStep>Next</button>
+                </li>
+              </ul>
+            </aw-wizard-step>
+
+            <!--<aw-wizard-step stepTitle="Steel/Reinforcement">
+
+              <ng-template awWizardStepSymbol>2</ng-template>
+
+
 
               <ul class="list-inline wizard mb-0">
                 <li class="previous list-inline-item"><button class="btn btn-primary" awPreviousStep>Previous</button>
@@ -166,10 +171,12 @@
                 <li class="next list-inline-item float-end"><button class="btn btn-primary" awNextStep>Next</button>
                 </li>
               </ul>
-            </aw-wizard-step>
+            </aw-wizard-step>-->
 
-            <aw-wizard-step stepTitle="Dead Loading">
+            <aw-wizard-step stepTitle="Live & Dead Loading">
               <ng-template awWizardStepSymbol>3</ng-template>
+
+              <span style="color: maroon; font-weight: bold; font-style: oblique;">LIVE LOADING</span>
 
               <div class="row mt-3">
                 <div class="col-6">
@@ -201,17 +208,7 @@
                 </div>
               </div>
 
-              <ul class="list-inline wizard mb-0">
-                <li class="previous list-inline-item"><button class="btn btn-primary" awPreviousStep>Previous</button>
-                </li>
-                <li class="next list-inline-item float-end"><button class="btn btn-primary" awNextStep>Next</button>
-                </li>
-              </ul>
-            </aw-wizard-step>
-
-            <aw-wizard-step stepTitle="Live Loading">
-              <ng-template awWizardStepSymbol>4</ng-template>
-
+              <span style="color: maroon; font-weight: bold; font-style: oblique;">DEAD LOADING</span>
               <div class="row mt-3">
                 <div class="col-6">
                   <div class="row mb-3">
@@ -222,7 +219,8 @@
                     <label for="liveLoadingImposed" style="font-weight: lighter; font-style: oblique; color: gray;" class="col-md-3 col-form-label">kN/m<sup>2</sup></label>
                   </div>
 
-                </div>              </div>
+                </div>
+              </div>
 
               <ul class="list-inline wizard mb-0">
                 <li class="previous list-inline-item"><button class="btn btn-primary" awPreviousStep>Previous</button>
@@ -231,6 +229,17 @@
                 </li>
               </ul>
             </aw-wizard-step>
+
+           <!-- <aw-wizard-step stepTitle="Live Loading">
+              <ng-template awWizardStepSymbol>4</ng-template>
+
+              <ul class="list-inline wizard mb-0">
+                <li class="previous list-inline-item"><button class="btn btn-primary" awPreviousStep>Previous</button>
+                </li>
+                <li class="next list-inline-item float-end"><button class="btn btn-primary" awNextStep>Next</button>
+                </li>
+              </ul>
+            </aw-wizard-step>-->
 
             <aw-wizard-step stepTitle="Confirm Detail">
               <ng-template awWizardStepSymbol>5</ng-template>
