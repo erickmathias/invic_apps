@@ -214,9 +214,9 @@ export class SpropertiesComponent implements OnInit {
             console.log('Success......');
             console.log(response);
             this.error = '';
-            this.selectedSlabPanelProperty = response.data;
             // this.service.responceData.push(this.element);
             this.loadSlabPanelProperties(this.selectedProject.id);
+            this.selectedSlabPanelProperty = response.data;
             this.submitted = false;
             /*            this.elementsForm.reset();
                         // this.ngOnInit();
@@ -261,6 +261,7 @@ export class SpropertiesComponent implements OnInit {
             this.element = response.data;
             // this.service.responceData.push(this.element);
             this.loadSlabPanelProperties(this.selectedProject.id);
+            this.selectedSlabPanelProperty = response.data;
             this.submitted = false;
             this.spPropertyForm.reset();
             // this.ngOnInit();
