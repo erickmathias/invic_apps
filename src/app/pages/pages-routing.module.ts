@@ -8,8 +8,8 @@ import {PackageListComponent} from "../modules/bbs/packages/package-list/package
 import {SubscriptionListComponent} from "../modules/bbs/subscriptions/subscription-list/subscription-list.component";
 import {MyClientsComponent} from "../modules/bbs/clients/my-clients/my-clients.component";
 import {ProfileComponent} from "../modules/bbs/profile/profile/profile.component";
-import {Projects} from "../shared/models/projects.model";
 import {MyProjectsComponent} from "../modules/bbs/projects/my-projects/my-projects.component";
+import {PesaPallOrderRequestComponent} from "./pesa-pall-order-request/pesa-pall-order-request.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard' },
@@ -20,6 +20,7 @@ const routes: Routes = [
   { path: 'clients', component: MyClientsComponent, canActivate: [AuthGuard] },
   { path: 'packages', component: PackageListComponent, canActivate: [AuthGuard] },
   { path: 'subscriptions', component: SubscriptionListComponent, canActivate: [AuthGuard] },
+  { path: 'subscriptions/order-request', component: PesaPallOrderRequestComponent, canActivate: [AuthGuard] },
   //{ path: 'packages', loadChildren: () => import('../modules/bbs/packages/packages.module').then(m => m.PackagesModule), canActivate: [AuthGuard] },
   { path: 'dashboards', loadChildren: () => import('./dashboards/dashboards.module').then(m => m.DashboardsModule) },
 ];

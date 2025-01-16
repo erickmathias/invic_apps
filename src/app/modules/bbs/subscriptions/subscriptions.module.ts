@@ -14,6 +14,8 @@ import {
 } from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {UIModule} from "../../../shared/ui/ui.module";
+import {MembersModule} from "../members/members.module";
+import {PagesModule} from "../../../pages/pages.module";
 
 
 @NgModule({
@@ -23,20 +25,22 @@ import {UIModule} from "../../../shared/ui/ui.module";
     exports: [
         SubscriptionListComponent
     ],
-    imports: [
-        CommonModule,
-        SubscriptionsRoutingModule,
-        ElementsModule,
-        NgSelectModule,
-        NgbAlertModule,
-        NgbDatepickerModule,
-        NgbDropdownModule,
-        NgbNavModule,
-        NgbPaginationModule,
-        NgbTypeaheadModule,
-        ReactiveFormsModule,
-        UIModule,
-        FormsModule
-    ]
+  imports: [
+    CommonModule,
+    SubscriptionsRoutingModule,
+    ElementsModule,
+    NgSelectModule,
+    NgbAlertModule,
+    NgbDatepickerModule,
+    NgbDropdownModule,
+    NgbNavModule,
+    NgbPaginationModule,
+    NgbTypeaheadModule,
+    ReactiveFormsModule,
+    UIModule,
+    FormsModule,
+    MembersModule,
+    PagesModule
+  ]
 })
 export class SubscriptionsModule { }

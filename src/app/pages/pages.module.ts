@@ -28,6 +28,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ClientsComponent } from './clients/clients.component';
 import { PackagesComponent } from './packages/packages.component';
 import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
+import { PesaPallOrderRequestComponent } from './pesa-pall-order-request/pesa-pall-order-request.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -39,7 +40,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   declarations: [
     ClientsComponent,
     PackagesComponent,
-    SubscriptionsComponent
+    SubscriptionsComponent,
+    PesaPallOrderRequestComponent
   ],
   imports: [
     CommonModule,
@@ -62,5 +64,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     NgbPaginationModule,
     NgbModule
   ],
+  exports: [
+    PesaPallOrderRequestComponent
+  ]
 })
 export class PagesModule { }

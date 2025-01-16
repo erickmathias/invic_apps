@@ -15,4 +15,5 @@ export class PackageSubscription {
   due_date: Date;
   created_at: Date;
   updated_at: Date;
+  gtw_redirect_url: string;
 }

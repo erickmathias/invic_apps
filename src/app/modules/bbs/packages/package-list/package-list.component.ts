@@ -8,6 +8,7 @@ import {BbsProfileService} from "../../../../shared/services/bbs-profile.service
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {NotificationService} from "../../../../shared/services/notification.service";
 import {InvicCommonService} from "../../../../shared/services/invic-common.service";
+import {PackageSubscription} from "../../../../shared/models/package-subscription.model";
 
 class Term{
   id: number;
@@ -88,8 +89,10 @@ export class PackageListComponent implements OnInit {
   selectedPackage: any;
   selectedTerm: Term;
   factor = 1;
-  subsctiption: any;
+  subsctiption: PackageSubscription;
   loading: boolean;
+  selectedSubscription: PackageSubscription;
+  subscriptionPaymentTitle = "";
   constructor(private packagesService: PackagesService,
   private router: Router,
   private profileService: BbsProfileService,
@@ -212,13 +215,16 @@ export class PackageListComponent implements OnInit {
         this.packagesService.addSubsctiption(data).subscribe(
           (response: any) => {
             console.log(response);
-            this.successmsg = response.message;
             console.log('Success......');
             console.log(response);
             this.error = '';
             this.subsctiption = response.data;
+            this.selectedSubscription = response.data;
+            console.log('added subsctiption');
+            console.log(response.data);
             this.submitted = false;
             this.orderForm.reset();
+            this.successmsg = response.message;
           },
           (error: HttpErrorResponse) => {
             this.successmsg = '';
@@ -232,6 +238,20 @@ export class PackageListComponent implements OnInit {
       );
     }
 
+  }
+
+  openSubscriptionPaymentModal(content, subscription: PackageSubscription) {
+    // this.action = 0;
+    this.subscriptionPaymentTitle = 'SUBSCRIPTIONS - PAYMENT - PROCESS';
+    this.selectedSubscription = subscription;
+    console.log('selected subscription: ', this.selectedSubscription);
+
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', windowClass: 'subscription-payment-modal-class', backdrop: 'static', keyboard: false, centered: false});
+
+  }
+
+  openSubscriptionPaymentRoute(model: PackageSubscription) {
+    this.router.navigate(['/subscriptions/order-request'], { queryParams: { id: model.id } });
   }
 
 }

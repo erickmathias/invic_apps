@@ -218,6 +218,7 @@
                 <input type="number" formControlName="density" class="form-control" id="density"
                        [ngClass]="{ 'is-invalid': submitted && f.density.errors }"
                        placeholder="Eg. 7850">
+                <label style="font-weight: lighter; font-style: oblique; color: gray;" class="col-md-3 col-form-label">Kg/m<sup>3</sup></label>
                 <div *ngIf="submitted && f.density.errors" class="invalid-feedback">
                   <div *ngIf="f.density.errors.required">Density is required</div>
                 </div>

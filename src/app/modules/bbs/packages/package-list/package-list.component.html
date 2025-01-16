@@ -100,7 +100,7 @@
       </div>
       <div class="col-md-12">
         <form [formGroup]="orderForm">
-          <ngb-alert type="success" *ngIf="successmsg" [dismissible]="false">{{successmsg}}</ngb-alert>
+          <ngb-alert type="success" *ngIf="successmsg" style="text-align: center;"  [dismissible]="false">{{successmsg}}<br><br><button (click)="openSubscriptionPaymentRoute(subsctiption)" class="btn btn-danger text-ce">Click here to Pay...</button></ngb-alert>
 
           <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert>
           <div class="row">
@@ -165,6 +165,24 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="comfirmOrder(orderForm.value)">Save</button>
     <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+
+  </div>
+</ng-template>
+
+<ng-template #contentSubscriptionPayment role="document" let-modal>
+  <div class="modal-header">
+    <span class="modal-title mt-0">{{subscriptionPaymentTitle}}</span>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <app-pesa-pall-order-request
+    [packageSubscription]="selectedSubscription"
+  ></app-pesa-pall-order-request>
+  <div class="modal-footer">
+    <!--    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        <button type="button" class="btn btn-primary" (click)="addProject(projectsForm.value)">Save Client</button>-->
+    <div class="text-sm-end">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
 
   </div>
 </ng-template>

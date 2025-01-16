@@ -372,7 +372,7 @@ export class MyProjectsComponent implements OnInit {
     this.projectsForm.get('client').disable()
     this.projectsForm.get('prepared_by').disable()
     this.projectsForm.get('checked_by').disable()
-    this.projectsForm.get('reviewed_by').disable()
+    // this.projectsForm.get('reviewed_by').disable()
 
 
     this.modalService.open(content, { ariaLabelledBy: 'project-report-modal-class', windowClass: 'manage-projects-modal-class', backdrop: 'static', keyboard: false, centered: false});

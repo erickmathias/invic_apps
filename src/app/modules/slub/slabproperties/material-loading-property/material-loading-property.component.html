@@ -109,7 +109,7 @@
                     <div class="col-md-5">
                       <input class="form-control" name="steelDensity" formControlName="steel_density" id="steelDensity" type="number" placeholder="78.50">
                     </div>
-                    <label style="font-weight: lighter; font-style: oblique; color: gray;" class="col-md-3 col-form-label">N/mm<sup>2</sup></label>
+                    <label style="font-weight: lighter; font-style: oblique; color: gray;" class="col-md-3 col-form-label">kN/mm<sup>3</sup></label>
                   </div>
                   <div class="row">
                     <label class="col-md-3 col-form-label" for="steelBott1Gap">Bott 1 Gap:</label>
@@ -176,7 +176,7 @@
             <aw-wizard-step stepTitle="Live & Dead Loading">
               <ng-template awWizardStepSymbol>3</ng-template>
 
-              <span style="color: maroon; font-weight: bold; font-style: oblique;">LIVE LOADING</span>
+              <span style="color: maroon; font-weight: bold; font-style: oblique;">DEAD LOADING</span>
 
               <div class="row mt-3">
                 <div class="col-6">
@@ -208,7 +208,7 @@
                 </div>
               </div>
 
-              <span style="color: maroon; font-weight: bold; font-style: oblique;">DEAD LOADING</span>
+              <span style="color: maroon; font-weight: bold; font-style: oblique;">LIVE LOADING</span>
               <div class="row mt-3">
                 <div class="col-6">
                   <div class="row mb-3">
@@ -376,14 +376,14 @@
                         </tr>
                         <tr>
                           <td>Negative Moment at Continuous Edge: </td>
-                          <td>{{selectedMaterialLoadingProperty.negative_short_span}}</td>
-                          <td>{{selectedMaterialLoadingProperty.negative_long_span}}</td>
+                          <td>{{selectedMaterialLoadingProperty.negative_short_span |  number:'1.3-3'}}</td>
+                          <td>{{selectedMaterialLoadingProperty.negative_long_span |  number:'1.3-3'}}</td>
                         </tr>
 
                         <tr>
                           <td>Positive Moment at Mid - Span: </td>
-                          <td>{{selectedMaterialLoadingProperty.positive_short_span}}</td>
-                          <td>{{selectedMaterialLoadingProperty.positive_long_span}}</td>
+                          <td>{{selectedMaterialLoadingProperty.positive_short_span |  number:'1.3-3'}}</td>
+                          <td>{{selectedMaterialLoadingProperty.positive_long_span |  number:'1.3-3'}}</td>
                         </tr>
                       </table>
 

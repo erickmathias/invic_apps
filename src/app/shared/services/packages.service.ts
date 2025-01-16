@@ -23,11 +23,19 @@ export class PackagesService {
     return this.http.get<any>(`${this.authUrl}/packages/subscriptions/tracker`);
   }
 
-  loadPackageSubscriptions(userid: number) {
-    return this.http.get<any>(`${this.authUrl}/packages/subscriptions/user/${userid}`);
+  loadPackageSubscriptions(userid: number, status: number) {
+    return this.http.get<any>(`${this.authUrl}/packages/subscriptions/user/${userid}/${status}`);
   }
 
   loadRegisteredUsers() {
     return this.http.get<any>(`${this.authUrl}/users/`);
+  }
+
+  makeOrderSubscriptionRequest(subscription_id: string) {
+    return this.http.post<any[]>(`${this.authUrl}/packages/subscription/order-request`, {trans_id: subscription_id});
+  }
+
+  checkOrderPaymentStatus(data: { OrderTrackingId: string; OrderMerchantReference: string }) {
+    return this.http.post<any[]>(`${this.authUrl}/packages/subscription/order-request-status`, data);
   }
 }

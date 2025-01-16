@@ -8,6 +8,7 @@ import { PackageOrderSummaryComponent } from './package-order-summary/package-or
 import {NgSelectModule} from "@ng-select/ng-select";
 import {NgbAlertModule, NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
 import {ReactiveFormsModule} from "@angular/forms";
+import {PagesModule} from "../../../pages/pages.module";
 
 
 @NgModule({
@@ -15,14 +16,15 @@ import {ReactiveFormsModule} from "@angular/forms";
     PackageListComponent,
     PackageOrderSummaryComponent
   ],
-  imports: [
-    CommonModule,
-    PackagesRoutingModule,
-    UIModule,
-    NgSelectModule,
-    NgbAlertModule,
-    NgbDatepickerModule,
-    ReactiveFormsModule
-  ]
+    imports: [
+        CommonModule,
+        PackagesRoutingModule,
+        UIModule,
+        NgSelectModule,
+        NgbAlertModule,
+        NgbDatepickerModule,
+        ReactiveFormsModule,
+        PagesModule
+    ]
 })
 export class PackagesModule { }
