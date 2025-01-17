@@ -316,7 +316,7 @@ export class MyProjectsComponent implements OnInit {
         },
         () => {
           this.loader = false;
-          this.notification.showNotification('danger', 'Error downloading student id card !');
+          // this.notification.showNotification('danger', 'Error downloading student id card !');
         }
       );
   }
@@ -334,9 +334,10 @@ export class MyProjectsComponent implements OnInit {
             );
             this.loader = false;
           },
-          () => {
+          (error) => {
             this.loader = false;
-            this.notification.showNotification('danger', 'Error downloading student id card !');
+            // this.notification.showNotification('danger', 'Error downloading student id card !');
+            this.error = "Report Download Failed, Make sure you have the active Package Subscription and reliable Internet Connection";
           }
         );
     }else if (project.type == 'SLAB') {
@@ -349,7 +350,8 @@ export class MyProjectsComponent implements OnInit {
           },
           () => {
             this.loader = false;
-            this.notification.showNotification('danger', 'Error downloading student id card !');
+            // this.notification.showNotification('danger', 'Error downloading student id card !');
+            this.error = "Report Download Failed, Make sure you have the active Package Subscription and reliable Internet Connection";
           }
         );
     }
@@ -376,5 +378,13 @@ export class MyProjectsComponent implements OnInit {
 
 
     this.modalService.open(content, { ariaLabelledBy: 'project-report-modal-class', windowClass: 'manage-projects-modal-class', backdrop: 'static', keyboard: false, centered: false});
+  }
+
+  downloadPdf() {
+    const link = document.createElement('a');
+    link.href = this.pdfSrc;
+    link.target = '_blank';
+    link.download = 'document.pdf'; // Replace with your desired file name
+    link.click();
   }
 }

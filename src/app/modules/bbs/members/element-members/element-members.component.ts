@@ -502,11 +502,12 @@ export class ElementMembersComponent implements OnInit {
           this.memberForm.get('shape_code').setValue('');
         },
         (error: HttpErrorResponse) => {
+          // console.log(error);
           this.successmsg = '';
           if (error.error?.message) {
             this.error = error.error?.message;
           } else {
-            this.error = 'An Error Occurred Please Try Again Later';
+            this.error = 'Annn Error Occurred Please Try Again Later';
           }
         }
       );

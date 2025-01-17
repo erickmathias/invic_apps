@@ -218,6 +218,7 @@ export class ProjectElementsComponent implements OnInit {
             this.elementsForm.get('density').setValue(7850);*/
           },
           (error: HttpErrorResponse) => {
+            console.log(error.message);
             this.successmsg = '';
             if (error.error?.message) {
               this.error = error.error?.message;

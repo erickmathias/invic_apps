@@ -1,0 +1,15 @@
+.pdf-viewer {
+  width: 100%; /* Full width for all screen sizes */
+  height: 80vh; /* Dynamic height for better visibility */
+  border: none;
+}
+
+.spinner-container {
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .pdf-viewer {
+    height: 60vh; /* Adjust height for smaller screens */
+  }
+}
