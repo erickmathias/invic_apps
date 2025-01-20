@@ -100,7 +100,7 @@
       </div>
       <div class="col-md-12">
         <form [formGroup]="orderForm">
-          <ngb-alert type="success" *ngIf="successmsg" style="text-align: center;"  [dismissible]="false">{{successmsg}}<br><br><button (click)="openSubscriptionPaymentRoute(subsctiption)" class="btn btn-danger text-ce">Click here to Pay...</button></ngb-alert>
+          <ngb-alert type="success" *ngIf="successmsg" style="text-align: center;"  [dismissible]="false">{{successmsg}}<br><br><button (click)="openSubscriptionPaymentRoute(subsctiption, modal)" class="btn btn-danger text-ce">Click here to Pay...</button></ngb-alert>
 
           <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert>
           <div class="row">
