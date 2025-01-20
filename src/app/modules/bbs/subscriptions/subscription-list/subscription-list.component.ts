@@ -139,6 +139,8 @@ export class SubscriptionListComponent implements OnInit {
   }
 
   openSubscriptionPaymentRoute(model: PackageSubscription) {
+    console.log("PackageSubscription");
+    console.log(model);
     this.router.navigate(['/subscriptions/order-request'], { queryParams: { id: model.id } });
   }
 }
