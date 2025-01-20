@@ -7,7 +7,7 @@ export class Packages{
   description: string;
   cost: number;
   max_projects: number;
-  water_mark: number;
+  watermark: number;
   status: number;
   created_at: Date;
   updated_at: Date;

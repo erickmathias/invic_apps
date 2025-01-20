@@ -26,7 +26,7 @@
 
           <div class="packages" style="display: flex;vjustify-content: center; margin-top: 40px;" *ngIf="!loading">
             <div class="row">
-              <div class="col-md-2" *ngFor="let item of packages"
+              <div class="col-md-3" *ngFor="let item of packages"
                    style="background-color: #fff;
                  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
                  border-radius: 5px;
@@ -37,11 +37,11 @@
                  color: #007bff;
             ">
                 <h5 style="color: #333;">{{item.name}} Package</h5>
-                <p class="price" style="font-size: 16px; margin-top: 10px; color: maroon;">Tsh {{item.cost | number}}/month</p>
+                <p class="price" style="font-size: 16px; margin-top: 10px; color: maroon;">Tsh {{item.cost | number}} <br>{{getPeriod(item)}}</p>
                 <ul style="list-style: none; padding: 0; margin-top: 12px; font-size: 14px; color: #2a3042;">
                   <li style="margin-bottom: 10px;">{{item.description}}</li>
-                  <li style="margin-bottom: 10px;">{{item.max_projects}} Maximum Projects</li>
-                  <li style="margin-bottom: 10px;">{{watermark(item.watermark)}}</li>
+                  <!--<li style="margin-bottom: 10px;">{{item.max_projects}} Maximum Projects</li>-->
+<!--                  <li style="margin-bottom: 10px;">{{watermark(item.watermark)}}</li>-->
                 </ul>
                 <button class="btn btn-secondary" (click)="openOrderSummary(item, content)">Select</button>
               </div>
@@ -72,7 +72,7 @@
                 <tbody>
                 <tr>
                   <td>Term & Period :</td>
-                  <td>{{selectedTerm.factor}} {{selectedTerm.label}}</td>
+                  <td>{{selectedTerm.factor}} {{getPeriod2(selectedPackage)}}</td>
                 </tr>
                 <tr>
                   <td>Original Price : </td>
@@ -141,7 +141,7 @@
                   (change)="onChangeTerm($event)"
                 >
                   <ng-option [value]="value.id"  *ngFor="let value of term" >
-                    {{value.period}} {{value.label}} @ {{value.price_og}} {{value.currency}}
+                   {{value.period}} {{getPeriod2(selectedPackage)}} @ {{value.price_og}} {{value.currency}}
                   </ng-option>
                 </ng-select>
                 <div *ngIf="submitted && f.total_months.errors" class="invalid-feedback">

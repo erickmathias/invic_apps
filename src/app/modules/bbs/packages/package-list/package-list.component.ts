@@ -9,6 +9,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {NotificationService} from "../../../../shared/services/notification.service";
 import {InvicCommonService} from "../../../../shared/services/invic-common.service";
 import {PackageSubscription} from "../../../../shared/models/package-subscription.model";
+import {Packages} from "../../../../shared/models/packages.model";
 
 class Term{
   id: number;
@@ -30,11 +31,34 @@ export class PackageListComponent implements OnInit {
   breadCrumbItems: Array<{}>;
   private subscriptions: Subscription[] = [];
    error: string;
-  packages: any[];
+  packages: Packages[];
   orderForm: FormGroup;
   successmsg: string;
   submitted: boolean;
-  term: Term[] = [
+  term: Term[] = [];
+  term0: Term[] = [
+    {
+      id: 1,
+      period: 1,
+      factor: 1,
+      label: 'Weeks',
+      price: null,
+      price_og: null,
+      currency: 'TZS',
+      tax: null,
+    },
+    {
+      id: 2,
+      period: 2,
+      factor: 2,
+      label: 'Weeks',
+      price: null,
+      price_og: null,
+      currency: 'TZS',
+      tax: null,
+    },
+  ];
+  term2: Term[] = [
     {
     id: 1,
     period: 1,
@@ -67,7 +91,7 @@ export class PackageListComponent implements OnInit {
     },
     {
       id: 4,
-      period: 1,
+      period: 12,
       factor: 12,
       label: 'Year',
       price: null,
@@ -77,7 +101,7 @@ export class PackageListComponent implements OnInit {
     },
     {
       id: 5,
-      period: 2,
+      period: 24,
       factor: 24,
       label: 'Years',
       price: null,
@@ -102,6 +126,7 @@ export class PackageListComponent implements OnInit {
   private notification: NotificationService,) { }
 
   ngOnInit(): void {
+    this.term = this.term2;
     this.breadCrumbItems = [{ label: 'BBS' }, { label: 'Packages', active: true }];
     this.loadPackages();
     // this.loadRegisteredUsers();
@@ -146,11 +171,18 @@ export class PackageListComponent implements OnInit {
     }
   }
 
-  openOrderSummary(item: any, content: TemplateRef<any>) {
+  openOrderSummary(item: Packages, content: TemplateRef<any>) {
+    this.orderForm.reset();
+    this.factor = 1;
     this.modalService.open(content, { size: 'l', centered: false });
     this.selectedPackage = item;
     this.orderForm.get('package').setValue(item.id);
     this.orderForm.get('total_months').setValue(1);
+    if(item.id == 1){
+      this.term = this.term0;
+    }else{
+      this.term = this.term2;
+    }
     this.term.forEach(key =>{
       let cost = this.selectedPackage.cost * key.factor;
       key.tax = cost * 0.18;
@@ -182,10 +214,15 @@ export class PackageListComponent implements OnInit {
     console.log(this.selectedPackage[0]);
     this.setOrderSummary();
 
+    if(this.selectedPackage[0].id == 1){
+      this.term=this.term0;
+    }
+
   }
 
   onChangeTerm($event: any) {
     this.selectedTerm = this.term.filter(x=>x.id === $event)[0]
+    console.log('selected term', this.selectedTerm)
     this.factor = this.selectedTerm.factor;
     this.setOrderSummary();
   }
@@ -254,4 +291,17 @@ export class PackageListComponent implements OnInit {
     this.router.navigate(['/subscriptions/order-request'], { queryParams: { id: model.id } });
   }
 
+  getPeriod(item: Packages) {
+    if(item.id == 1){
+      return 'Week';
+    }
+    return "Month";
+  }
+
+  getPeriod2(item: Packages) {
+    if(item.id == 1){
+      return 'Week(s)';
+    }
+    return "Month(s)";
+  }
 }
