@@ -15,10 +15,10 @@
                 <td>Amount Billed: {{packageSubscription.total_amount_billed}}</td>
               </tr>
               <tr>
-                <td>Subscription Period: {{packageSubscription.total_months}} Month(s)</td>
+                <td>Subscription Period: {{packageSubscription.total_months}}</td>
                 <td>Created Date: {{packageSubscription.created_at | date:'mediumDate'}}</td>
               </tr>
-              <tr>
+             <!-- <tr>
                 <td class="fw-bold">Status:
                   <span class="badge" [ngClass]="{
               'bg-success': packageSubscription.paid_status == 1,
@@ -26,7 +26,7 @@
               'bg-danger': packageSubscription.paid_status == 0
             }">{{packageSubscription.paid_status}}</span>
                 </td>
-              </tr>
+              </tr>-->
             </table>
           </div>
         </div>
