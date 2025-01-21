@@ -164,7 +164,7 @@ export class MyProjectsComponent implements OnInit {
   openModal(content) {
     this.successmsg = '';
     this.error = '';
-    this.projectsForm.reset();
+    this.resetForm();
     this.projectsForm.get('company').setValue(this.company.id);
     this.action = 0;
     this.modalService.open(content, { size: 'xl', centered: false });
@@ -200,7 +200,7 @@ export class MyProjectsComponent implements OnInit {
           this.project = response.data;
           this.service.responceData.push(this.project);
           this.submitted = false;
-          this.projectsForm.reset();
+          this.resetForm();
 
           if([3,4].includes(this.userProfile.role)){
             this.projectsForm.get('prepared_by').setValue(this.company.name);
@@ -330,8 +330,17 @@ export class MyProjectsComponent implements OnInit {
 
   }
 
+  resetForm() {
+    this.projectsForm.reset(); // Reset the form to its initial state
+
+    // Enable all controls
+    Object.keys(this.projectsForm.controls).forEach(key => {
+      this.projectsForm.get(key).enable();
+    });
+  }
+
   editProject(content: any, table: Projects) {
-    this.projectsForm.reset();
+    this.resetForm();
     this.selectedProject = table;
     this.action = 1;
     this.projectsForm.get('name').setValue(table.name);

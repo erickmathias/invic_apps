@@ -115,10 +115,19 @@ export class MyClientsComponent implements OnInit {
   openModal(content) {
     this.successmsg = "";
     this.error = '';
-    this.clientForm.reset();
+    this.resetForm();
     this.clientForm.get('dial_code').setValue(this.dialCode);
     this.clientForm.get('company').setValue(this.company.id);
     this.modalRef = this.modalService.open(content, { size: 'xl', centered: false });
+  }
+
+  resetForm() {
+    this.clientForm.reset(); // Reset the form to its initial state
+
+    // Enable all controls
+    Object.keys(this.clientForm.controls).forEach(key => {
+      this.clientForm.get(key).enable();
+    });
   }
 
   addClient(value: any) {
@@ -178,7 +187,7 @@ export class MyClientsComponent implements OnInit {
 
           }else {
             this.service.responceData.push(this.client);
-            this.clientForm.reset();
+            this.resetForm();
           }
           this.loadUserProfile(this.userProfile.username);
 
