@@ -20,6 +20,7 @@ const routes: Routes = [
   { path: 'clients', component: MyClientsComponent, canActivate: [AuthGuard] },
   { path: 'packages', component: PackageListComponent, canActivate: [AuthGuard] },
   { path: 'subscriptions', component: SubscriptionListComponent, canActivate: [AuthGuard] },
+  { path: 'subscriptions/order-request/2-pay', component: PesaPallOrderRequestComponent, canActivate: [AuthGuard] },
   { path: 'subscriptions/order-request', component: PesaPallOrderRequestComponent, canActivate: [AuthGuard] },
   //{ path: 'packages', loadChildren: () => import('../modules/bbs/packages/packages.module').then(m => m.PackagesModule), canActivate: [AuthGuard] },
   { path: 'dashboards', loadChildren: () => import('./dashboards/dashboards.module').then(m => m.DashboardsModule) },

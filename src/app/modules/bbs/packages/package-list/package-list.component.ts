@@ -289,7 +289,7 @@ export class PackageListComponent implements OnInit {
 
   openSubscriptionPaymentRoute(model: PackageSubscription, modal: any) {
     modal.dismiss('Cross click');
-    this.router.navigate(['/subscriptions/order-request'], { queryParams: { id: model.id } });
+    this.router.navigate(['/subscriptions/order-request/2-pay'], { queryParams: { id: model.id } });
   }
 
   getPeriod(item: Packages) {
