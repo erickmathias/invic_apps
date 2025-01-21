@@ -334,10 +334,11 @@ export class MyProjectsComponent implements OnInit {
             );
             this.loader = false;
           },
-          (error) => {
+          (error: HttpErrorResponse) => {
             this.loader = false;
             // this.notification.showNotification('danger', 'Error downloading student id card !');
-            this.error = "Report Download Failed, Make sure you have the active Package Subscription and reliable Internet Connection";
+            // this.error = "Report Download Failed, Make sure you have the active Package Subscription and reliable Internet Connection";
+            this.error = error.message;
           }
         );
     }else if (project.type == 'SLAB') {
@@ -348,10 +349,11 @@ export class MyProjectsComponent implements OnInit {
             );
             this.loader = false;
           },
-          () => {
+          (error: HttpErrorResponse) => {
             this.loader = false;
             // this.notification.showNotification('danger', 'Error downloading student id card !');
-            this.error = "Report Download Failed, Make sure you have the active Package Subscription and reliable Internet Connection";
+            // this.error = "Report Download Failed, Make sure you have the active Package Subscription and reliable Internet Connection";
+            this.error = error.message;
           }
         );
     }
