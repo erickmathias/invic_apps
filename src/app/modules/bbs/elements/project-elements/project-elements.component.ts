@@ -188,7 +188,7 @@ export class ProjectElementsComponent implements OnInit {
   }
 
   updateElement(value: any) {
-    console.log('element for post');
+/*    console.log('element for post');
     console.log(value);
     if(this.elementsForm.invalid){
       Object.keys(this.elementsForm.controls).forEach(key => {
@@ -201,35 +201,36 @@ export class ProjectElementsComponent implements OnInit {
       });
       return;
     }else{
-      this.subscriptions.push(
-        this.profileService.updateElement(value, this.selectedElement.id).subscribe(
-          (response: any) => {
-            console.log(response);
-            this.successmsg = response.message;
-            console.log('Success......');
-            console.log(response);
-            this.error = '';
-            this.element = response.data;
-            // this.service.responceData.push(this.element);
-            this.loadProjectElements(this.selectedProject.id);
-            this.submitted = false;
-/*            this.elementsForm.reset();
-            // this.ngOnInit();
-            this.elementsForm.get('project').setValue(this.selectedProject.id);
-            this.elementsForm.get('density').setValue(7850);*/
-          },
-          error=> {
-            console.log(error.error.message);
-            this.successmsg = '';
-            this.error = error ? error : '';
-          }
-        )
-      );
-    }
+
+    }*/
+    this.subscriptions.push(
+      this.profileService.updateElement(value, this.selectedElement.id).subscribe(
+        (response: any) => {
+          console.log(response);
+          this.successmsg = response.message;
+          console.log('Success......');
+          console.log(response);
+          this.error = '';
+          this.element = response.data;
+          // this.service.responceData.push(this.element);
+          this.loadProjectElements(this.selectedProject.id);
+          this.submitted = false;
+          /*            this.elementsForm.reset();
+                      // this.ngOnInit();
+                      this.elementsForm.get('project').setValue(this.selectedProject.id);
+                      this.elementsForm.get('density').setValue(7850);*/
+        },
+        error=> {
+          console.log(error.error.message);
+          this.successmsg = '';
+          this.error = error ? error : '';
+        }
+      )
+    );
   }
 
   addElement(value) {
-    console.log('element for post');
+/*    console.log('element for post');
     console.log(value);
     if(this.elementsForm.invalid){
       Object.keys(this.elementsForm.controls).forEach(key => {
@@ -242,34 +243,35 @@ export class ProjectElementsComponent implements OnInit {
       });
       return;
     }else{
-      this.subscriptions.push(
-        this.profileService.addElement(value).subscribe(
-          (response: any) => {
-            console.log(response);
-            this.successmsg = response.message;
-            console.log('Success......');
-            console.log(response);
-            this.error = '';
-            this.element = response.data;
-            // this.service.responceData.push(this.element);
-            this.loadProjectElements(this.selectedProject.id);
-            this.submitted = false;
-            this.elementsForm.reset();
-            // this.ngOnInit();
-            this.elementsForm.get('project').setValue(this.selectedProject.id);
-            this.elementsForm.get('density').setValue(7850);
-          },
-          error=> {
-            this.successmsg = '';
-            if (error.error?.detail) {
-              this.error = error.error?.message;
-            } else {
-              this.error = 'An Error Occurred Please Try Again Later';
-            }
+
+    }*/
+    this.subscriptions.push(
+      this.profileService.addElement(value).subscribe(
+        (response: any) => {
+          console.log(response);
+          this.successmsg = response.message;
+          console.log('Success......');
+          console.log(response);
+          this.error = '';
+          this.element = response.data;
+          // this.service.responceData.push(this.element);
+          this.loadProjectElements(this.selectedProject.id);
+          this.submitted = false;
+          this.resetForm();
+          // this.ngOnInit();
+          this.elementsForm.get('project').setValue(this.selectedProject.id);
+          this.elementsForm.get('density').setValue(7850);
+        },
+        error=> {
+          this.successmsg = '';
+          if (error.error?.detail) {
+            this.error = error.error?.message;
+          } else {
+            this.error = 'An Error Occurred Please Try Again Later';
           }
-        )
-      );
-    }
+        }
+      )
+    );
   }
 
   deleteElement(table: Elements) {
@@ -317,11 +319,15 @@ export class ProjectElementsComponent implements OnInit {
     this.action = 0;
     this.elementFormTitle = 'New Element';
     this.selectedElement = elements;
+    this.successmsg = '';
+    this.error = '';
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', windowClass: 'manage-projects-modal-class', backdrop: 'static', keyboard: false, centered: false});
 
   }
 
   openEditElementModal(content, table: Elements) {
+    this.successmsg = '';
+    this.error = '';
     this.selectedElement = table;
     this.action = 1;
     this.elementFormTitle = 'Edit Element: '+table.name;
@@ -340,6 +346,15 @@ export class ProjectElementsComponent implements OnInit {
 
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', windowClass: 'manage-projects-modal-class', backdrop: 'static', keyboard: false, centered: false});
 
+  }
+
+  resetForm() {
+    this.elementsForm.reset(); // Reset the form to its initial state
+
+    // Enable all controls
+    Object.keys(this.elementsForm.controls).forEach(key => {
+      this.elementsForm.get(key).enable();
+    });
   }
 
 

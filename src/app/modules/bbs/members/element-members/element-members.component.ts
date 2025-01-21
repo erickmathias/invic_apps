@@ -422,7 +422,7 @@ export class ElementMembersComponent implements OnInit {
     console.log('element for post');
     console.log(value);
     this.submitted = true;
-    if(this.memberForm.invalid){
+/*    if(this.memberForm.invalid){
       Object.keys(this.memberForm.controls).forEach(key => {
         const controlErrors: ValidationErrors = this.memberForm.get(key).errors;
         if (controlErrors != null) {
@@ -433,81 +433,72 @@ export class ElementMembersComponent implements OnInit {
       });
       return;
     }else {
-      this.updatebtn = false;
-      console.log('Form is Valid...');
-      this.updatebtn = false;
-      console.log('Form is Valid...');
-      this.profileService.addMember(value).subscribe(
-        (response: any) => {
-          console.log(response);
-          this.successmsg = response.message;
-          console.log('Success......');
-          console.log(response);
-          this.error = '';
-          this.selectedMember = response.data;
-          this.service.responceData.push(this.selectedMember);
-          // this.loadElementMembers(this.selectedElement.id, this.selectedElement.project.id);
-          this.submitted = false;
-          this.memberForm.reset();
-          this.memberForm.get('project').setValue(this.selectedElement.project.id);
-          this.memberForm.get('element').setValue(this.selectedElement.id);
-          this.memberForm.get('bar_size').setValue('');
-          this.memberForm.get('shape_code').setValue('');
-        },
-        error=> {
-          this.successmsg = '';
-          this.error = error ? error : '';
-        }
-      );
-    }
+
+    }*/
+    this.updatebtn = false;
+    console.log('Form is Valid...');
+    this.updatebtn = false;
+    console.log('Form is Valid...');
+    this.profileService.addMember(value).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.successmsg = response.message;
+        console.log('Success......');
+        console.log(response);
+        this.error = '';
+        this.selectedMember = response.data;
+        this.service.responceData.push(this.selectedMember);
+        // this.loadElementMembers(this.selectedElement.id, this.selectedElement.project.id);
+        this.submitted = false;
+        this.resetForm();
+        this.memberForm.get('project').setValue(this.selectedElement.project.id);
+        this.memberForm.get('element').setValue(this.selectedElement.id);
+        this.memberForm.get('bar_size').setValue('');
+        this.memberForm.get('shape_code').setValue('');
+      },
+      error=> {
+        this.successmsg = '';
+        this.error = error ? error : '';
+      }
+    );
   }
+
+
 
   updateElementMember(value: any) {
     this.submitted = true;
-    if(this.memberForm.invalid){
-      Object.keys(this.memberForm.controls).forEach(key => {
-        const controlErrors: ValidationErrors = this.memberForm.get(key).errors;
-        if (controlErrors != null) {
-          Object.keys(controlErrors).forEach(keyError => {
-            console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
-          });
-        }
-      });
-      return;
-    }else {
-      this.updatebtn = false;
-      console.log('Form is Valid...');
-      this.profileService.updateMember(this.selectedMember.id, value).subscribe(
-        (response: any) => {
-          console.log(response);
-          this.successmsg = response.message;
-          console.log('Success Update Member......');
-          console.log(response);
-          this.error = '';
-          this.selectedMember = response.data;
-          //const index = this.service.responceData.indexOf(this.selectedMember);
-          const index = this.service.responceData.findIndex(x => x.id === this.selectedMember.id);
-          //alert(index)
-          // this.service.responceData.splice(index, 1)
-          this.service.responceData[index] = this.selectedMember;
-          this.submitted = false;
-          this.memberForm.reset();
-          this.memberForm.get('project').setValue(this.selectedElement.project.id);
-          this.memberForm.get('element').setValue(this.selectedElement.id);
-          this.memberForm.get('bar_size').setValue('');
-          this.memberForm.get('shape_code').setValue('');
-        },
-        error=> {
-          // console.log(error);
-          this.successmsg = '';
-          this.error = error ? error : '';
-        }
-      );
-    }
+    this.updatebtn = false;
+    console.log('Form is Valid...');
+    this.profileService.updateMember(this.selectedMember.id, value).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.successmsg = response.message;
+        console.log('Success Update Member......');
+        console.log(response);
+        this.error = '';
+        this.selectedMember = response.data;
+        //const index = this.service.responceData.indexOf(this.selectedMember);
+        const index = this.service.responceData.findIndex(x => x.id === this.selectedMember.id);
+        //alert(index)
+        // this.service.responceData.splice(index, 1)
+        this.service.responceData[index] = this.selectedMember;
+        this.submitted = false;
+        this.resetForm()
+        this.memberForm.get('project').setValue(this.selectedElement.project.id);
+        this.memberForm.get('element').setValue(this.selectedElement.id);
+        this.memberForm.get('bar_size').setValue('');
+        this.memberForm.get('shape_code').setValue('');
+      },
+      error=> {
+        // console.log(error);
+        this.successmsg = '';
+        this.error = error ? error : '';
+      }
+    );
   }
 
   resetMemberForm() {
-    this.memberForm.reset();
+    this.resetForm();
     this.updatebtn = false;
     this.memberForm.get('project').setValue(this.selectedElement.project.id);
     this.memberForm.get('element').setValue(this.selectedElement.id);
@@ -559,4 +550,15 @@ export class ElementMembersComponent implements OnInit {
       }
     });
   }
+
+  resetForm() {
+    this.memberForm.reset(); // Reset the form to its initial state
+
+    // Enable all controls
+    Object.keys(this.memberForm.controls).forEach(key => {
+      this.memberForm.get(key).enable();
+    });
+  }
 }
+
+
