@@ -184,6 +184,8 @@ export class ProjectElementsComponent implements OnInit {
   }
 
   openModal(content) {
+    this.resetForm();
+    this.elementsForm.get('density').setValue(7850);
     this.modalService.open(content, { size: 'xl', centered: false });
   }
 
