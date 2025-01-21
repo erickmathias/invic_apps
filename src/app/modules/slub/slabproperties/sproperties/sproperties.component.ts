@@ -266,11 +266,7 @@ export class SpropertiesComponent implements OnInit {
           },
           error=> {
             this.successmsg = '';
-            if (error.error?.detail) {
-              this.error = error.error?.message;
-            } else {
-              this.error = 'An Error Occurred Please Try Again Later';
-            }
+            this.error = error ? error : '';
           }
         )
       );

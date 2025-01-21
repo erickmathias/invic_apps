@@ -187,6 +187,7 @@ export class ProjectElementsComponent implements OnInit {
     this.elementFormTitle = 'New Element';
     this.resetForm();
     this.elementsForm.get('density').setValue(7850);
+    this.elementsForm.get('project').setValue(this.selectedProject.id);
     this.modalService.open(content, { size: 'xl', centered: false });
     this.action = 0;
     this.successmsg = '';
@@ -270,11 +271,7 @@ export class ProjectElementsComponent implements OnInit {
         },
         error=> {
           this.successmsg = '';
-          if (error.error?.detail) {
-            this.error = error.error?.message;
-          } else {
-            this.error = 'An Error Occurred Please Try Again Later';
-          }
+          this.error = error ? error : '';
         }
       )
     );
