@@ -22,6 +22,7 @@ export class PesaPallOrderRequestComponent implements OnInit {
   url: any;
   showPaymentPanel: boolean;
   showSuccessPanel: boolean;
+  showFailedPanel: boolean;
   loading: boolean;
   error: string;
   message: string;
@@ -82,6 +83,7 @@ export class PesaPallOrderRequestComponent implements OnInit {
 
   makeOrderSubscriptionRequest(subscription_id: string){
     this.showPaymentPanel = false;
+    this.showFailedPanel = false;
     this.loading = true;
     this.subscriptions.push(
       this.packageService.makeOrderSubscriptionRequest(subscription_id).subscribe(
@@ -89,14 +91,17 @@ export class PesaPallOrderRequestComponent implements OnInit {
           console.log(response);
           this.packageSubscription = response;
           this.showPaymentPanel = true;
+          this.showFailedPanel = false;
           this.loading = false;
           this.url = this.domSanitizer.bypassSecurityTrustResourceUrl(this.packageSubscription.gtw_redirect_url);
           // this.url = this.domSanitizer.bypassSecurityTrustResourceUrl("https://pay.pesapal.com/iframe/PesapalIframe3/PaymentConfirmation?Order_Tracking_Id=e3fd34e7-6958-436e-85cd-dc47a4d65549");
         },
         (error: HttpErrorResponse) => {
-          this.error = error.message;
+          console.log(error);
+          this.error = error.error.message;
           this.showPaymentPanel = false;
           this.loading = false;
+          this.showFailedPanel = true;
         }
       )
     );

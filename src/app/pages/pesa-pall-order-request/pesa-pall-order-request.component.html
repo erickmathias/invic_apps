@@ -47,6 +47,35 @@
   </div>
 </div>
 
+<div class="modal-body" *ngIf="showFailedPanel">
+  <div class="row">
+
+    <div class="col-md-7">
+
+      <div class="col-md-12">
+        <div class="card shadow-sm border-0">
+          <div class="card-header bg-default text-white text-center">
+            <h5 class="mb-0">Invoice Summary</h5>
+          </div>
+          <div class="card-body p-4">
+            <table class="table table-borderless mb-0">
+               <tr>
+                 <td class="fw-bold" colspan="2">
+                   <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert>
+<!--                   <span class="badge" [ngClass]="'bg-danger'">{{ error }}</span>-->
+                 </td>
+               </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
 <div class="modal-body" *ngIf="showSuccessPanel">
   <div class="row">
 
@@ -67,12 +96,12 @@
                 <td>Subscription Period: {{packageSubscription.total_months}}</td>
                 <td>Created Date: {{packageSubscription.created_at | date:'mediumDate'}}</td>
               </tr>
-               <tr>
-                 <td class="fw-bold">Status:
-                   <span class="badge" [ngClass]="'bg-success'">Completed</span>
-                 </td>
-                 <td>Paid Date Date: {{packageSubscription.paid_date | date:'mediumDate'}}</td>
-               </tr>
+              <tr>
+                <td class="fw-bold">Status:
+                  <span class="badge" [ngClass]="'bg-success'">Completed</span>
+                </td>
+                <td>Paid Date Date: {{packageSubscription.paid_date | date:'mediumDate'}}</td>
+              </tr>
             </table>
           </div>
         </div>
@@ -81,7 +110,10 @@
     </div>
 
   </div>
+
 </div>
+
+
 
 <div class="card-body" style="text-align: center" *ngIf="loading">
   <div class="spinner-border text-primary" role="status">
