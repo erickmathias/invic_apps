@@ -31,6 +31,7 @@ export class ProjectElementsComponent implements OnInit {
   @Input() selectedProject: Projects;
 
   selectedElement : Elements;
+  private modalRef: any;
 
 
   // breadcrumb items

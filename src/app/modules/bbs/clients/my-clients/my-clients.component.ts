@@ -3,14 +3,12 @@ import {ChartType} from "chart.js";
 import {Observable, Subscription} from 'rxjs';
 import {ClientsService} from "./clients.service";
 import {SortEvent, ClientsSortableService} from "./clients-sortable.directive";
-import {HttpErrorResponse} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {BbsProfileService} from "../../../../shared/services/bbs-profile.service";
 import { Clients } from '../../../../shared/models/clients.model';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {UserProfile} from "../../../../shared/models/user-profile";
-import {ProjectsService} from "../../projects/my-projects/projects.service";
 import {Projects} from "../../../../shared/models/projects.model";
 
 @Component({
@@ -40,7 +38,7 @@ export class MyClientsComponent implements OnInit {
   private project: Projects;
 
   userProfile: UserProfile = JSON.parse(sessionStorage.getItem('user'))
-
+  private modalRef: any;
   constructor(public service: ClientsService,
               private router: Router,
               private profileService: BbsProfileService,
@@ -115,19 +113,23 @@ export class MyClientsComponent implements OnInit {
   }
 
   openModal(content) {
-    this.modalService.open(content, { size: 'xl', centered: false });
+    this.successmsg = "";
+    this.error = '';
     this.clientForm.reset();
     this.clientForm.get('dial_code').setValue(this.dialCode);
     this.clientForm.get('company').setValue(this.company.id);
-
+    this.modalRef = this.modalService.open(content, { size: 'xl', centered: false });
   }
 
   addClient(value: any) {
+    this.successmsg = "";
+    this.error = '';
     this.submitted = true;
 
-    if(this.clientForm.invalid){
+ /*   if(this.clientForm.invalid){
       Object.keys(this.clientForm.controls).forEach(key => {
         const controlErrors: ValidationErrors = this.clientForm.get(key).errors;
+        console.log(controlErrors);
         if (controlErrors != null) {
           Object.keys(controlErrors).forEach(keyError => {
             console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
@@ -152,6 +154,9 @@ export class MyClientsComponent implements OnInit {
               this.clientForm.reset();
             }
             this.loadUserProfile(this.userProfile.username);
+
+            // this.modalRef.close();
+
           },
           error=> {
             this.successmsg = '';
@@ -159,7 +164,33 @@ export class MyClientsComponent implements OnInit {
           }
         )
       );
-    }
+    }*/
+    this.subscriptions.push(
+      this.profileService.addClient(value).subscribe(
+        (response: any) => {
+          console.log(response);
+          this.successmsg = response.message;
+          this.error = '';
+          this.client = response.data;
+          this.submitted = false;
+
+          if(value.id>0){
+
+          }else {
+            this.service.responceData.push(this.client);
+            this.clientForm.reset();
+          }
+          this.loadUserProfile(this.userProfile.username);
+
+          // this.modalRef.close();
+
+        },
+        error=> {
+          this.successmsg = '';
+          this.error = error ? error : '';
+        }
+      )
+    );
 
   }
 
@@ -175,6 +206,8 @@ export class MyClientsComponent implements OnInit {
   }
 
   editClient(content, client: Clients) {
+    this.successmsg = "";
+    this.error = '';
 
     this.dialCode = client.dial_code;
 
@@ -192,6 +225,6 @@ export class MyClientsComponent implements OnInit {
       postal_address: [client.postal_address, Validators.required],
       dial_code: [client.dial_code, Validators.required],
     });
-    this.modalService.open(content, { size: 'xl', centered: false });
+    this.modalRef = this.modalService.open(content, { size: 'xl', centered: false });
   }
 }
