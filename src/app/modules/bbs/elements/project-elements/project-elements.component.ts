@@ -184,6 +184,7 @@ export class ProjectElementsComponent implements OnInit {
   }
 
   openModal(content) {
+    this.elementFormTitle = 'New Element';
     this.resetForm();
     this.elementsForm.get('density').setValue(7850);
     this.modalService.open(content, { size: 'xl', centered: false });
@@ -319,7 +320,7 @@ export class ProjectElementsComponent implements OnInit {
 
   openElementModal(content, elements: Elements) {
     this.action = 0;
-    this.elementFormTitle = 'New Element';
+    this.elementFormTitle = 'Manage Element';
     this.selectedElement = elements;
     this.successmsg = '';
     this.error = '';
