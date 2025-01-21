@@ -70,8 +70,8 @@ export class PesaPallOrderRequestComponent implements OnInit {
           // this.url = this.domSanitizer.bypassSecurityTrustResourceUrl(this.packageSubscription.gtw_redirect_url);
           // this.url = this.domSanitizer.bypassSecurityTrustResourceUrl("https://pay.pesapal.com/iframe/PesapalIframe3/PaymentConfirmation?Order_Tracking_Id=e3fd34e7-6958-436e-85cd-dc47a4d65549");
         },
-        (error: HttpErrorResponse) => {
-          this.error = error.message;
+        error=> {
+          this.error = error ? error : '';
           this.showSuccessPanel = false;
           this.loading = false;
         }
@@ -96,9 +96,9 @@ export class PesaPallOrderRequestComponent implements OnInit {
           this.url = this.domSanitizer.bypassSecurityTrustResourceUrl(this.packageSubscription.gtw_redirect_url);
           // this.url = this.domSanitizer.bypassSecurityTrustResourceUrl("https://pay.pesapal.com/iframe/PesapalIframe3/PaymentConfirmation?Order_Tracking_Id=e3fd34e7-6958-436e-85cd-dc47a4d65549");
         },
-        (error: HttpErrorResponse) => {
+        error=> {
           console.log(error);
-          this.error = error.error.message;
+          this.error = error ? error : '';
           this.showPaymentPanel = false;
           this.loading = false;
           this.showFailedPanel = true;

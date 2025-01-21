@@ -71,7 +71,7 @@ export class TopbarComponent implements OnInit {
         this.userProfile = response.data;
         this.preview = environment.baseUrl+this.userProfile.logo;
       },
-      (error: HttpErrorResponse) => {
+      error=> {
       }
     )
   }

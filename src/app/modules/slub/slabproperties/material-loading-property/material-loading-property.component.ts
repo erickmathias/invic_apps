@@ -80,7 +80,7 @@ export class MaterialLoadingPropertyComponent implements OnInit {
 
         this.setFormData(this.selectedMaterialLoadingProperty);
       },
-      (error: HttpErrorResponse) => {
+      error=> {
 
       }
     );
@@ -163,14 +163,10 @@ export class MaterialLoadingPropertyComponent implements OnInit {
           this.setFormData(this.selectedMaterialLoadingProperty);
 
         },
-        (error: HttpErrorResponse) => {
+        error=> {
           this.loading = false;
           this.successmsg = '';
-          if (error.error?.message) {
-            this.error = error.error?.message;
-          } else {
-            this.error = 'An Error Occurred Please Try Again Later';
-          }
+          this.error = error ? error : '';
         }
       );
     }

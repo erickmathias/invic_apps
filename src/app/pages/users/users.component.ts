@@ -61,7 +61,7 @@ export class UsersComponent implements OnInit {
           this.loading = false;
         },
         (error: any) => {
-          this.error = error.message;
+          this.error = error ? error : '';
           this.loading = false;
           console.log(error)
         }

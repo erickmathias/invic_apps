@@ -121,7 +121,7 @@ export class Login2Component implements OnInit {
             this.loading = false;
             this.router.navigate(['/dashboard']);
           },
-          error => {
+          (error) => {
             console.log('Error Responce is ');
             console.log(error)
             this.error = error ? error : '';

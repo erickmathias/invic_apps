@@ -32,7 +32,7 @@ export class BbsHomeComponent implements OnInit {
         this.preview = environment.baseUrl+this.userProfile.logo;
         console.log(this.userProfile)
       },
-      (error: HttpErrorResponse) => {
+      error=> {
       }
     )
 
@@ -47,8 +47,8 @@ export class BbsHomeComponent implements OnInit {
           this.packageError = '';
           console.log(this.subcription)
         },
-        (error: HttpErrorResponse) => {
-          this.packageError = error.message;
+        error=> {
+          this.packageError = error.error.message;
         }
       )
   }

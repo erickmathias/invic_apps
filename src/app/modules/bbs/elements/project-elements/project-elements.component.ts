@@ -100,8 +100,8 @@ export class ProjectElementsComponent implements OnInit {
           this.subcription = response.data;
           this.packageError = '';
         },
-        (error: HttpErrorResponse) => {
-          this.packageError = error.message;
+        error=> {
+          this.packageError = error.error.message;
         }
       )
     );
@@ -118,8 +118,8 @@ export class ProjectElementsComponent implements OnInit {
           console.log('Steel Types...');
           console.log(this.steelTypes);
         },
-        (error: HttpErrorResponse) => {
-          this.error = error.message;
+        error=> {
+          this.error = error ? error : '';
         }
       )
     );
@@ -136,8 +136,8 @@ export class ProjectElementsComponent implements OnInit {
           console.log('Standard Codes...');
           console.log(this.standardCodes);
         },
-        (error: HttpErrorResponse) => {
-          this.error = error.message;
+        error=> {
+          this.error = error ? error : '';
         }
       )
     );
@@ -157,8 +157,8 @@ export class ProjectElementsComponent implements OnInit {
           console.log(this.elements);
           this.loading = false;
         },
-        (error: HttpErrorResponse) => {
-          this.error = error.message;
+        error=> {
+          this.error = error ? error : '';
           this.loading = false;
 
         }
@@ -217,14 +217,10 @@ export class ProjectElementsComponent implements OnInit {
             this.elementsForm.get('project').setValue(this.selectedProject.id);
             this.elementsForm.get('density').setValue(7850);*/
           },
-          (error: HttpErrorResponse) => {
-            console.log(error.message);
+          error=> {
+            console.log(error.error.message);
             this.successmsg = '';
-            if (error.error?.message) {
-              this.error = error.error?.message;
-            } else {
-              this.error = 'An Error Occurred Please Try Again Later';
-            }
+            this.error = error ? error : '';
           }
         )
       );
@@ -262,7 +258,7 @@ export class ProjectElementsComponent implements OnInit {
             this.elementsForm.get('project').setValue(this.selectedProject.id);
             this.elementsForm.get('density').setValue(7850);
           },
-          (error: HttpErrorResponse) => {
+          error=> {
             this.successmsg = '';
             if (error.error?.detail) {
               this.error = error.error?.message;
@@ -292,7 +288,7 @@ export class ProjectElementsComponent implements OnInit {
             this.service.responceData = this.service.responceData.filter(item => item !== table)
             Swal.fire('Deleted!', response.message, 'success');
           },
-          (error: HttpErrorResponse) => {
+          error=> {
             Swal.fire('Operation Failed: '+error.error.message, 'failed');
           }
         );

@@ -91,8 +91,8 @@ export class MyClientsComponent implements OnInit {
           this.clientForm.get('dial_code').setValue(this.dialCode);
           this.clientForm.get('company').setValue(this.company.id);
         },
-        (error: HttpErrorResponse) => {
-          this.error = error.message;
+        error=> {
+          this.error = error ? error : '';
         }
       )
     );
@@ -153,13 +153,9 @@ export class MyClientsComponent implements OnInit {
             }
             this.loadUserProfile(this.userProfile.username);
           },
-          (error: HttpErrorResponse) => {
+          error=> {
             this.successmsg = '';
-            if (error.error?.message) {
-              this.error = error.error?.message;
-            } else {
-              this.error = 'An Error Occurred Please Try Again Later';
-            }
+            this.error = error ? error : '';
           }
         )
       );

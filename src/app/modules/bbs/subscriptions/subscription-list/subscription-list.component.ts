@@ -75,8 +75,8 @@ export class SubscriptionListComponent implements OnInit {
           this.service.responceData = response.data;
           this.loading = false;
         },
-        (error: HttpErrorResponse) => {
-          this.error = error.message;
+        error=> {
+          this.error = error ? error : '';
           this.loading = false;
         }
       )
@@ -92,8 +92,8 @@ export class SubscriptionListComponent implements OnInit {
           this.service2.responceData = response.data;
           this.loading = false;
         },
-        (error: HttpErrorResponse) => {
-          this.error = error.message;
+        error=> {
+          this.error = error ? error : '';
           this.loading = false;
         }
       )

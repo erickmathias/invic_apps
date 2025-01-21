@@ -74,8 +74,8 @@ export class ProfileComponent implements OnInit {
           this.showProfileForm = false;
           this.showProfile = true;
         },
-        (error: HttpErrorResponse) => {
-          this.error = error.message;
+        error=> {
+          this.error = error ? error : '';
           this.showProfileForm = true;
         }
       )
@@ -108,9 +108,9 @@ export class ProfileComponent implements OnInit {
             this.showProfile = true;
             this.userProfile = response.data;
           },
-          (error: HttpErrorResponse) => {
+          error=> {
             this.successmsg = '';
-            this.error = error.message;
+            this.error = error ? error : '';
           }
         )
       );

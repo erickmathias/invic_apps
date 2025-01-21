@@ -122,8 +122,8 @@ export class MyProjectsComponent implements OnInit {
 
           this.loading = false;
         },
-        (error: HttpErrorResponse) => {
-          this.error = error.message;
+        error=> {
+          this.error = error ? error : '';
           this.loading = false;
         }
       )
@@ -138,8 +138,8 @@ export class MyProjectsComponent implements OnInit {
          this.subcription = response.data;
           this.packageError = '';
         },
-        (error: HttpErrorResponse) => {
-          this.packageError = error.message;
+        error=> {
+          this.packageError = error.error.message;
         }
       )
     );
@@ -216,13 +216,9 @@ export class MyProjectsComponent implements OnInit {
             this.projectsForm.get('company').setValue(this.company.id);
 
           },
-          (error: HttpErrorResponse) => {
+          error=> {
             this.successmsg = '';
-            if (error.error?.message) {
-              this.error = error.error?.message;
-            } else {
-              this.error = 'An Error Occurred Please Try Again Later';
-            }
+            this.error = error ? error : '';
           }
         )
       );
@@ -268,13 +264,9 @@ export class MyProjectsComponent implements OnInit {
 
 
           },
-          (error: HttpErrorResponse) => {
+          error=> {
             this.successmsg = '';
-            if (error.error?.message) {
-              this.error = error.error?.message();
-            } else {
-              this.error = 'An Error Occurred Please Try Again Later';
-            }
+            this.error = error ? error : '';
           }
         )
       );
@@ -334,7 +326,7 @@ export class MyProjectsComponent implements OnInit {
             );
             this.loader = false;
           },
-          (error: HttpErrorResponse) => {
+          error=> {
             this.loader = false;
             // this.notification.showNotification('danger', 'Error downloading student id card !');
             this.error = "Report Download Failed, Make sure you have the active Package Subscription and reliable Internet Connection";
@@ -348,7 +340,7 @@ export class MyProjectsComponent implements OnInit {
             );
             this.loader = false;
           },
-          (error: HttpErrorResponse) => {
+          error=> {
             this.loader = false;
             // this.notification.showNotification('danger', 'Error downloading student id card !');
             this.error = "Report Download Failed, Make sure you have the active Package Subscription and reliable Internet Connection";

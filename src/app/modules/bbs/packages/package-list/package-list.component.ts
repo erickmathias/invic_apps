@@ -155,8 +155,8 @@ export class PackageListComponent implements OnInit {
 
           this.loading = false;
         },
-        (error: HttpErrorResponse) => {
-          this.error = error.message;
+        error=> {
+          this.error = error ? error : '';
           this.loading = false;
         }
       )
@@ -263,13 +263,9 @@ export class PackageListComponent implements OnInit {
             this.orderForm.reset();
             this.successmsg = response.message;
           },
-          (error: HttpErrorResponse) => {
+          error=> {
             this.successmsg = '';
-            if (error.error?.message) {
-              this.error = error.error?.message;
-            } else {
-              this.error = 'An Error Occurred Please Try Again Later';
-            }
+            this.error = error ? error : '';
           }
         )
       );

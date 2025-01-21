@@ -68,7 +68,7 @@ export class SlabTopbarComponent implements OnInit {
         this.preview = environment.baseUrl+this.userProfile.logo;
         console.log(this.userProfile)
       },
-      (error: HttpErrorResponse) => {
+      error=> {
       }
     )
   }

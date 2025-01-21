@@ -103,8 +103,8 @@ export class SpropertiesComponent implements OnInit {
           this.subcription = response.data;
           this.packageError = '';
         },
-        (error: HttpErrorResponse) => {
-          this.packageError = error.message;
+        error=> {
+          this.packageError = error.error.message;
         }
       )
     );
@@ -121,8 +121,8 @@ export class SpropertiesComponent implements OnInit {
           console.log('Panel Support...');
           console.log(this.panelSupport);
         },
-        (error: HttpErrorResponse) => {
-          this.error = error.message;
+        error=> {
+          this.error = error ? error : '';
         }
       )
     );
@@ -139,8 +139,8 @@ export class SpropertiesComponent implements OnInit {
           console.log('Sp Properties...');
           console.log(this.spProperties);
         },
-        (error: HttpErrorResponse) => {
-          this.error = error.message;
+        error=> {
+          this.error = error ? error : '';
         }
       )
     );
@@ -163,8 +163,8 @@ export class SpropertiesComponent implements OnInit {
           console.log(this.elements);
           this.loading = false;
         },
-        (error: HttpErrorResponse) => {
-          this.error = error.message;
+        error=> {
+          this.error = error ? error : '';
           this.loading = false;
 
         }
@@ -223,13 +223,9 @@ export class SpropertiesComponent implements OnInit {
                         this.elementsForm.get('project').setValue(this.selectedProject.id);
                         this.elementsForm.get('density').setValue(7850);*/
           },
-          (error: HttpErrorResponse) => {
+          error=> {
             this.successmsg = '';
-            if (error.error?.message) {
-              this.error = error.error?.message;
-            } else {
-              this.error = 'An Error Occurred Please Try Again Later';
-            }
+            this.error = error ? error : '';
           }
         )
       );
@@ -268,7 +264,7 @@ export class SpropertiesComponent implements OnInit {
             this.spPropertyForm.get('project').setValue(this.selectedProject.id);
             //this.spPropertyForm.get('density').setValue(7850);
           },
-          (error: HttpErrorResponse) => {
+          error=> {
             this.successmsg = '';
             if (error.error?.detail) {
               this.error = error.error?.message;
@@ -298,7 +294,7 @@ export class SpropertiesComponent implements OnInit {
             this.service.responceData = this.service.responceData.filter(item => item !== table)
             Swal.fire('Deleted!', response.message, 'success');
           },
-          (error: HttpErrorResponse) => {
+          error=> {
             Swal.fire('Operation Failed: '+error.error.message, 'failed');
           }
         );

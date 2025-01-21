@@ -70,7 +70,7 @@ export class BbsTopbarComponent implements OnInit {
         this.preview = environment.baseUrl+this.userProfile.logo;
         console.log(this.userProfile)
       },
-      (error: HttpErrorResponse) => {
+      error=> {
       }
     )
   }

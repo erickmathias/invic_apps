@@ -99,8 +99,8 @@ export class ElementMembersComponent implements OnInit {
           this.subcription = response.data;
           this.packageError = '';
         },
-        (error: HttpErrorResponse) => {
-          this.packageError = error.message;
+        error=> {
+          this.packageError = error.error.message;
         }
       )
     );
@@ -119,8 +119,8 @@ export class ElementMembersComponent implements OnInit {
           console.log(this.members);
           this.loading = false;
         },
-        (error: HttpErrorResponse) => {
-          this.error = error.message;
+        error=> {
+          this.error = error ? error : '';
           this.loading = false;
 
         }
@@ -138,8 +138,8 @@ export class ElementMembersComponent implements OnInit {
           console.log('Steel Types...');
           console.log(this.shapeCodes);
         },
-        (error: HttpErrorResponse) => {
-          this.error = error.message;
+        error=> {
+          this.error = error ? error : '';
         }
       )
     );
@@ -454,13 +454,9 @@ export class ElementMembersComponent implements OnInit {
           this.memberForm.get('bar_size').setValue('');
           this.memberForm.get('shape_code').setValue('');
         },
-        (error: HttpErrorResponse) => {
+        error=> {
           this.successmsg = '';
-          if (error.error?.message) {
-            this.error = error.error?.message;
-          } else {
-            this.error = 'An Error Occurred Please Try Again Later';
-          }
+          this.error = error ? error : '';
         }
       );
     }
@@ -501,14 +497,10 @@ export class ElementMembersComponent implements OnInit {
           this.memberForm.get('bar_size').setValue('');
           this.memberForm.get('shape_code').setValue('');
         },
-        (error: HttpErrorResponse) => {
+        error=> {
           // console.log(error);
           this.successmsg = '';
-          if (error.error?.message) {
-            this.error = error.error?.message;
-          } else {
-            this.error = 'Annn Error Occurred Please Try Again Later';
-          }
+          this.error = error ? error : '';
         }
       );
     }
@@ -560,7 +552,7 @@ export class ElementMembersComponent implements OnInit {
             this.service.responceData = this.service.responceData.filter(item => item !== table)
             Swal.fire('Deleted!', response.message, 'success');
           },
-          (error: HttpErrorResponse) => {
+          error=> {
             Swal.fire('Operation Failed: '+error.error.message, 'failed');
           }
         );

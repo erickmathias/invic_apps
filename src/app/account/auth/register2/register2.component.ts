@@ -125,7 +125,7 @@ export class Register2Component implements OnInit {
             this.loading = false;
             this.router.navigate(['/dashboard']);
           },
-          (error: HttpErrorResponse) => {
+          error=> {
             console.log('Error Responce is ');
             console.log(error)
             this.loading = false;

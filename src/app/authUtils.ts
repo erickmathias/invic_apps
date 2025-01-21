@@ -94,7 +94,7 @@ class FirebaseAuthBackend {
      */
     _handleError(error) {
         // tslint:disable-next-line: prefer-const
-        var errorMessage = error.message;
+        var errorMessage = error.error.message;
         return errorMessage;
     }
 }
