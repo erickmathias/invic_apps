@@ -353,7 +353,6 @@ export class ProjectElementsComponent implements OnInit {
 
   resetForm() {
     this.elementsForm.reset(); // Reset the form to its initial state
-
     // Enable all controls
     Object.keys(this.elementsForm.controls).forEach(key => {
       this.elementsForm.get(key).enable();
