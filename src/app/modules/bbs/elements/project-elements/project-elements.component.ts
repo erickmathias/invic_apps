@@ -188,6 +188,9 @@ export class ProjectElementsComponent implements OnInit {
     this.resetForm();
     this.elementsForm.get('density').setValue(7850);
     this.modalService.open(content, { size: 'xl', centered: false });
+    this.action = 0;
+    this.successmsg = '';
+    this.error = '';
   }
 
   updateElement(value: any) {
@@ -333,6 +336,8 @@ export class ProjectElementsComponent implements OnInit {
     this.error = '';
     this.selectedElement = table;
     this.action = 1;
+    this.successmsg = '';
+    this.error = '';
     this.elementFormTitle = 'Edit Element: '+table.name;
 
     this.elementsForm.get('name').setValue(table.name);
