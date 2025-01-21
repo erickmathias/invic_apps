@@ -162,6 +162,10 @@ export class MyProjectsComponent implements OnInit {
   }
 
   openModal(content) {
+    this.successmsg = '';
+    this.error = '';
+    this.projectsForm.reset();
+    this.projectsForm.get('company').setValue(this.company.id);
     this.action = 0;
     this.modalService.open(content, { size: 'xl', centered: false });
 
@@ -185,44 +189,32 @@ export class MyProjectsComponent implements OnInit {
     value.date_reviewed = new Date(value.date_reviewed.year+'-'+value.date_reviewed.month+'-'+value.date_reviewed.day);
     this.submitted = true;
 
-    if(this.projectsForm.invalid){
-      Object.keys(this.projectsForm.controls).forEach(key => {
-        const controlErrors: ValidationErrors = this.projectsForm.get(key).errors;
-        if (controlErrors != null) {
-          Object.keys(controlErrors).forEach(keyError => {
-            console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
-          });
-        }
-      });
-      return;
-    }else{
-      this.subscriptions.push(
-        this.profileService.addProject(value).subscribe(
-          (response: any) => {
-            console.log(response);
-            this.successmsg = response.message;
-            console.log('Success......');
-            console.log(response);
-            this.error = '';
-            this.project = response.data;
-            this.service.responceData.push(this.project);
-            this.submitted = false;
-            this.projectsForm.reset();
+    this.subscriptions.push(
+      this.profileService.addProject(value).subscribe(
+        (response: any) => {
+          console.log(response);
+          this.successmsg = response.message;
+          console.log('Success......');
+          console.log(response);
+          this.error = '';
+          this.project = response.data;
+          this.service.responceData.push(this.project);
+          this.submitted = false;
+          this.projectsForm.reset();
 
-            if([3,4].includes(this.userProfile.role)){
-              this.projectsForm.get('prepared_by').setValue(this.company.name);
-              this.readonly = true;
-            }
-            this.projectsForm.get('company').setValue(this.company.id);
-
-          },
-          error=> {
-            this.successmsg = '';
-            this.error = error ? error : '';
+          if([3,4].includes(this.userProfile.role)){
+            this.projectsForm.get('prepared_by').setValue(this.company.name);
+            this.readonly = true;
           }
-        )
-      );
-    }
+          this.projectsForm.get('company').setValue(this.company.id);
+
+        },
+        error=> {
+          this.successmsg = '';
+          this.error = error ? error : '';
+        }
+      )
+    );
 
   }
 
@@ -233,44 +225,32 @@ export class MyProjectsComponent implements OnInit {
     value.date_reviewed = new Date(value.date_reviewed.year+'-'+value.date_reviewed.month+'-'+value.date_reviewed.day);
     this.submitted = true;
 
-    if(this.projectsForm.invalid){
-      Object.keys(this.projectsForm.controls).forEach(key => {
-        const controlErrors: ValidationErrors = this.projectsForm.get(key).errors;
-        if (controlErrors != null) {
-          Object.keys(controlErrors).forEach(keyError => {
-            console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
-          });
+    this.subscriptions.push(
+      this.profileService.updateProject(value, this.selectedProject.id).subscribe(
+        (response: any) => {
+
+          const index = this.service.responceData.findIndex(x => x.id === this.selectedProject.id);
+          this.selectedProject = response.data;
+          this.service.responceData[index] = this.selectedProject;
+
+          console.log('indexed data');
+          this.service.responceData[index];
+          this.successmsg = response.message;
+          console.log('Updated Project..');
+          console.log(response);
+          this.error = '';
+          //this.service.responceData.push(this.project);
+          this.submitted = false;
+          //this.projectsForm.reset();
+
+
+        },
+        error=> {
+          this.successmsg = '';
+          this.error = error ? error : '';
         }
-      });
-      return;
-    }else{
-      this.subscriptions.push(
-        this.profileService.updateProject(value, this.selectedProject.id).subscribe(
-          (response: any) => {
-
-            const index = this.service.responceData.findIndex(x => x.id === this.selectedProject.id);
-            this.selectedProject = response.data;
-            this.service.responceData[index] = this.selectedProject;
-
-            console.log('indexed data');
-            this.service.responceData[index];
-            this.successmsg = response.message;
-            console.log('Updated Project..');
-            console.log(response);
-            this.error = '';
-            //this.service.responceData.push(this.project);
-            this.submitted = false;
-            //this.projectsForm.reset();
-
-
-          },
-          error=> {
-            this.successmsg = '';
-            this.error = error ? error : '';
-          }
-        )
-      );
-    }
+      )
+    );
 
   }
 
@@ -351,6 +331,7 @@ export class MyProjectsComponent implements OnInit {
   }
 
   editProject(content: any, table: Projects) {
+    this.projectsForm.reset();
     this.selectedProject = table;
     this.action = 1;
     this.projectsForm.get('name').setValue(table.name);
