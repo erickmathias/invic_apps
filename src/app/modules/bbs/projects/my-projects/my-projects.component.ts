@@ -293,6 +293,12 @@ export class MyProjectsComponent implements OnInit {
       );
   }
 
+  convertBase64ToUrl(base64Data: string) {
+    //const pdfData = 'data:application/pdf;base64,' + base64Data;
+    this.pdfSrc = this.domSanitizer.bypassSecurityTrustResourceUrl(base64Data);
+    this.loader = false;
+  }
+
   downloadContentPage(content, project: Projects) {
     this.loader = true;
     this.pdfSrc = null;
@@ -301,29 +307,33 @@ export class MyProjectsComponent implements OnInit {
     if (project.type == 'BBS'){
       this.profileService.downloadBbsReportPdf(project.id)
         .subscribe((res) => {
-            this.pdfSrc = this.domSanitizer.bypassSecurityTrustResourceUrl(
+/*            this.pdfSrc = this.domSanitizer.bypassSecurityTrustResourceUrl(
               URL.createObjectURL(res)
             );
+
+ */
             this.loader = false;
+            const base64Pdf = res.pdf_base64 // Replace with your actual base64 string
+            this.convertBase64ToUrl(base64Pdf);
           },
-          error=> {
+          (error)=> {
             this.loader = false;
             // this.notification.showNotification('danger', 'Error downloading student id card !');
-            this.error = "Report Download Failed, Make sure you have the active Package Subscription and reliable Internet Connection";
+            this.error = error ? error : '';
           }
         );
     }else if (project.type == 'SLAB') {
       this.profileService.downloadSlabReportPdf(project.id)
         .subscribe((res) => {
-            this.pdfSrc = this.domSanitizer.bypassSecurityTrustResourceUrl(
-              URL.createObjectURL(res)
-            );
             this.loader = false;
+            const base64Pdf = res.pdf_base64 // Replace with your actual base64 string
+            this.convertBase64ToUrl(base64Pdf);
           },
-          error=> {
+          (error)=> {
             this.loader = false;
             // this.notification.showNotification('danger', 'Error downloading student id card !');
-            this.error = "Report Download Failed, Make sure you have the active Package Subscription and reliable Internet Connection";
+            this.error = error ? error : '';
+            // this.error = "Report Download Failed, Make sure you have the active Package Subscription and reliable Internet Connection";
           }
         );
     }

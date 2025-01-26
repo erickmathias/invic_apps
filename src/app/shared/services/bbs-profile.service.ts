@@ -149,11 +149,13 @@ export class BbsProfileService {
   }
 
   downloadSlabReportPdf(id: number) {
-    return this.http.get<any>(`${this.slabUrl}/project/print/${id}/`, { responseType: 'blob' as 'json'});
+    return this.http.get<any>(`${this.slabUrl}/project/print/${id}/`);
+    // return this.http.get<any>(`${this.slabUrl}/project/print/${id}/`, { responseType: 'blob' as 'json'});
   }
 
   downloadBbsReportPdf(id: number) {
-    return this.http.get<any>(`${this.bbsUrl}/project/print/${id}/`, { responseType: 'blob' as 'json'});
+    return this.http.get<any>(`${this.bbsUrl}/project/print/${id}/`);
+    // return this.http.get<any>(`${this.bbsUrl}/project/print/${id}/`, { responseType: 'blob' as 'json'});
   }
 }
 
