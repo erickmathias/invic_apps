@@ -315,7 +315,8 @@ export class MyProjectsComponent implements OnInit {
  */
             this.loader = false;
             const base64Pdf = res.pdf_base64 // Replace with your actual base64 string
-            this.convertBase64ToUrl(base64Pdf);
+            // this.convertBase64ToUrl(base64Pdf);
+            this.displayPdf(base64Pdf, res.file_name);
           },
           (error)=> {
             this.loader = false;
@@ -328,7 +329,8 @@ export class MyProjectsComponent implements OnInit {
         .subscribe((res) => {
             this.loader = false;
             const base64Pdf = res.pdf_base64 // Replace with your actual base64 string
-            this.convertBase64ToUrl(base64Pdf);
+            // this.convertBase64ToUrl(base64Pdf);
+            this.displayPdf(base64Pdf, res.file_name);
           },
           (error)=> {
             this.loader = false;
@@ -340,6 +342,42 @@ export class MyProjectsComponent implements OnInit {
     }
 
   }
+
+  displayPdf(base64String: string, fileName: string) {
+    try {
+      // Remove Base64 header if present
+      const base64Data = base64String.split(',')[1] || base64String;
+
+      // Convert Base64 to Uint8Array
+      const byteCharacters = window.atob(base64Data);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+
+      // Create a File instead of a Blob to ensure correct filename
+      const file = new File([byteArray], fileName, { type: 'application/pdf' });
+
+      // Create Object URL
+      const fileURL = URL.createObjectURL(file);
+
+      // Display in iframe
+      const iframe = document.getElementById('pdfFrame') as HTMLIFrameElement;
+      if (iframe) {
+        iframe.src = fileURL;
+      }
+
+      // Optional: Automatically revoke the object URL after a while
+      setTimeout(() => {
+        URL.revokeObjectURL(fileURL);
+      }, 60000); // Revokes after 60 seconds to free memory
+
+    } catch (error) {
+      console.error('Error decoding Base64:', error);
+    }
+  }
+
 
   resetForm() {
     this.projectsForm.reset(); // Reset the form to its initial state

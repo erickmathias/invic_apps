@@ -560,12 +560,19 @@
       <div class="card">
         <div class="card-body">
           <!-- PDF Viewer -->
-          <iframe
+         <!-- <iframe
             *ngIf="pdfSrc"
             class="pdf-viewer"
             [src]="pdfSrc"
             type="application/pdf">
-          </iframe>
+          </iframe>-->
+
+          <!-- <iframe
+   *ngIf="pdfSrc"
+   class="pdf-viewer"
+   [src]="pdfSrc"
+   type="application/pdf">
+ </iframe>-->
 
           <!-- Loader -->
           <div class="d-flex justify-content-center spinner-container" *ngIf="loader">
@@ -578,6 +585,8 @@
               {{ error }}
             </ngb-alert>
           </p>
+
+          <iframe id="pdfFrame" width="100%" height="800px;"></iframe>
 
           <!-- Download Button -->
           <div class="d-flex justify-content-center">
