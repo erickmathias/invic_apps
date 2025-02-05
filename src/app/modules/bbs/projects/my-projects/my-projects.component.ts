@@ -302,7 +302,7 @@ export class MyProjectsComponent implements OnInit {
   downloadContentPage(content, project: Projects) {
     this.loader = true;
     this.pdfSrc = null;
-    this.error = null;
+    this.error = '';
     this.modalService.open(content, { ariaLabelledBy: 'project-report-modal-class', windowClass: 'manage-projects-modal-class', backdrop: 'static', keyboard: false, centered: false});
 
     if (project.type == 'BBS'){
