@@ -542,7 +542,10 @@
 <!--
       <button *ngIf="selectedProject.type == 'BBS'" type="button" (click)="downloadCoverPage(reportCover, selectedProject.id)" class="btn btn-outline-success btn-sm btn-rounded mb-2 me-2"><i class="mdi mdi-printer mr-1"></i>Project Cover</button>
 -->
-      <button type="button" (click)="downloadContentPage(reportCover, selectedProject)" class="btn btn-outline-success btn-sm btn-rounded mb-2 me-2"><i class="mdi mdi-printer mr-1"></i>Project Report</button>
+<!--
+      <button class="btn btn-primary" [ladda]="loading" type="submit">Log In</button>
+-->
+      <button type="button" [ladda]="loading" (click)="downloadContentPage(reportCover, selectedProject)" class="btn btn-danger btn-sm btn-rounded mb-2 me-2"><i class="mdi mdi-file-pdf mr-1"></i>Download Report</button>
       <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
     </div>
 

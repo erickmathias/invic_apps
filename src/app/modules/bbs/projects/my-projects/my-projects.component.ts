@@ -301,9 +301,10 @@ export class MyProjectsComponent implements OnInit {
 
   downloadContentPage(content, project: Projects) {
     this.loader = true;
+    this.loading = true;
     this.pdfSrc = null;
     this.error = '';
-    this.modalService.open(content, { ariaLabelledBy: 'project-report-modal-class', windowClass: 'manage-projects-modal-class', backdrop: 'static', keyboard: false, centered: false});
+    // this.modalService.open(content, { ariaLabelledBy: 'project-report-modal-class', windowClass: 'manage-projects-modal-class', backdrop: 'static', keyboard: false, centered: false});
 
     if (project.type == 'BBS'){
       this.profileService.downloadBbsReportPdf(project.id)
@@ -314,12 +315,14 @@ export class MyProjectsComponent implements OnInit {
 
  */
             this.loader = false;
+            this.loading = false;
             const base64Pdf = res.pdf_base64 // Replace with your actual base64 string
             // this.convertBase64ToUrl(base64Pdf);
             this.displayPdf(base64Pdf, res.file_name);
           },
           (error)=> {
             this.loader = false;
+            this.loading = false;
             // this.notification.showNotification('danger', 'Error downloading student id card !');
             this.error = error ? error : '';
           }
@@ -328,12 +331,14 @@ export class MyProjectsComponent implements OnInit {
       this.profileService.downloadSlabReportPdf(project.id)
         .subscribe((res) => {
             this.loader = false;
+            this.loading = false;
             const base64Pdf = res.pdf_base64 // Replace with your actual base64 string
             // this.convertBase64ToUrl(base64Pdf);
             this.displayPdf(base64Pdf, res.file_name);
           },
           (error)=> {
             this.loader = false;
+            this.loading = false;
             // this.notification.showNotification('danger', 'Error downloading student id card !');
             this.error = error ? error : '';
             // this.error = "Report Download Failed, Make sure you have the active Package Subscription and reliable Internet Connection";
@@ -344,6 +349,40 @@ export class MyProjectsComponent implements OnInit {
   }
 
   displayPdf(base64String: string, fileName: string) {
+    try {
+      // Remove Base64 header if present
+      const base64Data = base64String.split(',')[1] || base64String;
+
+      // Convert Base64 to Uint8Array
+      const byteCharacters = window.atob(base64Data);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+
+      // Create a Blob instead of a File for download
+      const blob = new Blob([byteArray], { type: 'application/pdf' });
+      const fileURL = URL.createObjectURL(blob);
+
+      // Create a temporary anchor element and trigger download
+      const a = document.createElement('a');
+      a.href = fileURL;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+      // Revoke the Object URL after download
+      setTimeout(() => {
+        URL.revokeObjectURL(fileURL);
+      }, 1000);
+    } catch (error) {
+      console.error('Error decoding Base64:', error);
+    }
+  }
+
+/*  displayPdf(base64String: string, fileName: string) {
     try {
       // Remove Base64 header if present
       const base64Data = base64String.split(',')[1] || base64String;
@@ -376,7 +415,7 @@ export class MyProjectsComponent implements OnInit {
     } catch (error) {
       console.error('Error decoding Base64:', error);
     }
-  }
+  }*/
 
 
   resetForm() {

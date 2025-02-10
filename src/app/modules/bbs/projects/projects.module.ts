@@ -17,6 +17,7 @@ import {ProjectsSortableService} from "./my-projects/projects-sortable.directive
 import {NgSelectModule} from "@ng-select/ng-select";
 import {ElementsModule} from "../elements/elements.module";
 import {SlabpropertiesModule} from "../../slub/slabproperties/slabproperties.module";
+import {LaddaModule} from "angular2-ladda";
 
 
 @NgModule({
@@ -24,23 +25,24 @@ import {SlabpropertiesModule} from "../../slub/slabproperties/slabproperties.mod
     MyProjectsComponent,
     ProjectsSortableService
   ],
-  imports: [
-    CommonModule,
-    ProjectsRoutingModule,
-    UIModule,
-    NgbNavModule,
-    FormsModule,
-    NgbTypeaheadModule,
-    NgbPaginationModule,
-    ReactiveFormsModule,
-    NgbAlertModule,
-    Ng2TelInputModule,
-    NgbDatepickerModule,
-    NgSelectModule,
-    NgbDropdownModule,
-    ElementsModule,
-    SlabpropertiesModule,
+    imports: [
+        CommonModule,
+        ProjectsRoutingModule,
+        UIModule,
+        NgbNavModule,
+        FormsModule,
+        NgbTypeaheadModule,
+        NgbPaginationModule,
+        ReactiveFormsModule,
+        NgbAlertModule,
+        Ng2TelInputModule,
+        NgbDatepickerModule,
+        NgSelectModule,
+        NgbDropdownModule,
+        ElementsModule,
+        SlabpropertiesModule,
+        LaddaModule,
 
-  ]
+    ]
 })
 export class ProjectsModule { }
