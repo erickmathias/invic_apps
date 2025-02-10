@@ -78,8 +78,9 @@
                       </ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="table.name" [term]="service.searchTerm">
-                      </ngb-highlight>
+                      <a href="#" (click)="openProjectModal(contentProject, table)">
+                        <ngb-highlight [result]="table.name" [term]="service.searchTerm"></ngb-highlight>
+                      </a>
                     </td>
 
                     <td>
