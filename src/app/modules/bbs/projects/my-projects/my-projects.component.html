@@ -545,12 +545,14 @@
 <!--
       <button class="btn btn-primary" [ladda]="loading" type="submit">Log In</button>
 -->
-      <div class="d-flex justify-content-center">
-        <button type="button" [ladda]="loading" (click)="downloadContentPage(reportCover, selectedProject)" class="btn btn-danger btn-sm btn-rounded mb-2 me-2"><i class="mdi mdi-file-pdf mr-1"></i>Download Report</button>
-      </div>
       <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
     </div>
 
+  </div>
+  <div class="d-flex justify-content-center">
+    <button type="button" [ladda]="loading" (click)="downloadContentPage(reportCover, selectedProject)" class="btn btn-primary btn-sm btn-rounded mb-2 me-2"><i class="mdi mdi-file-pdf mr-1"></i>Download Report [A4]</button>
+
+    <button type="button" [disabled]=true [ladda]="loading2" (click)="downloadContentPage(reportCover, selectedProject)" class="btn btn-secondary btn-sm btn-rounded mb-2 me-2"><i class="mdi mdi-file-pdf mr-1"></i>Download Report [A3]</button>
   </div>
 </ng-template>
 

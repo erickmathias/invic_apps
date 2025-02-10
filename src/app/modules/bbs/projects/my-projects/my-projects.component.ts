@@ -59,6 +59,7 @@ export class MyProjectsComponent implements OnInit {
   userProfile: UserProfile = JSON.parse(sessionStorage.getItem('user'))
   company_logo = '';
   loading: boolean;
+  loading2: boolean;
   readonly: boolean;
   packageError = '';
   private subcription: any;
