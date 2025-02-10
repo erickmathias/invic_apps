@@ -19,4 +19,8 @@ export class FooterComponent implements OnInit {
   ngOnInit() {
   }
 
+  sendEmail(email: string) {
+    window.location.href = `mailto:${email}`;
+  }
+
 }

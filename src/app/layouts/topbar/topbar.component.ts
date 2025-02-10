@@ -45,6 +45,12 @@ export class TopbarComponent implements OnInit {
     { text: 'Russian', flag: 'assets/images/flags/russia.jpg', lang: 'ru' },*/
   ];
 
+  listSupport = [
+    { text: '+255 768 153 310', flag: 'bx bx-phone-call', id: 1 },
+    { text: '+255 768 153 310', flag: 'bx bxl-whatsapp', id: 2 },
+    { text: 'support@invic.co.tz', flag: 'bx bx-support', id: 3 },
+  ];
+
   userProfile = JSON.parse(sessionStorage.getItem('user'));
 
   openMobileMenu: boolean;
@@ -143,6 +149,19 @@ export class TopbarComponent implements OnInit {
         /* IE/Edge */
         this.document.msExitFullscreen();
       }
+    }
+  }
+
+  supportAction(text: string, id: number) {
+    if(id == 1){
+      window.location.href = `tell:${text}`;
+    }
+    if(id == 2){
+      const url = `https://wa.me/${text}`;
+      window.open(url, '_blank');
+    }
+    if(id == 3){
+      window.location.href = `mailto:${text}`;
     }
   }
 }

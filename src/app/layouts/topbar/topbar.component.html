@@ -190,6 +190,43 @@
         </div>
       </div>
 
+<!--      <div class="dropdown d-inline-block">
+        <button type="button" class="btn header-item noti-icon right-bar-toggle">
+          <i class="bx bxl-whatsapp"></i>
+          <span class="ms-1">+255 768 153 310</span>
+        </button>
+      </div>
+
+      <div class="dropdown d-inline-block">
+        <button type="button" class="btn header-item noti-icon right-bar-toggle">
+          <i class="bx bx-phone-call"></i>
+          <span class="ms-1">+255 768 153 310</span>
+        </button>
+      </div>
+
+      <div class="dropdown d-inline-block">
+        <button type="button" class="btn header-item noti-icon right-bar-toggle">
+          <i class="bx bx-support"></i>
+          <span class="ms-1"> support@invic.co.tz </span>
+        </button>
+      </div>-->
+
+      <div class="dropdown d-inline-block" ngbDropdown>
+        <button type="button" class="btn header-item" id="page-header-user-dropdown" ngbDropdownToggle>
+          <i class="bx bx-support"></i>
+          <span class="ms-1">Online Support</span>
+        </button>
+        <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+          <!-- item-->
+          <a href="javascript:void(0);" class="dropdown-item notify-item" *ngFor="let item of listSupport"
+             (click)="supportAction(item.text, item.id)" [ngClass]="{'active': cookieValue === item.lang}">
+            <i class="{{item.flag}}"></i>
+            <span class="align-middle"> {{item.text}}</span>
+          </a>
+          <!-- item-->
+        </div>
+      </div>
+
       <div class="dropdown d-inline-block" ngbDropdown>
         <button type="button" class="btn header-item" id="page-header-user-dropdown" ngbDropdownToggle>
           <img *ngIf="flagvalue !== undefined" src="{{flagvalue}}" alt="Header Language" height="16"> <span
