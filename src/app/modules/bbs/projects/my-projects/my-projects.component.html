@@ -545,7 +545,9 @@
 <!--
       <button class="btn btn-primary" [ladda]="loading" type="submit">Log In</button>
 -->
-      <button type="button" [ladda]="loading" (click)="downloadContentPage(reportCover, selectedProject)" class="btn btn-danger btn-sm btn-rounded mb-2 me-2"><i class="mdi mdi-file-pdf mr-1"></i>Download Report</button>
+      <div class="d-flex justify-content-center">
+        <button type="button" [ladda]="loading" (click)="downloadContentPage(reportCover, selectedProject)" class="btn btn-danger btn-sm btn-rounded mb-2 me-2"><i class="mdi mdi-file-pdf mr-1"></i>Download Report</button>
+      </div>
       <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
     </div>
 
