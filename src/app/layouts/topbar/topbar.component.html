@@ -227,7 +227,7 @@
         </div>
       </div>
 
-      <div class="dropdown d-inline-block" ngbDropdown>
+<!--      <div class="dropdown d-inline-block" ngbDropdown>
         <button type="button" class="btn header-item" id="page-header-user-dropdown" ngbDropdownToggle>
           <img *ngIf="flagvalue !== undefined" src="{{flagvalue}}" alt="Header Language" height="16"> <span
             class="ms-1">{{countryName}}</span>
@@ -235,15 +235,15 @@
           <span *ngIf="flagvalue === undefined" class="ms-1">English</span>
         </button>
         <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
-          <!-- item-->
+          &lt;!&ndash; item&ndash;&gt;
           <a href="javascript:void(0);" class="dropdown-item notify-item" *ngFor="let item of listLang"
             (click)="setLanguage(item.text, item.lang, item.flag)" [ngClass]="{'active': cookieValue === item.lang}">
             <img src="{{item.flag}}" alt="user-image" class="me-1" height="12"> <span
               class="align-middle">{{item.text}}</span>
           </a>
-          <!-- item-->
+          &lt;!&ndash; item&ndash;&gt;
         </div>
-      </div>
+      </div>-->
 
 <!--
       <div class="dropdown d-none d-lg-inline-block ms-1" ngbDropdown>
@@ -397,7 +397,7 @@
 
       <div class="dropdown d-inline-block" ngbDropdown>
         <button type="button" class="btn header-item" ngbDropdownToggle id="page-header-user-dropdown">
-          <img class="rounded-circle header-profile-user" src="{{preview}}" alt="Header Avatar">
+          <img class="rounded-circle header-profile-user" src="{{preview}}" alt="">
           <span class="d-none d-xl-inline-block ms-1">{{userProfile.name}}</span>
           <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
         </button>

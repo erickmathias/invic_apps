@@ -8,6 +8,7 @@ import { SignupComponent } from './signup/signup.component';
 import { PasswordresetComponent } from './passwordreset/passwordreset.component';
 import { Register2Component } from './register2/register2.component';
 import { Recoverpwd2Component } from './recoverpwd2/recoverpwd2.component';
+import {PasswordResetConfirmationComponent} from "./password-reset-confirmation/password-reset-confirmation.component";
 
 const routes: Routes = [
     {
@@ -34,7 +35,9 @@ const routes: Routes = [
     {
         path: 'login-2',
         component: Login2Component
-    }
+    },
+  { path: 'reset-password/:uid/:token', component: PasswordResetConfirmationComponent },
+
 ];
 
 @NgModule({

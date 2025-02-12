@@ -78,9 +78,17 @@ export class AuthenticationService {
     return this.httpClient.post<any>(`${this.authUrl}/login/`, data);
   }
 
+  resetPassword2(data) {
+      return this.httpClient.post<any>(`${this.authUrl}/password-reset/`, data);
+  }
+
+  resetPassword2Confirmation(data, uid: string, token: string) {
+    return this.httpClient.post<any>(`${this.authUrl}/password-reset-confirm/${uid}/${token}/`, data);
+  }
+
   logOut() {
     sessionStorage.clear();
-    console.log(`Logged Out`);
+    // console.log(`Logged Out`);
     this.userProfile.next(null);
     this.router.navigate(['/account/login']);
   }

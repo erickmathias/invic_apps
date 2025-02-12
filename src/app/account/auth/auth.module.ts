@@ -20,9 +20,10 @@ import { UsersComponent } from '../../pages/users/users.component';
 import {ElementsModule} from "../../modules/bbs/elements/elements.module";
 import {ProfileModule} from "../../modules/bbs/profile/profile.module";
 import {SubscriptionsModule} from "../../modules/bbs/subscriptions/subscriptions.module";
+import { PasswordResetConfirmationComponent } from './password-reset-confirmation/password-reset-confirmation.component';
 
 @NgModule({
-  declarations: [LoginComponent, Login2Component, SignupComponent, PasswordresetComponent, Register2Component, Recoverpwd2Component, UsersComponent],
+  declarations: [LoginComponent, Login2Component, SignupComponent, PasswordresetComponent, Register2Component, Recoverpwd2Component, UsersComponent, PasswordResetConfirmationComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
