@@ -20,7 +20,7 @@ export class FooterComponent implements OnInit {
   }
 
   sendEmail(email: string) {
-    window.location.href = `mailto:${email}`;
+    window.open(`mailto:${email}?subject=Hello&body=I am equiring about INVIC services?`, "_self");
   }
 
 }
