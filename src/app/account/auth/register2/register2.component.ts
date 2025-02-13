@@ -123,7 +123,7 @@ export class Register2Component implements OnInit {
 
             console.log(response);
             this.loading = false;
-            this.router.navigate(['/dashboard']);
+            this.router.navigate([`/account/email-verification/${response.email}/${response.username}`]);
           },
           error=> {
             console.log('Error Responce is ');

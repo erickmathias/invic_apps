@@ -86,6 +86,10 @@ export class AuthenticationService {
     return this.httpClient.post<any>(`${this.authUrl}/password-reset-confirm/${uid}/${token}/`, data);
   }
 
+  accountActivationConfirmation( uid: string, token: string) {
+    return this.httpClient.get<any>(`${this.authUrl}/account-activation-confirm/${uid}/${token}/`);
+  }
+
   logOut() {
     sessionStorage.clear();
     // console.log(`Logged Out`);
