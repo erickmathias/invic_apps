@@ -17,9 +17,12 @@ class Term{
   factor: number;
   label: string;
   price: number;
+  price_final: number;
+  discount: number;
+  price_og: number;
   currency: string;
   tax: number;
-  price_og: number;
+  discount_percentage: number;
 }
 
 @Component({
@@ -43,7 +46,10 @@ export class PackageListComponent implements OnInit {
       factor: 1,
       label: 'Weeks',
       price: null,
+      price_final: null,
+      discount: null,
       price_og: null,
+      discount_percentage: 10,
       currency: 'TZS',
       tax: null,
     },
@@ -53,7 +59,10 @@ export class PackageListComponent implements OnInit {
       factor: 2,
       label: 'Weeks',
       price: null,
+      price_final: null,
+      discount: null,
       price_og: null,
+      discount_percentage: 10,
       currency: 'TZS',
       tax: null,
     },
@@ -65,7 +74,10 @@ export class PackageListComponent implements OnInit {
     factor: 1,
     label: 'Month',
     price: null,
-    price_og: null,
+      price_final: null,
+      discount: null,
+      price_og: null,
+      discount_percentage: 10,
     currency: 'TZS',
     tax: null,
     },
@@ -75,7 +87,10 @@ export class PackageListComponent implements OnInit {
       factor: 3,
       label: 'Month',
       price: null,
+      price_final: null,
+      discount: null,
       price_og: null,
+      discount_percentage: 10,
       currency: 'TZS',
       tax: null,
     },
@@ -85,7 +100,10 @@ export class PackageListComponent implements OnInit {
       factor: 6,
       label: 'Month',
       price: null,
+      price_final: null,
+      discount: null,
       price_og: null,
+      discount_percentage: 15,
       currency: 'TZS',
       tax: null,
     },
@@ -95,7 +113,10 @@ export class PackageListComponent implements OnInit {
       factor: 12,
       label: 'Year',
       price: null,
+      price_final: null,
+      discount: null,
       price_og: null,
+      discount_percentage: 15,
       currency: 'TZS',
       tax: null,
     },
@@ -105,7 +126,10 @@ export class PackageListComponent implements OnInit {
       factor: 24,
       label: 'Years',
       price: null,
+      price_final: null,
+      discount: null,
       price_og: null,
+      discount_percentage: 15,
       currency: 'TZS',
       tax: null,
     }
@@ -183,6 +207,8 @@ export class PackageListComponent implements OnInit {
     }else{
       this.term = this.term2;
     }
+    this.selectedTerm = this.term[0];
+
     this.term.forEach(key =>{
       let cost = this.selectedPackage.cost * key.factor;
       key.tax = cost * 0.18;
@@ -197,12 +223,14 @@ export class PackageListComponent implements OnInit {
   }
 
   setOrderSummary(){
-    this.selectedTerm = new Term()
+    // this.selectedTerm = new Term()
     this.selectedTerm.label = 'Month';
     this.selectedTerm.factor = this.factor;
     this.selectedTerm.price_og = this.selectedPackage.cost * this.factor;
-    this.selectedTerm.tax = this.selectedPackage.cost * this.factor * 0.18;
-    this.selectedTerm.price = this.selectedTerm.price_og + this.selectedTerm.tax;
+    this.selectedTerm.discount = this.selectedTerm.price_og * this.selectedTerm.discount_percentage/100;
+    this.selectedTerm.tax = (this.selectedTerm.price_og - this.selectedTerm.discount) * 0.18;
+    this.selectedTerm.price = this.selectedTerm.price_og + this.selectedTerm.tax - this.selectedTerm.discount;
+    // this.selectedTerm.price_final = this.selectedTerm.price - this.selectedTerm.discount;
 
     console.log('Order Summary');
     console.log(this.selectedTerm);
