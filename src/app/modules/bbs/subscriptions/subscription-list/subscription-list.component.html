@@ -19,7 +19,7 @@
           <!--<h4 class="card-title mb-4">My Clients</h4>-->
           <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-tabs nav-tabs-custom">
             <li [ngbNavItem]="1">
-              <a ngbNavLink>Pending</a>
+              <a ngbNavLink>Pending [{{ activitiesLength$ | async }}]</a>
               <ng-template ngbNavContent>
 
 
@@ -157,7 +157,7 @@
               </ng-template>
             </li>
             <li [ngbNavItem]="2">
-              <a ngbNavLink>Paid</a>
+              <a ngbNavLink>Paid [{{ activitiesLength2$ | async }}]</a>
               <ng-template ngbNavContent>
 
 

@@ -13,6 +13,7 @@ import {ProjectsSortableService} from "../../projects/my-projects/projects-sorta
 import {HttpErrorResponse} from "@angular/common/http";
 import {UserProfile} from "../../../../shared/models/user-profile";
 import {PackageSubscriptionService2} from "./subsctiption-service2";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-subscription-list',
@@ -36,6 +37,8 @@ export class SubscriptionListComponent implements OnInit {
   subscriptionPaymentTitle = "";
   url: any;
   safeUrl: any;
+   activitiesLength$: Observable<number>;
+   activitiesLength2$: Observable<number>;
 
 
   constructor(
@@ -49,6 +52,13 @@ export class SubscriptionListComponent implements OnInit {
               ) {
     this.activities$ = service.activities$;
     this.activities2$ = service2.activities$;
+
+    this.activitiesLength$ = this.activities$.pipe(
+      map(activities => activities.length)
+    );
+    this.activitiesLength2$ = this.activities2$.pipe(
+      map(activities => activities.length)
+    );
 
     this.total$ = service.total$;
     this.total2$ = service2.total$;
@@ -143,4 +153,6 @@ export class SubscriptionListComponent implements OnInit {
     console.log(model);
     this.router.navigate(['/subscriptions/order-request/2-pay'], { queryParams: { id: model.id } });
   }
+
+
 }
