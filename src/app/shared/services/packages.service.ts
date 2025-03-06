@@ -23,8 +23,8 @@ export class PackagesService {
     return this.http.get<any>(`${this.authUrl}/packages/subscriptions/tracker`);
   }
 
-  loadPackageSubscriptions(userid: number, status: number) {
-    return this.http.get<any>(`${this.authUrl}/packages/subscriptions/user/${userid}/${status}`);
+  loadPackageSubscriptions(companyId: number, status: number) {
+    return this.http.get<any>(`${this.authUrl}/packages/subscriptions/user/${companyId}/${status}`);
   }
 
   loadRegisteredUsers() {

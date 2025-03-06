@@ -46,7 +46,7 @@ function sort(data: UserProfile[], column: string, direction: string): UserProfi
 function matches(data: UserProfile, term: string, pipe: PipeTransform) {
   return data.id?.toString().toLowerCase().includes(term)
     || data.username?.toLowerCase().includes(term)
-    || data.mobile?.toLowerCase().includes(term)
+    || data.mobile?.toString().toLowerCase().includes(term)
     | data.user.username?.toString().toLowerCase().includes(term)
     || data.user.role?.toString().toLowerCase().includes(term)
     || data.email.toLowerCase().includes(term)

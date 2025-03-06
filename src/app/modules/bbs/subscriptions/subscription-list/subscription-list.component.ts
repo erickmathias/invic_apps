@@ -67,13 +67,16 @@ export class SubscriptionListComponent implements OnInit {
   ngOnInit(): void {
     this.breadCrumbItems = [{ label: 'Package' }, { label: 'Subscriptions', active: true }];
     console.log('selected id '+this.userId)
-    if(this.userId > 0){
+    console.log('user profile '+this.userProfile)
+/*    if(this.userId > 0){
       this.loadPendingPackageSubscriptions(this.userId);
       this.loadPaidPackageSubscriptions(this.userId);
     }else {
       this.loadPendingPackageSubscriptions(this.userProfile.id);
       this.loadPaidPackageSubscriptions(this.userProfile.id);
-    }
+    }*/
+    this.loadPendingPackageSubscriptions(this.userId);
+    this.loadPaidPackageSubscriptions(this.userId);
   }
 
   loadPendingPackageSubscriptions(userid: number){
@@ -93,10 +96,10 @@ export class SubscriptionListComponent implements OnInit {
     );
   }
 
-  loadPaidPackageSubscriptions(userid: number){
+  loadPaidPackageSubscriptions(companyId: number){
     this.loading = true;
     this.subscriptions.push(
-      this.packageService.loadPackageSubscriptions(userid, 1).subscribe(
+      this.packageService.loadPackageSubscriptions(companyId, 1).subscribe(
         (response: any) => {
           console.log(response);
           this.service2.responceData = response.data;

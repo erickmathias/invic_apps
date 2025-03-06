@@ -32,6 +32,7 @@ export class UsersComponent implements OnInit {
   userProfile: UserProfile = JSON.parse(sessionStorage.getItem('user'))
   selectedUsername: string;
   selectedUserId: number = 0;
+  selectedUserProfileId: number = 0;
 
 
   constructor(public service: UsersComponentService,
@@ -104,6 +105,7 @@ export class UsersComponent implements OnInit {
   }
 
   viewSubscriptions(userId: number, content) {
+    // alert(userId);
     this.selectedUserId = userId;
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', windowClass: 'manage-projects-modal-class', backdrop: 'static', keyboard: false, centered: false});
   }
