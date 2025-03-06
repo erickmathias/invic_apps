@@ -46,9 +46,10 @@ export class TopbarComponent implements OnInit {
   ];
 
   listSupport = [
-    { text: '+255 768 153 310', flag: 'bx bx-phone-call', id: 1 },
-    { text: '+255 768 153 310', flag: 'bx bxl-whatsapp', id: 2 },
+    { text: '+255 793 046 045', flag: 'bx bx-phone-call', id: 1 },
+    { text: '+255 793 046 045', flag: 'bx bxl-whatsapp', id: 2 },
     { text: 'support@invic.co.tz', flag: 'bx bx-support', id: 3 },
+    { text: 'sales@invic.co.tz', flag: 'bx bx-support', id: 4 },
   ];
 
   userProfile = JSON.parse(sessionStorage.getItem('user'));
