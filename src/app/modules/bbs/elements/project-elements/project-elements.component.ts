@@ -61,6 +61,7 @@ export class ProjectElementsComponent implements OnInit {
   private subcription: any;
   elementFormTitle:string = 'New Element';
   public action: number = 0;
+  buttonloading: boolean;
 
   constructor(public service: ElementsService,
               private router: Router,
@@ -195,21 +196,7 @@ export class ProjectElementsComponent implements OnInit {
   }
 
   updateElement(value: any) {
-/*    console.log('element for post');
-    console.log(value);
-    if(this.elementsForm.invalid){
-      Object.keys(this.elementsForm.controls).forEach(key => {
-        const controlErrors: ValidationErrors = this.elementsForm.get(key).errors;
-        if (controlErrors != null) {
-          Object.keys(controlErrors).forEach(keyError => {
-            console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
-          });
-        }
-      });
-      return;
-    }else{
-
-    }*/
+    this.buttonloading = true;
     this.subscriptions.push(
       this.profileService.updateElement(value, this.selectedElement.id).subscribe(
         (response: any) => {
@@ -222,36 +209,24 @@ export class ProjectElementsComponent implements OnInit {
           // this.service.responceData.push(this.element);
           this.loadProjectElements(this.selectedProject.id);
           this.submitted = false;
+          this.buttonloading = false;
           /*            this.elementsForm.reset();
                       // this.ngOnInit();
                       this.elementsForm.get('project').setValue(this.selectedProject.id);
                       this.elementsForm.get('density').setValue(7850);*/
         },
         error=> {
-          console.log(error.error.message);
+          // console.log(error?.error?.message);
           this.successmsg = '';
           this.error = error ? error : '';
+          this.buttonloading = false;
         }
       )
     );
   }
 
   addElement(value) {
-/*    console.log('element for post');
-    console.log(value);
-    if(this.elementsForm.invalid){
-      Object.keys(this.elementsForm.controls).forEach(key => {
-        const controlErrors: ValidationErrors = this.elementsForm.get(key).errors;
-        if (controlErrors != null) {
-          Object.keys(controlErrors).forEach(keyError => {
-            console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
-          });
-        }
-      });
-      return;
-    }else{
-
-    }*/
+    this.buttonloading = true;
     this.subscriptions.push(
       this.profileService.addElement(value).subscribe(
         (response: any) => {
@@ -268,10 +243,12 @@ export class ProjectElementsComponent implements OnInit {
           // this.ngOnInit();
           this.elementsForm.get('project').setValue(this.selectedProject.id);
           this.elementsForm.get('density').setValue(7850);
+          this.buttonloading = false;
         },
         error=> {
           this.successmsg = '';
           this.error = error ? error : '';
+          this.buttonloading = false;
         }
       )
     );

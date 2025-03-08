@@ -1,15 +1,12 @@
 import {Component, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {Projects} from "../../../../shared/models/projects.model";
 import {Elements} from "../../../../shared/models/elements.model";
 import {FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {BbsProfileService} from "../../../../shared/services/bbs-profile.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {HttpErrorResponse} from "@angular/common/http";
 import {Observable, Subscription} from "rxjs";
 import {BbsFormulas} from "../../../../shared/models/bbs-formulas.model";
 import {SortEvent} from "../../clients/my-clients/clients-sortable.directive";
-import {ElementsService} from "../../elements/project-elements/elements.service";
 import {DatePipe} from "@angular/common";
 import {MembersService} from "./members.service";
 import {ElementsSortableService} from "../../elements/project-elements/elements-sortable.directive";
@@ -52,6 +49,7 @@ export class ElementMembersComponent implements OnInit {
   loading2: boolean;
   packageError = '';
   private subcription: any;
+  buttonloading: boolean;
   constructor(
     public service: MembersService,
     private router: Router,
@@ -422,19 +420,8 @@ export class ElementMembersComponent implements OnInit {
     console.log('element for post');
     console.log(value);
     this.submitted = true;
-/*    if(this.memberForm.invalid){
-      Object.keys(this.memberForm.controls).forEach(key => {
-        const controlErrors: ValidationErrors = this.memberForm.get(key).errors;
-        if (controlErrors != null) {
-          Object.keys(controlErrors).forEach(keyError => {
-            console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
-          });
-        }
-      });
-      return;
-    }else {
+    this.buttonloading = true;
 
-    }*/
     this.updatebtn = false;
     console.log('Form is Valid...');
     this.updatebtn = false;
@@ -450,6 +437,7 @@ export class ElementMembersComponent implements OnInit {
         this.service.responceData.push(this.selectedMember);
         // this.loadElementMembers(this.selectedElement.id, this.selectedElement.project.id);
         this.submitted = false;
+        this.buttonloading = false;
         this.resetForm();
         this.memberForm.get('project').setValue(this.selectedElement.project.id);
         this.memberForm.get('element').setValue(this.selectedElement.id);
@@ -459,12 +447,14 @@ export class ElementMembersComponent implements OnInit {
       error=> {
         this.successmsg = '';
         this.error = error ? error : '';
+        this.buttonloading = false;
       }
     );
   }
 
 
   updateElementMember(value: any) {
+    this.buttonloading = true;
     this.submitted = true;
     this.updatebtn = false;
     console.log('Form is Valid...');
@@ -482,6 +472,7 @@ export class ElementMembersComponent implements OnInit {
         // this.service.responceData.splice(index, 1)
         this.service.responceData[index] = this.selectedMember;
         this.submitted = false;
+        this.buttonloading = false;
         this.resetForm()
         this.memberForm.get('project').setValue(this.selectedElement.project.id);
         this.memberForm.get('element').setValue(this.selectedElement.id);
@@ -492,6 +483,7 @@ export class ElementMembersComponent implements OnInit {
         // console.log(error);
         this.successmsg = '';
         this.error = error ? error : '';
+        this.buttonloading = false;
       }
     );
   }

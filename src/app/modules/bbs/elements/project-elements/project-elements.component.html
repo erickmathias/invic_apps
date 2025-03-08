@@ -234,14 +234,18 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
-    <button *ngIf="action == 0" type="button" class="btn btn-primary" (click)="addElement(elementsForm.value)">Save Element</button>
+<!--    <button *ngIf="action == 0" type="button" class="btn btn-primary" (click)="addElement(elementsForm.value)">Save Element</button>
     <button *ngIf="action == 1" type="button" class="btn btn-primary" (click)="updateElement(elementsForm.value)">Update Element</button>
+    -->
+      <button *ngIf="action == 0"  class="btn btn-primary" [ladda]="buttonloading" type="button" (click)="addElement(elementsForm.value)">Save Element</button>
+      <button *ngIf="action == 1" class="btn btn-primary" [ladda]="buttonloading" type="button" (click)="updateElement(elementsForm.value)">Update Element</button>
+
   </div>
 </ng-template>
 
 <ng-template #contentElement role="document" let-modal>
   <div class="modal-header">
-    <span class="modal-title mt-0">Members For - {{selectedElement.name}}</span>
+    <span class="modal-title mt-0">Mamage Members For - {{selectedElement.name}}</span>
     <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">

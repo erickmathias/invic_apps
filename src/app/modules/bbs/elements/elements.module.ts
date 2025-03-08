@@ -16,6 +16,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {MembersModule} from "../members/members.module";
 import {MembersSortableService} from "../members/element-members/members-sortable.directive";
+import {LaddaModule} from "angular2-ladda";
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import {MembersSortableService} from "../members/element-members/members-sortabl
         ReactiveFormsModule,
         NgbAlertModule,
         NgSelectModule,
-        MembersModule
+        MembersModule,
+        LaddaModule
     ]
 })
 export class ElementsModule { }

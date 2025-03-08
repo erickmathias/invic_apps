@@ -184,11 +184,12 @@
             </div>
             <div class="col-md-4" style="text-align: center;">
               <button type="submit" (click)="resetMemberForm()" class="btn btn-danger btn-sm"><i class="fa fa-redo"></i> Reset</button> || ||
-              <button *ngIf="!updatebtn" type="submit" (click)="registerElementMember(memberForm.value)" class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save</button>
-              <button *ngIf="updatebtn" type="submit" (click)="updateElementMember(memberForm.value)" class="btn btn-primary btn-sm"><i class="fa fa-save"></i> Update</button>]
-<!--
-              <button class="btn btn-primary w-sm" [ladda]="loading2" (click)="testClick()" type="submit" >Hello</button>
--->
+              <button [ladda]="buttonloading" *ngIf="!updatebtn" type="submit" (click)="registerElementMember(memberForm.value)" class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save</button>
+              <button [ladda]="buttonloading" *ngIf="updatebtn" type="submit" (click)="updateElementMember(memberForm.value)" class="btn btn-primary btn-sm"><i class="fa fa-save"></i> Update</button>]
+
+              <!--
+                            <button class="btn btn-primary w-sm" [ladda]="loading2" (click)="testClick()" type="submit" >Hello</button>
+              -->
 
             </div>
             <div class="col-md-4" style="text-align: left;"></div>
