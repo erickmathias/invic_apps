@@ -442,6 +442,7 @@ export class ElementMembersComponent implements OnInit {
         this.memberForm.get('project').setValue(this.selectedElement.project.id);
         this.memberForm.get('element').setValue(this.selectedElement.id);
         this.memberForm.get('name').setValue(this.selectedMember.name);
+        this.memberForm.get('total_members').setValue(this.selectedMember.total_members);
         this.memberForm.get('bar_size').setValue('');
         this.memberForm.get('shape_code').setValue('');
 
@@ -480,6 +481,7 @@ export class ElementMembersComponent implements OnInit {
         this.memberForm.get('project').setValue(this.selectedElement.project.id);
         this.memberForm.get('element').setValue(this.selectedElement.id);
         this.memberForm.get('name').setValue(this.selectedMember.name);
+        this.memberForm.get('total_members').setValue(this.selectedMember.total_members);
         this.memberForm.get('bar_size').setValue('');
         this.memberForm.get('shape_code').setValue('');
 
