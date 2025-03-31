@@ -444,6 +444,8 @@ export class ElementMembersComponent implements OnInit {
         this.memberForm.get('name').setValue(this.selectedMember.name);
         this.memberForm.get('bar_size').setValue('');
         this.memberForm.get('shape_code').setValue('');
+
+        this.scode_id = null;
       },
       error=> {
         this.successmsg = '';
@@ -480,6 +482,8 @@ export class ElementMembersComponent implements OnInit {
         this.memberForm.get('name').setValue(this.selectedMember.name);
         this.memberForm.get('bar_size').setValue('');
         this.memberForm.get('shape_code').setValue('');
+
+        this.scode_id = null;
       },
       error=> {
         // console.log(error);
