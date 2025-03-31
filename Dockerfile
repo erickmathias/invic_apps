@@ -18,7 +18,7 @@ COPY . .
 # Build the Angular app
 #RUN npm run build
 RUN npm run build -- --configuration=production
-RUN #npm run build -- --configuration=production --base-href /scard/
+#RUN #npm run build -- --configuration=production --base-href /scard/
 
 # Stage 2: Serve the app using Nginx
 FROM nginx:1.21-alpine

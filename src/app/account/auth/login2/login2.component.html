@@ -20,21 +20,25 @@
         <div class="w-100">
 
           <div class="d-flex flex-column h-70">
-            <div class="mb-4 mb-md-5">
+            <div class="mb-4 mb-md-5 d-flex justify-content-center"> <!-- Added flex properties -->
               <a routerLink="/" class="d-block auth-logo">
-                <img src="assets/images/logo-dark.png" alt="" height="70" width="400" class="auth-logo-dark">
+                <img src="assets/images/logo-dark-sm-2.png" alt="" height="120" width="100" class="auth-logo-dark">
                 <img src="assets/images/logo-light.png" alt="" height="48" class="auth-logo-light">
               </a>
             </div>
-            <div class="my-auto">
 
-              <div>
-                <h5 class="text-primary">Welcome!</h5>
+              <div class="text-center">
+                <h5 class="text-primary">Invic Solutions Limited</h5>
+                <span style="font-style: italic; color: maroon;">--Simplicity From Complexity--</span>
+              </div>
+
+              <div class="text-center">
+                <br>
                 <p class="text-muted">Sign In To Continue To INVIC Systems</p>
               </div>
 
               <div class="mt-4">
-                <form [formGroup]="loginForm" (ngSubmit)="signIn()"  class="form-horizontal">
+                <form [formGroup]="loginForm" (ngSubmit)="signIn()" class="form-horizontal">
 
                   <ngb-alert *ngIf="error" [dismissible]="false" type="danger">
                     <i class="mdi mdi-block-helper me-2"></i>
@@ -48,15 +52,13 @@
                            placeholder="Enter email">
                     <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                       <div *ngIf="f.email.errors.required">Email is required</div>
-                      <div *ngIf="f.email.errors.email">Email must be a valid email address
-                      </div>
+                      <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
                     </div>
                   </div>
 
                   <div class="mb-3">
                     <div class="float-end">
-                      <a routerLink="/account/recoverpwd-2" class="text-muted">Forgot
-                        password?</a>
+                      <a routerLink="/account/recoverpwd-2" class="text-muted">Forgot password?</a>
                     </div>
                     <label for="password">Password</label>
                     <div class="input-group auth-pass-inputgroup">
@@ -64,8 +66,7 @@
                              [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
                              placeholder="Enter password" aria-label="Password"
                              aria-describedby="password-addon">
-                      <button class="btn btn-light " type="button" id="password-addon"><i
-                        class="mdi mdi-eye-outline"></i></button>
+                      <button class="btn btn-light" type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
                       <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                         <span *ngIf="f.password.errors.required">Password is required</span>
                       </div>
@@ -74,60 +75,29 @@
 
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="remember-check">
-                    <label class="form-check-label" for="remember-check">
-                      Remember me
-                    </label>
+                    <label class="form-check-label" for="remember-check">Remember me</label>
                   </div>
 
-                  <!--<div class="mt-3 d-grid">
-                    <button class="btn btn-primary btn-block" type="submit">Log In</button>
-                  </div>-->
                   <div class="mt-3 d-grid">
                     <button class="btn btn-primary" [ladda]="loading" type="submit"><i class="bx bx-log-in"></i> Log In</button>
                   </div>
 
-                  <!--<div class="mt-4 text-center">
-                    <h5 class="font-size-14 mb-3">Sign in with</h5>
-
-                    <ul class="list-inline">
-                      <li class="list-inline-item">
-                        <a href="javascript::void()"
-                           class="social-list-item bg-primary text-white border-primary">
-                          <i class="mdi mdi-facebook"></i>
-                        </a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a href="javascript::void()"
-                           class="social-list-item bg-info text-white border-info">
-                          <i class="mdi mdi-twitter"></i>
-                        </a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a href="javascript::void()"
-                           class="social-list-item bg-danger text-white border-danger">
-                          <i class="mdi mdi-google"></i>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>-->
-
                 </form>
                 <div class="mt-5 text-center">
-                  <p>Don't have an account ? <a routerLink="/account/signup-2"
-                                                class="fw-medium text-primary"> Register Now </a> </p>
+                  <p>Don't have an account? <a routerLink="/account/signup-2" class="fw-medium text-primary"> Register Now </a></p>
                 </div>
               </div>
-            </div>
+
 
             <div class="mt-4 mt-md-5 text-center">
-              <p class="mb-0">©
-                {{year}} INVIC. Crafted with <i class="mdi mdi-heart text-danger"></i> by
-                INVIC</p>
+              <p class="mb-0">© {{year}} INVIC</p>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- end col -->
+
     <!-- end col -->
   </div>
   <!-- end row -->
