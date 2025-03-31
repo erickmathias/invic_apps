@@ -74,8 +74,16 @@
                 <td>
                   <ngb-highlight [result]="getRole(table.user.role)" [term]="service.searchTerm"></ngb-highlight>
                 </td>
-                <td>
+                <!--<td>
                   <ngb-highlight [result]="table.email" [term]="service.searchTerm"></ngb-highlight>
+                </td>-->
+                <td>
+
+                    <a href="mailto:{{table.email}}?subject=Your%20Subject&body=Hello%20there"
+                       title="Send Email to {{table.email}}">
+                      {{table.email}}
+                    </a>
+
                 </td>
                 <td>
                   <ngb-highlight [result]="table.mobile" [term]="service.searchTerm">
