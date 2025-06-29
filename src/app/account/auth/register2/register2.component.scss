@@ -1,0 +1,597 @@
+// Engineering-themed registration page styles
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+// Hero Section (Left Side)
+.auth-full-bg {
+  position: relative;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  overflow: hidden;
+  
+  .bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(30, 60, 114, 0.8) 0%,
+      rgba(42, 82, 152, 0.7) 50%,
+      rgba(0, 0, 0, 0.6) 100%
+    );
+    z-index: 1;
+  }
+}
+
+.hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  filter: brightness(0.7) contrast(1.1);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  color: white;
+  padding: 2rem 1.5rem;
+}
+
+// Decorative elements
+.hero-decoration {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  
+  &.bottom {
+    margin-bottom: 0;
+    margin-top: 2rem;
+  }
+  
+  .decoration-line {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  }
+  
+  .decoration-icon {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  
+  &.bottom .decoration-icon {
+    animation: bounce 2s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
+.hero-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  text-shadow: 
+    2px 2px 4px rgba(0,0,0,0.3),
+    0 0 20px rgba(255,255,255,0.3);
+  background: linear-gradient(45deg, #ffffff, #e3f2fd, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 1px;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #64b5f6, transparent);
+    border-radius: 2px;
+  }
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+  opacity: 0.95;
+  font-weight: 400;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  max-width: 500px;
+  margin: 0 auto 2rem;
+}
+
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.2rem;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+  }
+  
+  &:hover {
+    transform: translateY(-5px) scale(1.02);
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    
+    &::before {
+      left: 100%;
+    }
+  }
+  
+  .feature-icon-wrapper {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, rgba(100, 181, 246, 0.3), rgba(30, 60, 114, 0.3));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.8rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+  }
+  
+  &:hover .feature-icon-wrapper {
+    background: linear-gradient(135deg, rgba(100, 181, 246, 0.5), rgba(30, 60, 114, 0.5));
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: scale(1.1);
+  }
+  
+  i {
+    font-size: 1.8rem;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  }
+  
+  span {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+    letter-spacing: 0.5px;
+  }
+}
+
+// Call to action section
+.hero-cta {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  
+  .cta-text {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    background: linear-gradient(45deg, #ffffff, #e3f2fd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .cta-subtitle {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+  }
+}
+
+// Registration Form Section (Right Side)
+.auth-full-page-content {
+  background: #ffffff;
+  box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+}
+
+.company-name {
+  color: #1e3c72;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  font-size: 1.2rem;
+}
+
+.company-tagline {
+  color: #666;
+  font-style: italic;
+  font-size: 0.8rem;
+  margin-bottom: 0.75rem;
+}
+
+.divider {
+  width: 50px;
+  height: 2px;
+  background: linear-gradient(90deg, #1e3c72, #2a5298);
+  margin: 0 auto;
+  border-radius: 1px;
+}
+
+.welcome-title {
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  font-size: 1rem;
+}
+
+.welcome-subtitle {
+  color: #7f8c8d;
+  font-size: 0.8rem;
+  margin-bottom: 0;
+}
+
+.login-form-container {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.form-label {
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  
+  i {
+    color: #1e3c72;
+  }
+}
+
+.form-control, .form-select {
+  border: 2px solid #e9ecef;
+  border-radius: 6px;
+  padding: 0.6rem 0.8rem;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  width: 100%;
+  
+  &:focus {
+    border-color: #1e3c72;
+    box-shadow: 0 0 0 0.2rem rgba(30, 60, 114, 0.25);
+  }
+}
+
+.form-select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m1 6 7 7 7-7'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+}
+
+.success-alert {
+  border-radius: 6px;
+  border: none;
+  background: #d4edda;
+  color: #155724;
+  font-size: 0.85rem;
+  
+  .alert-success {
+    background: #d4edda;
+    border-color: #c3e6cb;
+  }
+}
+
+.error-alert {
+  border-radius: 6px;
+  border: none;
+  background: #fee;
+  color: #c53030;
+  font-size: 0.85rem;
+  
+  .alert-danger {
+    background: #fee;
+    border-color: #feb2b2;
+  }
+}
+
+.terms-section {
+  .terms-text {
+    color: #6c757d;
+    font-size: 0.85rem;
+    margin-bottom: 0;
+  }
+  
+  .terms-link {
+    color: #1e3c72;
+    text-decoration: none;
+    font-weight: 600;
+    
+    &:hover {
+      color: #2a5298;
+      text-decoration: underline;
+    }
+  }
+}
+
+.register-btn {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  border: none;
+  border-radius: 6px;
+  padding: 0.7rem 1.2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(30, 60, 114, 0.3);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.login-text {
+  color: #6c757d;
+  font-size: 0.85rem;
+  margin-bottom: 0;
+}
+
+.login-link {
+  color: #1e3c72;
+  text-decoration: none;
+  font-weight: 600;
+  
+  &:hover {
+    color: #2a5298;
+    text-decoration: underline;
+  }
+}
+
+.footer-text {
+  color: #6c757d;
+  font-size: 0.75rem;
+  margin-bottom: 0;
+}
+
+// Form validation styles
+.is-invalid {
+  border-color: #dc3545 !important;
+  
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+  }
+}
+
+.invalid-feedback {
+  display: block;
+  color: #dc3545;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+}
+
+// Responsive Design
+@media (max-width: 1199.98px) {
+  .hero-title {
+    font-size: 1.8rem;
+  }
+  
+  .feature-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .feature-item {
+    padding: 0.8rem;
+    
+    i {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+@media (max-width: 767.98px) {
+  .auth-full-bg {
+    display: none;
+  }
+  
+  .col-xl-5 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  
+  .hero-title {
+    font-size: 1.5rem;
+  }
+  
+  .login-form-container {
+    padding: 1.2rem;
+  }
+}
+
+// Loading animation
+.btn[ladda] {
+  position: relative;
+  
+  &[disabled] {
+    opacity: 0.8;
+  }
+}
+
+// Smooth transitions
+* {
+  transition: all 0.3s ease;
+}
+
+// Professional color palette
+:root {
+  --primary-blue: #1e3c72;
+  --secondary-blue: #2a5298;
+  --accent-blue: #64b5f6;
+  --text-dark: #2c3e50;
+  --text-muted: #6c757d;
+  --border-light: #e9ecef;
+  --bg-light: #f8f9fa;
+}
+
+// Phone input specific styling to match other fields
+input[ng2TelInput] {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  flex: 1 !important;
+}
+
+// Target phone input container if it exists
+.ng2-tel-input {
+  width: 100% !important;
+  display: block !important;
+  
+  input {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 !important;
+  }
+}
+
+// Ensure phone input field matches other form controls
+.form-group input[formControlName="phoneNumber"] {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  flex: 1 !important;
+}
+
+// Additional targeting for phone input wrapper
+.form-group:has(input[formControlName="phoneNumber"]) {
+  width: 100% !important;
+}
+
+// Target any div wrapper around phone input
+.form-group div:has(input[formControlName="phoneNumber"]) {
+  width: 100% !important;
+}
+
+// Force all elements in phone input column to full width
+.col-md-6:has(input[formControlName="phoneNumber"]) {
+  .form-group {
+    width: 100% !important;
+  }
+  
+  .form-group > * {
+    width: 100% !important;
+  }
+}
+
+// Specific targeting for phone input field
+#phoneNumber {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+// Override any inline styles that might be added by the library
+input[formControlName="phoneNumber"][ng2TelInput] {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  flex: 1 !important;
+}
+
+.input-group {
+  .btn {
+    border: 2px solid #e9ecef;
+    border-left: none;
+    background: #f8f9fa;
+    color: #6c757d;
+    padding: 0.6rem 0.8rem;
+    
+    &:hover {
+      background: #e9ecef;
+      color: #495057;
+    }
+  }
+}
+
+// Password input group specific styling
+.auth-pass-inputgroup {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  
+  .form-control {
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    flex: 1;
+  }
+  
+  .btn {
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+}

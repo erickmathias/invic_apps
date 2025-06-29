@@ -1,153 +1,241 @@
 <div class="container-fluid p-0">
   <div class="row g-0">
 
+    <!-- Left Side - Hero Section -->
     <div class="col-xl-7">
       <div class="auth-full-bg pt-lg-5 p-4">
         <div class="w-100">
           <div class="bg-overlay"></div>
           <div class="d-flex h-100 flex-column">
+            <!-- Original image with overlay -->
+            <img src="assets/images/bbs-photo.png" alt="Engineering Background" class="hero-image">
 
-            <img src="assets/images/bbs-photo.png" alt="" class="auth-logo-dark">
-
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- end col -->
-
-    <div class="col-xl-5">
-
-      <!--<div class="row">
-        <div class="col-xl-3">
-
-        </div>
-      </div>-->
-
-      <div class="auth-full-page-content p-md-5 p-4">
-        <div class="w-100">
-
-          <div class="d-flex flex-column h-100">
-            <div class="mb-4 mb-md-5">
-              <a routerLink="/" class="d-block auth-logo">
-                <img src="assets/images/logo-dark.png" alt="" height="70" width="400" class="auth-logo-dark">
-                <img src="assets/images/logo-light.png" alt="" height="48" class="auth-logo-light">
-              </a>
-            </div>
-            <div class="my-auto">
-              <div>
-                <h5 class="text-primary">Register account</h5>
-                <p class="text-muted">Get your free INVIC account now.</p>
+            <!-- Engineering-themed content overlay -->
+            <div class="hero-content">
+              <!-- Top decorative element -->
+              <div class="hero-decoration">
+                <div class="decoration-line"></div>
+                <i class="bx bx-plus-circle decoration-icon"></i>
+                <div class="decoration-line"></div>
               </div>
-              <div class="mt-4">
-                <form [formGroup]="signupForm" (ngSubmit)="register(signupForm.value)">
-                  <ngb-alert type="success" *ngIf="successmsg" [dismissible]="false">Registeration
-                    successfull.
-                  </ngb-alert>
 
-                  <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert>
+              <div class="hero-text">
+                <h2 class="hero-title">Join INVIC Engineering Solutions</h2>
+                <p class="hero-subtitle">Create your account and start building the future with advanced construction management tools</p>
 
-
-
-                  <div class="row">
-
-                    <div class="col-md-6">
-                      <div class="mb-3">
-                        <label for="email">Email</label>
-                        <input type="email" formControlName="email"
-                               [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-                               class="form-control" id="email" placeholder="Eg. info@invic.co.tz">
-                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                          <div *ngIf="f.email.errors.required">Email is required</div>
-                          <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
-                        </div>
-
-                      </div>
+                <!-- Enhanced feature grid -->
+                <div class="feature-grid">
+                  <div class="feature-item">
+                    <div class="feature-icon-wrapper">
+                      <i class="bx bx-rocket"></i>
                     </div>
-
-
-                    <div class="col-md-6">
-                      <div class="mb-3">
-                        <label for="phoneNumber">Telephone Number</label>
-                        <input type="text" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'tz'}" (keypress)="numericOnly($event)" (countryChange)="onCountryChange($event)" formControlName="phoneNumber"
-                               [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }"
-                               class="form-control" id="phoneNumber" placeholder="Eg. 765992233">
-                        <div *ngIf="submitted && f.phoneNumber.errors" class="invalid-feedback">
-                          <div *ngIf="f.phoneNumber.errors.required">Phone Number is required</div>
-                          <div *ngIf="f.phoneNumber.errors.minlength">Phone must be at least 9 numbers.</div>
-                        </div>
-                      </div>
+                    <span>Quick Setup</span>
+                  </div>
+                  <div class="feature-item">
+                    <div class="feature-icon-wrapper">
+                      <i class="bx bx-shield-check"></i>
                     </div>
-
+                    <span>Secure Platform</span>
                   </div>
-
-
-                  <div class="row">
-
-                    <div class="col-md-6">
-                      <div class="mb-3">
-                        <label for="userpassword">Password</label>
-                        <input type="password" formControlName="password"
-                               [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
-                               class="form-control" id="userpassword" placeholder="Enter password">
-                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                          <div *ngIf="f.password.errors.required">Password is required</div>
-                        </div>
-                      </div>
+                  <div class="feature-item">
+                    <div class="feature-icon-wrapper">
+                      <i class="bx bx-support"></i>
                     </div>
-
-                    <div class="col-md-6">
-                      <div class="mb-3">
-                        <label for="accountType">Account Type</label>
-                        <!--<input type="text" formControlName="username" class="form-control" id="username"
-                               [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
-                               placeholder="Enter username">-->
-                        <select id="accountType" formControlName="accountType" [ngClass]="{ 'is-invalid': submitted && f.accountType.errors }" class="form-select" >
-                          <option value="" selected>Choose Registration Type</option>
-                          <option value="2">Company/Organization/Business</option>
-                          <option value="3">Individual Person</option>
-                          <option value="4">Student</option>
-                        </select>
-                        <div *ngIf="submitted && f.accountType.errors" class="invalid-feedback">
-                          <div *ngIf="f.accountType.errors.required">Account Type is required</div>
-                        </div>
-                      </div>
+                    <span>24/7 Support</span>
+                  </div>
+                  <div class="feature-item">
+                    <div class="feature-icon-wrapper">
+                      <i class="bx bx-trending-up"></i>
                     </div>
-
+                    <span>Growth Ready</span>
                   </div>
+                </div>
 
-                  <div>
-                    <p class="mb-0">By registering you agree to the INVIC <a
-                      href="javascript: void(0);" class="text-primary">Terms of Use</a>
-                    </p>
-                  </div>
-
-                  <!--<div class="mt-4 d-grid">
-                    <button class="btn btn-primary btn-block" type="submit">Register</button>
-                  </div>-->
-
-                  <div class="mt-3 d-grid">
-                    <button class="btn btn-primary" [ladda]="loading" type="submit">Register</button>
-                  </div>
-
-                </form>
-
-                <div class="mt-5 text-center">
-                  <p>Already have an account ? <a routerLink="/account/login-2"
-                                                  class="fw-medium text-primary"> Login</a> </p>
+                <!-- Bottom call to action -->
+                <div class="hero-cta">
+                  <div class="cta-text">Start Your Engineering Journey Today</div>
+                  <div class="cta-subtitle">Join thousands of professionals worldwide</div>
                 </div>
               </div>
-            </div>
 
-            <!--<div class="mt-4 mt-md-5 text-center">
-              <p class="mb-0">© {{year}} INVIC. Crafted with <i class="mdi mdi-heart text-danger"></i>
-                by INVIC</p>
-            </div>-->
+              <!-- Bottom decorative element -->
+              <div class="hero-decoration bottom">
+                <div class="decoration-line"></div>
+                <i class="bx bx-chevron-down decoration-icon"></i>
+                <div class="decoration-line"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- end col -->
+
+    <!-- Right Side - Registration Form -->
+    <div class="col-xl-5">
+      <div class="auth-full-page-content p-md-4 p-3">
+        <div class="w-100">
+          <div class="d-flex flex-column h-100">
+
+            <!-- Logo Section -->
+            <div class="mb-3 d-flex justify-content-center">
+              <a routerLink="/" class="d-block auth-logo">
+                <img src="assets/images/logo-dark.png" alt="INVIC Logo" height="70" width="400" class="auth-logo-dark">
+                <img src="assets/images/logo-light.png" alt="INVIC Logo" height="48" class="auth-logo-light">
+              </a>
+            </div>
+
+            <!-- Registration Header -->
+            <div class="text-center mb-3">
+              <h5 class="company-name">Create Your Account</h5>
+              <p class="company-tagline">Join the future of engineering management</p>
+              <div class="divider"></div>
+            </div>
+
+            <!-- Welcome Message -->
+            <div class="text-center mb-3">
+              <h6 class="welcome-title">Welcome to INVIC</h6>
+              <p class="welcome-subtitle">Get your free INVIC account and start managing projects efficiently</p>
+            </div>
+
+            <!-- Registration Form -->
+            <div class="login-form-container">
+              <form [formGroup]="signupForm" (ngSubmit)="register(signupForm.value)" class="form-horizontal">
+
+                <!-- Success Alert -->
+                <ngb-alert type="success" *ngIf="successmsg" [dismissible]="false" class="success-alert">
+                  <i class="mdi mdi-check-circle me-2"></i>
+                  Registration successful!
+                </ngb-alert>
+
+                <!-- Error Alert -->
+                <ngb-alert type="danger" *ngIf="error" [dismissible]="false" class="error-alert">
+                  <i class="mdi mdi-alert-circle me-2"></i>
+                  {{ error }}
+                </ngb-alert>
+
+                <!-- Email and Phone Row -->
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group mb-3">
+                      <label for="email" class="form-label">
+                        <i class="bx bx-envelope me-2"></i>Email Address
+                      </label>
+                      <input type="email"
+                             formControlName="email"
+                             [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                             class="form-control"
+                             id="email"
+                             placeholder="Eg. info@invic.co.tz">
+                      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                        <div *ngIf="f.email.errors.required">Email is required</div>
+                        <div *ngIf="f.email.errors.email">Please enter a valid email address</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group mb-3">
+                      <label for="phoneNumber" class="form-label">
+                        <i class="bx bx-phone me-2"></i>Phone Number
+                      </label>
+                      <input type="text"
+                             ng2TelInput
+                             [ng2TelInputOptions]="{initialCountry: 'tz'}"
+                             (keypress)="numericOnly($event)"
+                             (countryChange)="onCountryChange($event)"
+                             formControlName="phoneNumber"
+                             [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }"
+                             class="form-control"
+                             id="phoneNumber"
+                             placeholder="Eg. 765992233">
+                      <div *ngIf="submitted && f.phoneNumber.errors" class="invalid-feedback">
+                        <div *ngIf="f.phoneNumber.errors.required">Phone Number is required</div>
+                        <div *ngIf="f.phoneNumber.errors.minlength">Phone must be at least 9 numbers.</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Password and Account Type Row -->
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group mb-3">
+                      <label for="userpassword" class="form-label">
+                        <i class="bx bx-lock me-2"></i>Password
+                      </label>
+                      <div class="input-group auth-pass-inputgroup">
+                        <input [type]="showPassword ? 'text' : 'password'"
+                               formControlName="password"
+                               [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                               class="form-control"
+                               id="userpassword"
+                               placeholder="Enter password">
+                        <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility()">
+                          <i [class]="showPassword ? 'mdi mdi-eye-off' : 'mdi mdi-eye'"></i>
+                        </button>
+                      </div>
+                      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                        <div *ngIf="f.password.errors.required">Password is required</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group mb-3">
+                      <label for="accountType" class="form-label">
+                        <i class="bx bx-user me-2"></i>Account Type
+                      </label>
+                      <select id="accountType"
+                              formControlName="accountType"
+                              [ngClass]="{ 'is-invalid': submitted && f.accountType.errors }"
+                              class="form-select">
+                        <option value="" selected>Choose Registration Type</option>
+                        <option value="2">Company/Organization/Business</option>
+                        <option value="3">Individual Person</option>
+                        <option value="4">Student</option>
+                      </select>
+                      <div *ngIf="submitted && f.accountType.errors" class="invalid-feedback">
+                        <div *ngIf="f.accountType.errors.required">Account Type is required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Terms and Conditions -->
+                <div class="terms-section mb-3">
+                  <p class="terms-text">
+                    By registering you agree to the INVIC
+                    <a href="javascript: void(0);" class="terms-link">Terms of Use</a>
+                  </p>
+                </div>
+
+                <!-- Register Button -->
+                <div class="d-grid mb-3">
+                  <button class="btn btn-primary register-btn" [ladda]="loading" type="submit">
+                    <i class="bx bx-user-plus me-2"></i>
+                    <span *ngIf="!loading">Create Account</span>
+                    <span *ngIf="loading">Creating Account...</span>
+                  </button>
+                </div>
+
+              </form>
+
+              <!-- Login Link -->
+              <div class="text-center">
+                <p class="login-text">
+                  Already have an account?
+                  <a routerLink="/account/login-2" class="login-link">Sign In</a>
+                </p>
+              </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-auto text-center">
+              <p class="footer-text">© {{year}} INVIC Solutions Limited. All rights reserved.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <!-- end row -->
 </div>
-<!-- end container-fluid -->

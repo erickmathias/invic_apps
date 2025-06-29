@@ -1,105 +1,190 @@
 <div class="container-fluid p-0">
   <div class="row g-0">
 
+    <!-- Left Side - Hero Section -->
     <div class="col-xl-8">
       <div class="auth-full-bg pt-lg-5 p-4">
         <div class="w-100">
           <div class="bg-overlay"></div>
           <div class="d-flex h-100 flex-column">
+            <!-- Original image with overlay -->
+            <img src="assets/images/home-photo.webp" alt="Engineering Background" class="hero-image">
 
-            <img src="assets/images/home-photo.webp" alt="" class="auth-logo-dark">
-
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- end col -->
-
-    <div class="col-xl-4">
-      <div class="auth-full-page-content p-md-5 p-4">
-        <div class="w-100">
-
-          <div class="d-flex flex-column h-70">
-            <div class="mb-4 mb-md-5 d-flex justify-content-center"> <!-- Added flex properties -->
-              <a routerLink="/" class="d-block auth-logo">
-                <img src="assets/images/logo-dark-sm-2.png" alt="" height="120" width="100" class="auth-logo-dark">
-                <img src="assets/images/logo-light.png" alt="" height="48" class="auth-logo-light">
-              </a>
-            </div>
-
-              <div class="text-center">
-                <h5 class="text-primary">Invic Solutions Limited</h5>
-                <span style="font-style: italic; color: maroon;">--Simplicity From Complexity--</span>
+            <!-- Engineering-themed content overlay -->
+            <div class="hero-content">
+              <!-- Top decorative element -->
+              <div class="hero-decoration">
+                <div class="decoration-line"></div>
+                <i class="bx bx-cog decoration-icon"></i>
+                <div class="decoration-line"></div>
               </div>
 
-              <div class="text-center">
-                <br>
-                <p class="text-muted">Sign In To Continue To INVIC Systems</p>
-              </div>
+              <div class="hero-text">
+                <h2 class="hero-title">INVIC Engineering Solutions</h2>
+                <p class="hero-subtitle">Advanced Construction Management & Engineering Software</p>
 
-              <div class="mt-4">
-                <form [formGroup]="loginForm" (ngSubmit)="signIn()" class="form-horizontal">
-
-                  <ngb-alert *ngIf="error" [dismissible]="false" type="danger">
-                    <i class="mdi mdi-block-helper me-2"></i>
-                    {{ error }}
-                  </ngb-alert>
-
-                  <div class="mb-3">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" formControlName="email"
-                           [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-                           placeholder="Enter email">
-                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                      <div *ngIf="f.email.errors.required">Email is required</div>
-                      <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                <!-- Enhanced feature grid -->
+                <div class="feature-grid">
+                  <div class="feature-item">
+                    <div class="feature-icon-wrapper">
+                      <i class="bx bx-building-house"></i>
                     </div>
+                    <span>Project Management</span>
                   </div>
-
-                  <div class="mb-3">
-                    <div class="float-end">
-                      <a routerLink="/account/recoverpwd-2" class="text-muted">Forgot password?</a>
+                  <div class="feature-item">
+                    <div class="feature-icon-wrapper">
+                      <i class="bx bx-calculator"></i>
                     </div>
-                    <label for="password">Password</label>
-                    <div class="input-group auth-pass-inputgroup">
-                      <input type="password" class="form-control" formControlName="password" id="password"
-                             [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
-                             placeholder="Enter password" aria-label="Password"
-                             aria-describedby="password-addon">
-                      <button class="btn btn-light" type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
-                      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                        <span *ngIf="f.password.errors.required">Password is required</span>
-                      </div>
+                    <span>Structural Analysis</span>
+                  </div>
+                  <div class="feature-item">
+                    <div class="feature-icon-wrapper">
+                      <i class="bx bx-line-chart"></i>
                     </div>
+                    <span>Progress Tracking</span>
                   </div>
-
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="remember-check">
-                    <label class="form-check-label" for="remember-check">Remember me</label>
+                  <div class="feature-item">
+                    <div class="feature-icon-wrapper">
+                      <i class="bx bx-group"></i>
+                    </div>
+                    <span>Team Collaboration</span>
                   </div>
+                </div>
 
-                  <div class="mt-3 d-grid">
-                    <button class="btn btn-primary" [ladda]="loading" type="submit"><i class="bx bx-log-in"></i> Log In</button>
-                  </div>
-
-                </form>
-                <div class="mt-5 text-center">
-                  <p>Don't have an account? <a routerLink="/account/signup-2" class="fw-medium text-primary"> Register Now </a></p>
+                <!-- Bottom call to action -->
+                <div class="hero-cta">
+                  <div class="cta-text">Ready to Build the Future?</div>
+                  <div class="cta-subtitle">Join thousands of engineers worldwide</div>
                 </div>
               </div>
 
-
-            <div class="mt-4 mt-md-5 text-center">
-              <p class="mb-0">© {{year}} INVIC</p>
+              <!-- Bottom decorative element -->
+              <div class="hero-decoration bottom">
+                <div class="decoration-line"></div>
+                <i class="bx bx-chevron-down decoration-icon"></i>
+                <div class="decoration-line"></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- end col -->
 
-    <!-- end col -->
+    <!-- Right Side - Login Form -->
+    <div class="col-xl-4">
+      <div class="auth-full-page-content p-md-4 p-3">
+        <div class="w-100">
+          <div class="d-flex flex-column h-70">
+
+            <!-- Logo Section -->
+            <div class="mb-3 d-flex justify-content-center">
+              <a routerLink="/" class="d-block auth-logo">
+                <img src="assets/images/logo-dark-sm-2.png" alt="INVIC Logo" height="80" width="70" class="auth-logo-dark">
+                <img src="assets/images/logo-light.png" alt="INVIC Logo" height="40" class="auth-logo-light">
+              </a>
+            </div>
+
+            <!-- Company Tagline -->
+            <div class="text-center mb-3">
+              <h5 class="company-name">Invic Solutions Limited</h5>
+              <p class="company-tagline">Simplicity From Complexity</p>
+              <div class="divider"></div>
+            </div>
+
+            <!-- Welcome Message -->
+            <div class="text-center mb-3">
+              <h6 class="welcome-title">Welcome Back, Engineer</h6>
+              <p class="welcome-subtitle">Access your projects and continue building the future</p>
+            </div>
+
+            <!-- Login Form -->
+            <div class="login-form-container">
+              <form [formGroup]="loginForm" (ngSubmit)="signIn()" class="form-horizontal">
+
+                <!-- Error Alert -->
+                <ngb-alert *ngIf="error" [dismissible]="false" type="danger" class="error-alert">
+                  <i class="mdi mdi-alert-circle me-2"></i>
+                  {{ error }}
+                </ngb-alert>
+
+                <!-- Email Field -->
+                <div class="form-group mb-3">
+                  <label for="email" class="form-label">
+                    <i class="bx bx-envelope me-2"></i>Email Address
+                  </label>
+                  <input type="email"
+                         class="form-control"
+                         id="email"
+                         formControlName="email"
+                         [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                         placeholder="Enter your email address">
+                  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Email is required</div>
+                    <div *ngIf="f.email.errors.email">Please enter a valid email address</div>
+                  </div>
+                </div>
+
+                <!-- Password Field -->
+                <div class="form-group mb-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <label for="password" class="form-label">
+                      <i class="bx bx-lock me-2"></i>Password
+                    </label>
+                    <a routerLink="/account/recoverpwd-2" class="forgot-password">Forgot password?</a>
+                  </div>
+                  <div class="input-group auth-pass-inputgroup">
+                    <input [type]="showPassword ? 'text' : 'password'" 
+                           class="form-control" 
+                           formControlName="password" 
+                           id="password"
+                           [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                           placeholder="Enter your password" 
+                           aria-label="Password"
+                           aria-describedby="password-addon">
+                    <button class="btn btn-outline-secondary" type="button" id="password-addon" (click)="togglePasswordVisibility()">
+                      <i [class]="showPassword ? 'mdi mdi-eye-off' : 'mdi mdi-eye'"></i>
+                    </button>
+                  </div>
+                  <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                    <span *ngIf="f.password.errors.required">Password is required</span>
+                  </div>
+                </div>
+
+                <!-- Remember Me -->
+                <div class="form-check mb-3">
+                  <input class="form-check-input" type="checkbox" id="remember-check">
+                  <label class="form-check-label" for="remember-check">
+                    Keep me signed in
+                  </label>
+                </div>
+
+                <!-- Login Button -->
+                <div class="d-grid mb-3">
+                  <button class="btn btn-primary login-btn" [ladda]="loading" type="submit">
+                    <i class="bx bx-log-in me-2"></i>
+                    <span *ngIf="!loading">Sign In to Dashboard</span>
+                    <span *ngIf="loading">Signing In...</span>
+                  </button>
+                </div>
+
+              </form>
+
+              <!-- Register Link -->
+              <div class="text-center">
+                <p class="register-text">
+                  New to INVIC?
+                  <a routerLink="/account/signup-2" class="register-link">Create your account</a>
+                </p>
+              </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-auto text-center">
+              <p class="footer-text">© {{year}} INVIC Solutions Limited. All rights reserved.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <!-- end row -->
 </div>
-<!-- end container-fluid -->

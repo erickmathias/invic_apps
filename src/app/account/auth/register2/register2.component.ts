@@ -23,6 +23,7 @@ export class Register2Component implements OnInit {
   successmsg = false;
   private subscriptions: Subscription[] = [];
   private dialCode = 255;
+  showPassword: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService,
     private userService: UserProfileService) { }
@@ -147,5 +148,12 @@ export class Register2Component implements OnInit {
     let patt = /^([0-9])$/;
     let result = patt.test(event.key);
     return result;
+  }
+
+  /**
+   * Toggle password visibility
+   */
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 }

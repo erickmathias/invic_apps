@@ -25,6 +25,7 @@ import {UserProfile} from "../../../shared/models/user-profile";
 export class Login2Component implements OnInit {
   private subscriptions: Subscription[] = [];
   loading: boolean;
+  showPassword: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService,
     private authFackservice: AuthfakeauthenticationService) { }
@@ -130,5 +131,12 @@ export class Login2Component implements OnInit {
         )
       );
     }
+  }
+
+  /**
+   * Toggle password visibility
+   */
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 }
