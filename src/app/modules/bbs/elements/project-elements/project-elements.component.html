@@ -1,269 +1,318 @@
-<div class="container-fluid">
-
- <!-- <app-page-title title="Projects" [breadcrumbItems]="breadCrumbItems"></app-page-title>-->
-
-  <!-- end row -->
-  <div class="row" style="font-size: 12px;">
-    <div class="col-lg-12">
-      <div class="card">
-        <div class="card-body">
-
-
-          <!--<h4 class="card-title mb-4">My Clients</h4>-->
-          <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-tabs nav-tabs-custom">
-            <li [ngbNavItem]="1">
-              <a ngbNavLink>Project Elements</a>
-              <ng-template ngbNavContent>
-
-                <div class="row mb-md-2" *ngIf="!loading">
-                  <div class="col-sm-12 col-md-6">
-                    <div class="dataTables_length" id="tickets-table_length"><label
-                      class="d-inline-flex align-items-center">Show
-                      <select name="tickets-table_length" aria-controls="tickets-table"
-                              name="pageSize" [(ngModel)]="service.pageSize"
-                              class="custom-select custom-select-sm form-control form-control-sm mx-2">
-                        <option [ngValue]="10">10</option>
-                        <option [ngValue]="25">25</option>
-                        <option [ngValue]="50">50</option>
-                        <option [ngValue]="100">100</option>
-                      </select> entries</label></div>
-                  </div>
-                  <!-- Search -->
-                  <div class="col-sm-12 col-md-6">
-                    <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
-                      class="d-inline-flex align-items-center">Search:
-                      <input type="text" name="searchTerm"
-                             class="form-control form-control-sm ms-2"
-                             aria-controls="tickets-table"
-                             [(ngModel)]="service.searchTerm"></label></div>
-                  </div>
-                  <!-- End search -->
-                </div>
-                <!-- Table -->
-                <div class="table-responsive" style="padding-bottom: 90px;">
-                  <table id="basic-datatable" class="table datatables dt-responsive nowrap">
-                  <thead>
-                  <tr>
-                    <th sortable="id" (sort)="onSort($event)">#</th>
-                    <th sortable="name" (sort)="onSort($event)">Element Name</th>
-                    <th sortable="client" (sort)="onSort($event)">Standard Code</th>
-                    <th sortable="prepared_by" (sort)="onSort($event)">Steel Type</th>
-                    <th sortable="date_prepared" (sort)="onSort($event)">Density</th>
-                    <th sortable="checked_by" (sort)="onSort($event)">Total Membets</th>
-                    <th>Options</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr *ngFor="let table of activities$ | async; let i = index;">
-                    <td>
-                      {{i+1}}
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="table.name" [term]="service.searchTerm">
-                      </ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="table.std_code.name" [term]="service.searchTerm">
-                      </ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="table.steel_type.name" [term]="service.searchTerm">
-                      </ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="table.density" [term]="service.searchTerm">
-                      </ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="" [term]="service.searchTerm">
-                      </ngb-highlight>
-                    </td>
-                    <td>
-                      <div ngbDropdown placement="bottom-left">
-                        <i class="mdi mdi-dots-vertical dropdown-toggle" ngbDropdownToggle data-toggle="dropdown"
-                           aria-expanded="true"></i>
-                        <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
-                          <a class="dropdown-item" (click)="openElementModal(contentElement, table)"><i class="mdi mdi-arrow-right"></i>Manage</a>
-                          <a class="dropdown-item" (click)="openEditElementModal(contentElementAdd, table)"><i class="mdi mdi-file-edit"></i>Edit</a>
-                          <a class="dropdown-item" (click)="deleteElement(table)" href="javascript: void(0);"><i class="mdi mdi-delete"></i>Delete</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  </tbody>
-                </table>
-                </div>
-
-                <div class="card-body" style="text-align: center" *ngIf="loading">
-                  <div class="spinner-border text-primary" role="status">
-                    <span class="sr-only">Loading...</span>
-                  </div>
-                </div>
-                <!-- End table -->
-                <div class="row justify-content-md-between align-items-md-center mt-2">
-                  <div class="col-sm-12 col-md-5">
-                    <div class="dataTables_info mb-2" id="tickets-table_info" role="status"
-                         aria-live="polite">
-                      Showing
-                      {{service.startIndex + 1}} to
-                      {{service.endIndex}} of {{service.totalRecords}}
-                      entries
-                    </div>
-                  </div>
-                  <!-- Pagination -->
-                  <div class="col-sm-12 col-md-5">
-                    <div class="text-md-right float-md-end pagination-rounded">
-                      <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page"
-                                      [pageSize]="service.pageSize">
-                      </ngb-pagination>
-                    </div>
-                  </div>
-                  <!-- End Pagination -->
-                </div>
-              </ng-template>
-            </li>
-          </ul>
-          <div [ngbNavOutlet]="nav" class="mt-4"></div>
-        </div>
+<div class="bbs-elements-page">
+  <div class="container-fluid">
+    <!-- Error Alert -->
+    <div class="row mb-3" *ngIf="packageError">
+      <div class="col-12">
+        <ngb-alert type="danger" [dismissible]="false" class="text-center">
+          {{ packageError }}
+        </ngb-alert>
       </div>
     </div>
-  </div>
-  <div class="row mb-mb-2">
-    <div class="col-sm-12">
-      <ngb-alert type="danger"  style="font-size: 16px; text-align: center" *ngIf="packageError" [dismissible]="false">{{ packageError }}</ngb-alert>
-      <div class="text-sm-end" *ngIf="packageError.length < 1">
-        <button type="button" (click)="openModal(contentElementAdd)" class="btn btn-success btn-sm btn-rounded mb-2 me-2"><i class="mdi mdi-plus mr-1"></i>New Element</button>
 
+    <!-- Elements Dashboard -->
+    <div class="elements-dashboard">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="content-card">
+            <div class="card-header">
+              <h5 class="card-title">
+                <i class="mdi mdi-cube-outline"></i>
+                Project Elements
+              </h5>
+              <div class="card-actions">
+                <div class="search-box">
+                  <i class="mdi mdi-magnify"></i>
+                  <input type="text" [(ngModel)]="service.searchTerm" placeholder="Search elements...">
+                </div>
+                <div class="action-buttons">
+                  <button type="button" (click)="openModal(contentElementAdd)" class="btn btn-success btn-sm" *ngIf="packageError.length < 1">
+                    <i class="mdi mdi-plus"></i>
+                    <span>New Element</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <!-- Filters and Controls -->
+              <div class="table-controls">
+                <div class="controls-left">
+                  <div class="entries-selector">
+                    <label>Show</label>
+                    <select name="pageSize" [(ngModel)]="service.pageSize" class="form-select form-select-sm">
+                      <option [ngValue]="5">5</option>
+                      <option [ngValue]="10">10</option>
+                      <option [ngValue]="25">25</option>
+                      <option [ngValue]="50">50</option>
+                      <option [ngValue]="100">100</option>
+                    </select>
+                    <span>entries</span>
+                  </div>
+                </div>
+
+                <div class="controls-right">
+                  <div class="table-info">
+                    Showing {{service.startIndex + 1}} to {{service.endIndex}} of {{service.totalRecords}} entries
+                  </div>
+                </div>
+              </div>
+
+              <!-- Elements Table -->
+              <div class="table-responsive">
+                <table class="table table-hover elements-table">
+                  <thead>
+                    <tr>
+                      <th class="text-center" style="width: 60px;">
+                        <span>#</span>
+                      </th>
+                      <th>
+                        <span>Element Name</span>
+                      </th>
+                      <th>
+                        <span>Standard Code</span>
+                      </th>
+                      <th>
+                        <span>Steel Type</span>
+                      </th>
+                      <th>
+                        <span>Density</span>
+                      </th>
+                      <th>
+                        <span>Total Members</span>
+                      </th>
+                      <th class="text-center" style="width: 120px;">
+                        <span>Actions</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let element of activities$ | async; let i = index;" class="element-row">
+                      <td class="text-center">
+                        <span class="id-badge">{{i+1}}</span>
+                      </td>
+                      <td>
+                        <div class="element-name">
+                          <ngb-highlight [result]="element.name" [term]="service.searchTerm"></ngb-highlight>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="element-code">
+                          <ngb-highlight [result]="element.std_code.name" [term]="service.searchTerm"></ngb-highlight>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="steel-type">
+                          <ngb-highlight [result]="element.steel_type.name" [term]="service.searchTerm"></ngb-highlight>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="density">
+                          <ngb-highlight [result]="element.density" [term]="service.searchTerm"></ngb-highlight>
+                          <span class="unit">kg/m³</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="members-count">
+                          <span>0</span>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <div class="action-buttons">
+                          <button class="btn btn-sm btn-outline-primary" (click)="openElementModal(contentElement, element)" title="Manage">
+                            <i class="mdi mdi-arrow-right"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-secondary" (click)="openEditElementModal(contentElementAdd, element)" title="Edit">
+                            <i class="mdi mdi-file-edit"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-danger" (click)="deleteElement(element)" title="Delete">
+                            <i class="mdi mdi-delete"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Loading State -->
+              <div class="loading-container" *ngIf="loading">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+
+              <!-- Pagination -->
+              <div class="pagination-wrapper">
+                <ngb-pagination
+                  [collectionSize]="total$ | async"
+                  [(page)]="service.page"
+                  [pageSize]="service.pageSize"
+                  [boundaryLinks]="true"
+                  [maxSize]="5"
+                  class="pagination-sm">
+                </ngb-pagination>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Element Add/Edit Modal -->
 <ng-template #contentElementAdd role="document" let-modal>
-  <div class="modal-header">
-    <span class="modal-title mt-0">{{elementFormTitle}}</span>
-    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
-  </div>
-  <div class="modal-body">
-    <div class="row">
-      <div class="col-12">
-        <form [formGroup]="elementsForm">
-          <ngb-alert type="success" *ngIf="successmsg" [dismissible]="false">{{successmsg}}</ngb-alert>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="mdi mdi-cube-plus"></i>
+          {{elementFormTitle}}
+        </h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
 
-          <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert>
+      <div class="modal-body">
+        <form [formGroup]="elementsForm" class="element-form">
+          <!-- Alerts -->
+          <ngb-alert type="success" *ngIf="successmsg" [dismissible]="false">
+            <i class="mdi mdi-check-circle"></i>
+            {{successmsg}}
+          </ngb-alert>
+
+          <ngb-alert type="danger" *ngIf="error" [dismissible]="false">
+            <i class="mdi mdi-alert-circle"></i>
+            {{ error }}
+          </ngb-alert>
+
+          <!-- Form Fields -->
           <div class="row">
-
-            <div class="col-md-4">
-              <div class="mb-3">
-                <label for="name">Element Name</label>
-                <input type="text" formControlName="name" class="form-control"
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="name" class="form-label">
+                  <i class="mdi mdi-cube"></i>
+                  Element Name
+                </label>
+                <input type="text" formControlName="name" class="form-control form-control-sm" id="name"
                        [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
-                       placeholder="Eg. Storage Tank Wall ..">
+                       placeholder="Eg. Storage Tank Wall">
                 <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
                   <div *ngIf="f.name.errors.required">Name is required</div>
                 </div>
               </div>
             </div>
 
-            <div class="col-md-4">
-              <div class="mb-3">
-                <label>Standard Code of Practice</label>
-                <!--<input type="text" formControlName="client" class="form-control" id="client"
-                       [ngClass]="{ 'is-invalid': submitted && f.country.errors }"
-                       placeholder="Eg. Tanzania">-->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label">
+                  <i class="mdi mdi-file-code"></i>
+                  Standard Code of Practice
+                </label>
                 <ng-select
                   formControlName="std_code"
                   placeholder="Choose Std Code"
                   [clearable]="true"
                   [searchable]="true"
-                >
-                  <ng-option [value]="value.id"  *ngFor="let value of standardCodes" >
+                  class="form-control-sm">
+                  <ng-option [value]="value.id" *ngFor="let value of standardCodes">
                     {{value.name}}
                   </ng-option>
                 </ng-select>
-
                 <div *ngIf="submitted && f.std_code.errors" class="invalid-feedback">
                   <div *ngIf="f.std_code.errors.required">Standard Code is required</div>
                 </div>
               </div>
             </div>
+          </div>
 
-            <div class="col-md-4">
-              <div class="mb-3">
-                <label>Steel Type</label>
-                <!--<input type="text" formControlName="client" class="form-control" id="client"
-                       [ngClass]="{ 'is-invalid': submitted && f.country.errors }"
-                       placeholder="Eg. Tanzania">-->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label">
+                  <i class="mdi mdi-steel"></i>
+                  Steel Type
+                </label>
                 <ng-select
                   formControlName="steel_type"
                   placeholder="Choose Steel Type"
                   [clearable]="true"
                   [searchable]="true"
                   (change)="onChangeClient($event)"
-                >
-                  <ng-option [value]="value.id"  *ngFor="let value of steelTypes" >
+                  class="form-control-sm">
+                  <ng-option [value]="value.id" *ngFor="let value of steelTypes">
                     {{value.name}}
                   </ng-option>
                 </ng-select>
-
                 <div *ngIf="submitted && f.steel_type.errors" class="invalid-feedback">
                   <div *ngIf="f.steel_type.errors.required">Steel Type is required</div>
                 </div>
               </div>
             </div>
 
-            <div class="col-md-4">
-              <div class="mb-3">
-                <label for="density">Density</label>
-                <input type="number" formControlName="density" class="form-control" id="density"
-                       [ngClass]="{ 'is-invalid': submitted && f.density.errors }"
-                       placeholder="Eg. 7850">
-                <label style="font-weight: lighter; font-style: oblique; color: gray;" class="col-md-3 col-form-label">Kg/m<sup>3</sup></label>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="density" class="form-label">
+                  <i class="mdi mdi-weight"></i>
+                  Density
+                </label>
+                <div class="input-group input-group-sm">
+                  <input type="number" formControlName="density" class="form-control form-control-sm" id="density"
+                         [ngClass]="{ 'is-invalid': submitted && f.density.errors }"
+                         placeholder="Eg. 7850">
+                  <span class="input-group-text">kg/m³</span>
+                </div>
                 <div *ngIf="submitted && f.density.errors" class="invalid-feedback">
                   <div *ngIf="f.density.errors.required">Density is required</div>
                 </div>
               </div>
             </div>
-
           </div>
-
         </form>
+      </div>
 
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" (click)="modal.close('Close click')">
+          <i class="mdi mdi-close"></i>
+          Close
+        </button>
+        <button *ngIf="action == 0" class="btn btn-primary btn-sm" [ladda]="buttonloading" type="button" (click)="addElement(elementsForm.value)">
+          <i class="mdi mdi-content-save"></i>
+          Save Element
+        </button>
+        <button *ngIf="action == 1" class="btn btn-primary btn-sm" [ladda]="buttonloading" type="button" (click)="updateElement(elementsForm.value)">
+          <i class="mdi mdi-content-save-edit"></i>
+          Update Element
+        </button>
       </div>
     </div>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
-<!--    <button *ngIf="action == 0" type="button" class="btn btn-primary" (click)="addElement(elementsForm.value)">Save Element</button>
-    <button *ngIf="action == 1" type="button" class="btn btn-primary" (click)="updateElement(elementsForm.value)">Update Element</button>
-    -->
-      <button *ngIf="action == 0"  class="btn btn-primary" [ladda]="buttonloading" type="button" (click)="addElement(elementsForm.value)">Save Element</button>
-      <button *ngIf="action == 1" class="btn btn-primary" [ladda]="buttonloading" type="button" (click)="updateElement(elementsForm.value)">Update Element</button>
-
   </div>
 </ng-template>
 
+<!-- Element Management Modal -->
 <ng-template #contentElement role="document" let-modal>
-  <div class="modal-header">
-    <span class="modal-title mt-0">Manage Members For - {{selectedElement.name}}</span>
-    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
-  </div>
-  <div class="modal-body">
-    <div class="row">
-      <div class="col-md-12">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="mdi mdi-cube-outline"></i>
+          Manage Members For - {{selectedElement.name}}
+        </h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
 
-        <!--<app-element-members [childElement]="selectedElement"></app-element-members>-->
-        <app-element-members [selectedElement]="selectedElement"></app-element-members>
+      <div class="modal-body">
+        <div class="element-content">
+          <app-element-members [selectedElement]="selectedElement"></app-element-members>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-sm" (click)="modal.close('Close click')">
+          <i class="mdi mdi-close"></i>
+          Close
+        </button>
       </div>
     </div>
-  </div>
-  <div class="modal-footer">
-    <!--    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
-        <button type="button" class="btn btn-primary" (click)="addProject(projectsForm.value)">Save Client</button>-->
-    <div class="text-sm-end">
-      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
-    </div>
-
   </div>
 </ng-template>
 

@@ -43,6 +43,13 @@ export class BbsTopbarComponent implements OnInit {
         { text: 'Russian', flag: 'assets/images/flags/russia.jpg', lang: 'ru' },*/
   ];
 
+  listSupport = [
+    { text: '+255 793 046 345', flag: 'bx bx-phone-call', id: 1 },
+    { text: '+255 793 046 345', flag: 'bx bxl-whatsapp', id: 2 },
+    { text: 'support@invic.co.tz', flag: 'bx bx-support', id: 3 },
+    { text: 'sales@invic.co.tz', flag: 'bx bx-support', id: 4 },
+  ];
+
   userProfile = JSON.parse(sessionStorage.getItem('user'));
 
   openMobileMenu: boolean;
@@ -68,7 +75,6 @@ export class BbsTopbarComponent implements OnInit {
       (response: any) => {
         this.userProfile = response.data;
         this.preview = environment.baseUrl+this.userProfile.logo;
-        console.log(this.userProfile)
       },
       error=> {
       }
@@ -142,6 +148,29 @@ export class BbsTopbarComponent implements OnInit {
         /* IE/Edge */
         this.document.msExitFullscreen();
       }
+    }
+  }
+
+  supportAction(text: string, id: number) {
+    if(id == 1){
+      // window.location.href = `tell:${text}`;
+      const isMobile = /iPhone|iPad|Android|iPod/i.test(navigator.userAgent);
+
+      if (isMobile) {
+        window.location.href = `tel:${text}`;
+      } else {
+        alert("Calling is only available on mobile devices.");
+      }
+    }
+    if(id == 2){
+      const phone = text.replace(/[\s+]+/g, '');
+      // alert(phone);
+      const url = `https://wa.me/${phone}?text=I'm%20inquiring%20about%20the%20INVIC%20services`;
+      window.open(url, '_blank');
+    }
+    if(id == 3){
+      // window.location.href = `mailto:${text}`;
+      window.open(`mailto:${text}?subject=Hello&body=I am equiring about INVIC services?`, "_self");
     }
   }
 }

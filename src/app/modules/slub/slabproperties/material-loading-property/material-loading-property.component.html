@@ -1,496 +1,417 @@
-<div class="container-fluid">
-  <!--<app-page-title title="Form Wizard" [breadcrumbItems]="breadCrumbItems"></app-page-title>-->
-
-  <div class="row">
-
-    <div class="col-md-1"></div>
-    <div class="col-lg-10">
-      <div class="card">
-        <form [formGroup]="mtpForm">
-        <div class="card-body">
-          <!--<h4 class="card-title mb-4"> Title Wizard</h4>-->
-          <aw-wizard [navBarLayout]="'large-empty-symbols'">
-
-            <aw-wizard-step stepTitle="Concrete & Steel/Reinforcement">
-              <ng-template awWizardStepSymbol>1</ng-template>
-              <span style="color: maroon; font-weight: bold; font-style: oblique;">CONCRETE</span>
-
-              <div class="row mt-3">
-                <div class="col-6">
-                  <div class="row mb-3">
-                    <label class="col-md-3 col-form-label" for="concreteStrength">Strength :</label>
-                    <div class="col-md-5">
-                      <input class="form-control" name="concreteStrength" type="number" id="concreteStrength" formControlName="concrete_strength" placeholder="25.00">
-                    </div>
-                    <label style="font-weight: lighter; font-style: oblique; color: gray;" class="col-md-3 col-form-label">N/mm<sup>2</sup></label>
-                  </div>
-                  <div class="row mb-3">
-                    <label class="col-md-3 col-form-label">Steel Cover :</label>
-                    <div class="col-md-5">
-                      <input class="form-control" name="txtLastNameBilling" type="number"  id="concreteSteelCover" formControlName="concrete_steel_cover" placeholder="25.00">
-                    </div>
-                    <label style="font-weight: lighter; font-style: oblique; color: gray;" for="concreteStrength" class="col-md-3 col-form-label">mm</label>
-                  </div>
-                </div>
-
-                <div class="col-6">
-                  <div class="row mb-3">
-                    <label class="col-md-3 col-form-label" for="concreteDensity">Density :</label>
-                    <div class="col-md-5">
-                      <input class="form-control" name="concreteDensity" type="number" id="concreteDensity" formControlName="concrete_density" placeholder="24.00">
-                    </div>
-                    <label style="font-weight: lighter; font-style: oblique; color: gray;" class="col-md-3 col-form-label" for="concreteDensity">kN/m<sup>3</sup></label>
-                  </div>
-                  <div class="row mb-3">
-                    <label class="col-md-3 col-form-label" for="concreteWcRatio">W/C Ratio: </label>
-                    <div class="col-md-5">
-                      <input class="form-control" name="txtLastNameBilling" type="number" id="concreteWcRatio" formControlName="concrete_wc_ratio" placeholder="0.500">
-                    </div>
-                    <label style="font-weight: lighter; font-style: oblique; color: gray;" class="col-md-3 col-form-label" for="concreteWcRatio">Unitles</label>
-                  </div>
-                </div>
-              </div>
-
-              <span style="color: maroon; font-weight: bold; font-style: oblique;">STEEL/REINFORCEMENT</span>
-              <div class="row mt-3">
-                <div class="col-6">
-                  <div class="row mb-3">
-                    <label class="col-md-3 col-form-label" for="steelStrength">Strength:</label>
-                    <div class="col-md-5">
-                      <input class="form-control" name="steelStrength" type="number" placeholder="460" formControlName="steel_strength" id="steelStrength">
-                    </div>
-                    <label style="font-weight: lighter; font-style: oblique; color: gray;" class="col-md-3 col-form-label">N/mm<sup>2</sup></label>
-                  </div>
-                  <div class="row">
-                    <label class="col-md-3 col-form-label" for="steelBott1Size">Bott 1 Size:</label>
-                    <div class="col-md-5">
-                      <select id="steelBott1Size" name="steelBott1Size" formControlName="steel_bott1_size" class="form-control" >
-                        <option value="">--Please Select--</option>
-                        <option value="{{item}}" *ngFor="let item of botTopSize">{{item}}</option>
-                      </select>
-                    </div>
-                    <label style="font-weight: lighter; font-style: oblique; color: gray;" class="col-md-3 col-form-label" for="steelBott1Size">mm</label>
-                  </div>
-                  <div class="row">
-                    <label class="col-md-3 col-form-label" for="steelBott2Size">Bott 2 Size:</label>
-                    <div class="col-md-5">
-                      <select id="steelBott2Size" name="steelBott2Size" formControlName="steel_bott2_size" class="form-control" >
-                        <option value="">--Please Select--</option>
-                        <option value="{{item}}" *ngFor="let item of botTopSize">{{item}}</option>
-                      </select>
-                    </div>
-                    <label style="font-weight: lighter; font-style: oblique; color: gray;" class="col-md-3 col-form-label" for="steelBott2Size">mm</label>
-                  </div>
-                  <div class="row">
-                    <label class="col-md-3 col-form-label" for="steelTop1Size">Top 1 Size:</label>
-                    <div class="col-md-5">
-                      <select id="steelTop1Size" name="steelTop1Size" formControlName="steel_top1_size" class="form-control" >
-                        <option value="">--Please Select--</option>
-                        <option value="{{item}}" *ngFor="let item of botTopSize">{{item}}</option>
-                      </select>
-                    </div>
-                    <label style="font-weight: lighter; font-style: oblique; color: gray;" class="col-md-3 col-form-label" for="steelTop1Size">mm</label>
-                  </div>
-                  <div class="row">
-                    <label class="col-md-3 col-form-label" for="steelTop2Size">Top 2 Size:</label>
-                    <div class="col-md-5">
-                      <select id="steelTop2Size" name="steelTop2Size" class="form-control" formControlName="steel_top2_size" >
-                        <option value="">--Please Select--</option>
-                        <option value="{{item}}" *ngFor="let item of botTopSize">{{item}}</option>
-                      </select>
-                    </div>
-                    <label for="steelTop2Size" style="font-weight: lighter; font-style: oblique; color: gray;" class="col-md-3 col-form-label">mm</label>
-                  </div>
-                </div>
-
-                <div class="col-6">
-                  <div class="row mb-3">
-                    <label class="col-md-3 col-form-label" for="steelDensity">Density: </label>
-                    <div class="col-md-5">
-                      <input class="form-control" name="steelDensity" formControlName="steel_density" id="steelDensity" type="number" placeholder="78.50">
-                    </div>
-                    <label style="font-weight: lighter; font-style: oblique; color: gray;" class="col-md-3 col-form-label">kN/mm<sup>3</sup></label>
-                  </div>
-                  <div class="row">
-                    <label class="col-md-3 col-form-label" for="steelBott1Gap">Bott 1 Gap:</label>
-                    <div class="col-md-5">
-                      <select id="steelBott1Gap" name="steelBott1Gap" formControlName="steel_bott1_gap" class="form-control" >
-                        <option value="">--Please Select--</option>
-                        <option value="{{item}}" *ngFor="let item of botTopGap">{{item}}</option>
-                      </select>
-                    </div>
-                    <label for="steelBott1Gap" style="font-weight: lighter; font-style: oblique; color: gray;" class="col-md-3 col-form-label">mm</label>
-                  </div>
-                  <div class="row">
-                    <label class="col-md-3 col-form-label" for="steelBott2Gap">Bott 2 Gap:</label>
-                    <div class="col-md-5">
-                      <select id="steelBott2Gap" name="steelBott2Gap" formControlName="steel_bott2_gap" class="form-control" >
-                        <option value="">--Please Select--</option>
-                        <option value="{{item}}" *ngFor="let item of botTopGap">{{item}}</option>
-                      </select>
-                    </div>
-                    <label for="steelBott2Gap" style="font-weight: lighter; font-style: oblique; color: gray;" class="col-md-3 col-form-label">mm</label>
-                  </div>
-                  <div class="row">
-                    <label class="col-md-3 col-form-label" for="steelTop1Gap">Top 1 Gap:</label>
-                    <div class="col-md-5">
-                      <select id="steelTop1Gap" name="steelTop1Gap" formControlName="steel_top1_gap" class="form-control" >
-                        <option value="">--Please Select--</option>
-                        <option value="{{item}}" *ngFor="let item of botTopGap">{{item}}</option>
-                      </select>
-                    </div>
-                    <label for="steelTop1Gap" style="font-weight: lighter; font-style: oblique; color: gray;" class="col-md-3 col-form-label">mm</label>
-                  </div>
-                  <div class="row">
-                    <label class="col-md-3 col-form-label" for="steelTop2Gap">Top 2 Gap:</label>
-                    <div class="col-md-5">
-                      <select id="steelTop2Gap" name="steelTop2Gap" formControlName="steel_top2_gap" class="form-control" >
-                        <option value="">--Please Select--</option>
-                        <option value="{{item}}" *ngFor="let item of botTopGap">{{item}}</option>
-                      </select>
-                    </div>
-                    <label for="steelTop2Gap" style="font-weight: lighter; font-style: oblique; color: gray;" class="col-md-3 col-form-label">mm</label>
-                  </div>
-                </div>
-              </div>
-              <ul class="list-inline wizard mb-0">
-                <li class="next list-inline-item float-end"><button class="btn btn-primary" awNextStep>Next</button>
-                </li>
-              </ul>
-            </aw-wizard-step>
-
-            <!--<aw-wizard-step stepTitle="Steel/Reinforcement">
-
-              <ng-template awWizardStepSymbol>2</ng-template>
-
-
-
-              <ul class="list-inline wizard mb-0">
-                <li class="previous list-inline-item"><button class="btn btn-primary" awPreviousStep>Previous</button>
-                </li>
-                <li class="next list-inline-item float-end"><button class="btn btn-primary" awNextStep>Next</button>
-                </li>
-              </ul>
-            </aw-wizard-step>-->
-
-            <aw-wizard-step stepTitle="Live & Dead Loading">
-              <ng-template awWizardStepSymbol>3</ng-template>
-
-              <span style="color: maroon; font-weight: bold; font-style: oblique;">DEAD LOADING</span>
-
-              <div class="row mt-3">
-                <div class="col-6">
-                  <div class="row mb-3">
-                    <label for="deadLoadingFinishes" class="col-md-3 col-form-label">Finishes :</label>
-                    <div class="col-md-5">
-                      <input class="form-control" name="deadLoadingFinishes" type="number" id="deadLoadingFinishes" formControlName="dead_loading_finishes" placeholder="25.00">
-                    </div>
-                    <label style="font-weight: lighter; font-style: oblique; color: gray;" class="col-md-3 col-form-label">kN/m<sup>2</sup></label>
-                  </div>
-                  <div class="row mb-3">
-                    <label class="col-md-3 col-form-label">Partition :</label>
-                    <div class="col-md-5">
-                      <input class="form-control" name="deadLoadingPartition" type="number" id="deadLoadingPartition" formControlName="dead_loading_partition" placeholder="25.00">
-                    </div>
-                    <label for="deadLoadingFinishes" style="font-weight: lighter; font-style: oblique; color: gray;" class="col-md-3 col-form-label">kN/m<sup>2</sup></label>
-                  </div>
-                </div>
-
-                <div class="col-6">
-                  <div class="row mb-3">
-                    <label for="deadLoadingServices" class="col-md-3 col-form-label">Services :</label>
-                    <div class="col-md-5">
-                      <input class="form-control" name="deadLoadingServices" type="number" id="deadLoadingServices" formControlName="dead_loading_services" placeholder="24.00">
-                    </div>
-                    <label for="deadLoadingServices" style="font-weight: lighter; font-style: oblique; color: gray;" class="col-md-3 col-form-label">kN/m<sup>2</sup></label>
-                  </div>
-
-                </div>
-              </div>
-
-              <span style="color: maroon; font-weight: bold; font-style: oblique;">LIVE LOADING</span>
-              <div class="row mt-3">
-                <div class="col-6">
-                  <div class="row mb-3">
-                    <label for="liveLoadingImposed" class="col-md-3 col-form-label">Imposed :</label>
-                    <div class="col-md-5">
-                      <input class="form-control" name="liveLoadingImposed" type="number" id="liveLoadingImposed" formControlName="live_loading_imposed" placeholder="24.00">
-                    </div>
-                    <label for="liveLoadingImposed" style="font-weight: lighter; font-style: oblique; color: gray;" class="col-md-3 col-form-label">kN/m<sup>2</sup></label>
-                  </div>
-
-                </div>
-              </div>
-
-              <ul class="list-inline wizard mb-0">
-                <li class="previous list-inline-item"><button class="btn btn-primary" awPreviousStep>Previous</button>
-                </li>
-                <li class="next list-inline-item float-end"><button class="btn btn-primary" awNextStep>Next</button>
-                </li>
-              </ul>
-            </aw-wizard-step>
-
-           <!-- <aw-wizard-step stepTitle="Live Loading">
-              <ng-template awWizardStepSymbol>4</ng-template>
-
-              <ul class="list-inline wizard mb-0">
-                <li class="previous list-inline-item"><button class="btn btn-primary" awPreviousStep>Previous</button>
-                </li>
-                <li class="next list-inline-item float-end"><button class="btn btn-primary" awNextStep>Next</button>
-                </li>
-              </ul>
-            </aw-wizard-step>-->
-
-            <aw-wizard-step stepTitle="Confirm Detail">
-              <ng-template awWizardStepSymbol>5</ng-template>
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="text-center">
-                    <!--<div class="mb-4">
-                      <i class="mdi mdi-check-circle-outline text-success display-4"></i>
-                    </div>-->
-                    <div>
-                      <h5>Confirm Detail</h5>
-
-                      <table class="table table-condensed" style="text-align: left; background-color: whitesmoke;">
-                        <tr>
-                          <th colspan="4">SLAP PANEL PROPERTIES</th>
-                        </tr>
-
-                        <tr>
-                          <td>Name:</td>
-                          <td>{{selectedSlabPanelProperty.name}}</td>
-                          <td>Support:</td>
-                          <td>{{selectedSlabPanelProperty.panel_support.name}}</td>
-                        </tr>
-
-                        <tr>
-                          <td colspan="1">Properties:</td>
-                          <td colspan="3">{{selectedSlabPanelProperty.property.name}}</td>
-                        </tr>
-                        <tr>
-                          <td>Long Length:</td>
-                          <td>{{selectedSlabPanelProperty.long_length}}</td>
-                          <td>Short Length:</td>
-                          <td>{{selectedSlabPanelProperty.short_length}} </td>
-                        </tr>
-
-                        <tr>
-                          <td>Thickness:</td>
-                          <td colspan="3">{{selectedSlabPanelProperty.thickness}}</td>
-                        </tr>
-
-                      </table>
-
-                      <table class="table table-striped" style="text-align: left">
-                        <tr>
-                          <th colspan="4">1. MATERIAL PROPERTIES</th>
-                        </tr>
-                        <tr>
-                          <th colspan="4">1.1 Concrete</th>
-                        </tr>
-                        <tr>
-                          <td>Strength:</td>
-                          <td>{{mtpForm.value.concrete_strength}} N/mm<sup>2</sup></td>
-                          <td>Density:</td>
-                          <td>{{mtpForm.value.concrete_density}} kN/m<sup>3</sup></td>
-                        </tr>
-                        <tr>
-                          <td>Steel Cover:</td>
-                          <td>{{mtpForm.value.concrete_steel_cover}} mm</td>
-                          <td>W/C Ratio:</td>
-                          <td>{{mtpForm.value.concrete_wc_ratio}} Unitles</td>
-                        </tr>
-
-                        <tr>
-                          <th colspan="4">1.2 Steel/Reinforcement</th>
-                        </tr>
-                        <tr>
-                          <td>Strength:</td>
-                          <td>{{mtpForm.value.steel_strength}} N/mm<sup>2</sup></td>
-                          <td>Density:</td>
-                          <td>{{mtpForm.value.steel_density}} kN/m<sup>3</sup></td>
-                        </tr>
-                        <tr>
-                          <td>Bott 1 Size:</td>
-                          <td>{{mtpForm.value.steel_bott1_size}} mm</td>
-                          <td>Bott 1 Gap:</td>
-                          <td>{{mtpForm.value.steel_bott1_gap}} mm</td>
-                        </tr>
-                        <tr>
-                          <td>Bott 2 Size:</td>
-                          <td>{{mtpForm.value.steel_bott2_size}} mm</td>
-                          <td>Bott 2 Gap:</td>
-                          <td>{{mtpForm.value.steel_bott2_gap}} mm</td>
-                        </tr>
-
-                        <tr>
-                          <td>Top 1 Size:</td>
-                          <td>{{mtpForm.value.steel_top1_size}} mm</td>
-                          <td>Top 1 Gap:</td>
-                          <td>{{mtpForm.value.steel_top1_gap}} mm</td>
-                        </tr>
-
-                        <tr>
-                          <td>Top 2 Size:</td>
-                          <td>{{mtpForm.value.steel_top2_size}} mm</td>
-                          <td>Top 2 Gap:</td>
-                          <td>{{mtpForm.value.steel_top2_gap}} mm</td>
-                        </tr>
-
-                        <tr>
-                          <th colspan="4">2. LOADING PROPERTIES</th>
-                        </tr>
-                        <tr>
-                          <th colspan="4">2.1 Dead Loading</th>
-                        </tr>
-                        <tr>
-                          <td>Finishes:</td>
-                          <td>{{mtpForm.value.dead_loading_finishes}} kN/m<sup>2</sup></td>
-                          <td>Services:</td>
-                          <td>{{mtpForm.value.dead_loading_services}} kN/m<sup>2</sup></td>
-                        </tr>
-                        <tr>
-                          <td>Partition:</td>
-                          <td>{{mtpForm.value.dead_loading_partition}} N/m<sup>2</sup></td>
-                        </tr>
-
-                        <tr>
-                          <th colspan="4">2.2 Live Loading</th>
-                        </tr>
-                        <tr>
-                          <td>Imposed:</td>
-                          <td>{{mtpForm.value.live_loading_imposed}} kN/m<sup>2</sup></td>
-                        </tr>
-
-                      </table>
-
-                      <table class="table table-condensed" style="text-align: left; background-color: whitesmoke;" *ngIf="selectedMaterialLoadingProperty?.id>0">
-                        <tr>
-                          <th colspan="2">MOMENT COEFFICIENTS RESULTS</th>
-                        </tr>
-                        <tr>
-                          <th>Moments Considered</th>
-                          <th>Short Span</th>
-                          <th>Long Span</th>
-                        </tr>
-                        <tr>
-                          <td>Negative Moment at Continuous Edge: </td>
-                          <td>{{selectedMaterialLoadingProperty.negative_short_span |  number:'1.3-3'}}</td>
-                          <td>{{selectedMaterialLoadingProperty.negative_long_span |  number:'1.3-3'}}</td>
-                        </tr>
-
-                        <tr>
-                          <td>Positive Moment at Mid - Span: </td>
-                          <td>{{selectedMaterialLoadingProperty.positive_short_span |  number:'1.3-3'}}</td>
-                          <td>{{selectedMaterialLoadingProperty.positive_long_span |  number:'1.3-3'}}</td>
-                        </tr>
-                      </table>
-
-                      <p class="text-muted">
-                        <button class="btn btn-success" [ladda]="loading" type="submit" (click)="submitMaterialProperties(mtpForm.value)"><i class="fa fa-save"></i> Save Materials</button>
-                        <ngb-alert type="success" *ngIf="successmsg" [dismissible]="false">{{successmsg}}</ngb-alert>
-
-                        <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-lg-6" *ngIf="selectedMaterialLoadingProperty?.id>0">
-                  <div class="text-center">
-                    <!--<div class="mb-4">
-                      <i class="mdi mdi-book-account-outline text-info display-4"></i>
-                    </div>-->
-                    <div>
-                      <h5>Reinforcement Detail Checks</h5>
-
-                      <table class="table table-condensed" style="text-align: left; background-color: whitesmoke;">
-                        <tr>
-                          <th colspan="3">CRACKS CONTROL CHECK (STEEL SPACING)</th>
-                        </tr>
-
-                        <tr>
-                          <td>Parameters</td>
-                          <td>Value</td>
-                          <td>Status</td>
-                        </tr>
-                        <tr *ngFor="let value of selectedMaterialLoadingProperty.steel_checks.crack_control_checks"
-                            [ngClass]="{'fail-row': value.status === 'Fail'}">
-                            <td>{{value.label}}</td>
-                            <td>{{value.value}}</td>
-                            <td>{{value.status}}</td>
-                        </tr>
-
-                      </table>
-
-                      <table class="table table-condensed" style="text-align: left; background-color: whitesmoke;">
-                        <tr>
-                          <th colspan="3">DEFLECTION CHECK</th>
-                        </tr>
-
-                        <tr>
-                          <td>Parameters</td>
-                          <td>Value</td>
-                          <td>Status</td>
-                        </tr>
-                        <tr *ngFor="let value of selectedMaterialLoadingProperty.steel_checks.deflection_cheks"
-                            [ngClass]="{'fail-row': value.status === 'Fail'}">
-                          <td>{{value.label}}</td>
-                          <td>{{value.value}}</td>
-                          <td>{{value.status}}</td>
-                        </tr>
-
-                      </table>
-
-                      <table class="table table-striped" style="text-align: left">
-                        <tr>
-                          <th colspan="3">REINFORCEMENT CHECK (STEEL %)</th>
-                        </tr>
-                        <tr>
-                          <td>Parameters</td>
-                          <td>Value</td>
-                          <td>Status</td>
-                        </tr>
-                        <tr *ngFor="let value of selectedMaterialLoadingProperty.steel_checks.reinforcement_steel_percentage_checks"
-                            [ngClass]="{'fail-row': value.status === 'Fail'}">
-                          <td>{{value.label}}</td>
-                          <td>{{value.value}}</td>
-                          <td>{{value.status}}</td>
-                        </tr>
-
-                      </table>
-
-                      <table class="table table-condensed" style="text-align: left; background-color: whitesmoke;">
-                        <tr>
-                          <th colspan="3">REINFORCEMENT DETAIL</th>
-                        </tr>
-                        <tr>
-                          <td>Parameters</td>
-                          <td>Value</td>
-                          <td>Status</td>
-                        </tr>
-                        <tr *ngFor="let value of selectedMaterialLoadingProperty.steel_checks.reinforcement_details_cheks"
-                            [ngClass]="{'fail-row': value.status === 'Fail'}">
-                          <td>{{value.label}}</td>
-                          <td>{{value.value}}</td>
-                          <td>{{value.status}}</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <ul class="list-inline wizard mb-0">
-                <li class="previous list-inline-item"><button class="btn btn-primary" awPreviousStep>Previous</button>
-                </li>
-              </ul>
-            </aw-wizard-step>
-          </aw-wizard>
+<div class="material-wizard-container">
+  <div class="wizard-header">
+    <div class="header-content">
+      <div class="header-title">
+        <h1>Material & Loading Properties</h1>
+        <p>{{selectedSlabPanelProperty.name}}</p>
+      </div>
+      <div class="progress-indicator">
+        <div class="progress-step active">
+          <span class="step-number">1</span>
+          <span class="step-label">Materials</span>
         </div>
-      </form>
+        <div class="progress-step">
+          <span class="step-number">2</span>
+          <span class="step-label">Loading</span>
+        </div>
+        <div class="progress-step">
+          <span class="step-number">3</span>
+          <span class="step-label">Review</span>
+        </div>
       </div>
     </div>
-    <div class="col-md-1"></div>
+  </div>
+
+  <div class="wizard-body">
+    <form [formGroup]="mtpForm">
+      <aw-wizard [navBarLayout]="'large-empty-symbols'" class="modern-wizard">
+
+        <!-- Step 1: Materials -->
+        <aw-wizard-step stepTitle="Materials">
+          <ng-template awWizardStepSymbol>
+            <i class="bx bx-cube"></i>
+          </ng-template>
+          
+          <div class="step-container">
+            <div class="step-intro">
+              <h2>Material Properties</h2>
+            </div>
+            
+            <!-- Concrete Properties -->
+            <div class="property-section">
+              <div class="section-header">
+                <h3>Concrete Properties</h3>
+                    </div>
+              
+              <div class="properties-grid">
+                <div class="property-card">
+                  <label for="concreteStrength">Concrete Strength</label>
+                  <div class="input-wrapper">
+                    <input type="number" id="concreteStrength" formControlName="concrete_strength" 
+                           placeholder="25.00" class="form-control">
+                    <span class="unit">N/mm²</span>
+                  </div>
+                    </div>
+                
+                <div class="property-card">
+                  <label for="concreteDensity">Density</label>
+                  <div class="input-wrapper">
+                    <input type="number" id="concreteDensity" formControlName="concrete_density" 
+                           placeholder="24.00" class="form-control">
+                    <span class="unit">kN/m³</span>
+                  </div>
+                </div>
+
+                <div class="property-card">
+                  <label for="concreteSteelCover">Steel Cover</label>
+                  <div class="input-wrapper">
+                    <input type="number" id="concreteSteelCover" formControlName="concrete_steel_cover" 
+                           placeholder="25.00" class="form-control">
+                    <span class="unit">mm</span>
+                  </div>
+                    </div>
+                
+                <div class="property-card">
+                  <label for="concreteWcRatio">Water-Cement Ratio</label>
+                  <div class="input-wrapper">
+                    <input type="number" id="concreteWcRatio" formControlName="concrete_wc_ratio" 
+                           placeholder="0.500" class="form-control">
+                    <span class="unit">-</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Steel Properties -->
+            <div class="property-section">
+              <div class="section-header">
+                <h3>Steel Reinforcement Properties</h3>
+              </div>
+              
+              <div class="properties-grid">
+                <div class="property-card">
+                  <label for="steelStrength">Steel Strength</label>
+                  <div class="input-wrapper">
+                    <input type="number" id="steelStrength" formControlName="steel_strength" 
+                           placeholder="460" class="form-control">
+                    <span class="unit">N/mm²</span>
+                  </div>
+                    </div>
+                
+                <div class="property-card">
+                  <label for="steelDensity">Steel Density</label>
+                  <div class="input-wrapper">
+                    <input type="number" id="steelDensity" formControlName="steel_density" 
+                           placeholder="78.50" class="form-control">
+                    <span class="unit">kN/m³</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Reinforcement Sizing -->
+              <div class="reinforcement-grid">
+                <div class="reinforcement-section">
+                  <h4>Bottom Reinforcement</h4>
+                  <div class="sizing-grid">
+                    <div class="sizing-card">
+                      <label>Primary Size</label>
+                      <select formControlName="steel_bott1_size" class="form-select">
+                        <option value="">Select Size</option>
+                        <option [value]="item" *ngFor="let item of botTopSize">{{item}} mm</option>
+                      </select>
+                    </div>
+                    <div class="sizing-card">
+                      <label>Primary Spacing</label>
+                      <select formControlName="steel_bott1_gap" class="form-select">
+                        <option value="">Select Spacing</option>
+                        <option [value]="item" *ngFor="let item of botTopGap">{{item}} mm</option>
+                      </select>
+                    </div>
+                    <div class="sizing-card">
+                      <label>Secondary Size</label>
+                      <select formControlName="steel_bott2_size" class="form-select">
+                        <option value="">Select Size</option>
+                        <option [value]="item" *ngFor="let item of botTopSize">{{item}} mm</option>
+                      </select>
+                    </div>
+                    <div class="sizing-card">
+                      <label>Secondary Spacing</label>
+                      <select formControlName="steel_bott2_gap" class="form-select">
+                        <option value="">Select Spacing</option>
+                        <option [value]="item" *ngFor="let item of botTopGap">{{item}} mm</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="reinforcement-section">
+                  <h4>Top Reinforcement</h4>
+                  <div class="sizing-grid">
+                    <div class="sizing-card">
+                      <label>Primary Size</label>
+                      <select formControlName="steel_top1_size" class="form-select">
+                        <option value="">Select Size</option>
+                        <option [value]="item" *ngFor="let item of botTopSize">{{item}} mm</option>
+                      </select>
+                    </div>
+                    <div class="sizing-card">
+                      <label>Primary Spacing</label>
+                      <select formControlName="steel_top1_gap" class="form-select">
+                        <option value="">Select Spacing</option>
+                        <option [value]="item" *ngFor="let item of botTopGap">{{item}} mm</option>
+                      </select>
+                    </div>
+                    <div class="sizing-card">
+                      <label>Secondary Size</label>
+                      <select formControlName="steel_top2_size" class="form-select">
+                        <option value="">Select Size</option>
+                        <option [value]="item" *ngFor="let item of botTopSize">{{item}} mm</option>
+                      </select>
+                    </div>
+                    <div class="sizing-card">
+                      <label>Secondary Spacing</label>
+                      <select formControlName="steel_top2_gap" class="form-select">
+                        <option value="">Select Spacing</option>
+                        <option [value]="item" *ngFor="let item of botTopGap">{{item}} mm</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="step-actions">
+            <button type="button" class="btn btn-primary btn-next" awNextStep>
+              Continue to Loading
+            </button>
+          </div>
+            </aw-wizard-step>
+
+        <!-- Step 2: Loading -->
+        <aw-wizard-step stepTitle="Loading">
+          <ng-template awWizardStepSymbol>
+            <i class="bx bx-weight"></i>
+          </ng-template>
+          
+          <div class="step-container">
+            <div class="step-intro">
+              <h2>Loading Configuration</h2>
+            </div>
+
+            <!-- Dead Loading -->
+            <div class="property-section">
+              <div class="section-header">
+                <h3>Dead Loading</h3>
+              </div>
+              
+              <div class="properties-grid">
+                <div class="property-card">
+                  <label for="deadLoadingFinishes">Floor Finishes</label>
+                  <div class="input-wrapper">
+                    <input type="number" id="deadLoadingFinishes" formControlName="dead_loading_finishes" 
+                           placeholder="25.00" class="form-control">
+                    <span class="unit">kN/m²</span>
+                  </div>
+                    </div>
+                
+                <div class="property-card">
+                  <label for="deadLoadingPartition">Partitions</label>
+                  <div class="input-wrapper">
+                    <input type="number" id="deadLoadingPartition" formControlName="dead_loading_partition" 
+                           placeholder="25.00" class="form-control">
+                    <span class="unit">kN/m²</span>
+                  </div>
+                </div>
+
+                <div class="property-card">
+                  <label for="deadLoadingServices">Services</label>
+                  <div class="input-wrapper">
+                    <input type="number" id="deadLoadingServices" formControlName="dead_loading_services" 
+                           placeholder="24.00" class="form-control">
+                    <span class="unit">kN/m²</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Live Loading -->
+            <div class="property-section">
+              <div class="section-header">
+                <h3>Live Loading</h3>
+                    </div>
+              
+              <div class="properties-grid">
+                <div class="property-card">
+                  <label for="liveLoadingImposed">Imposed Load</label>
+                  <div class="input-wrapper">
+                    <input type="number" id="liveLoadingImposed" formControlName="live_loading_imposed" 
+                           placeholder="24.00" class="form-control">
+                    <span class="unit">kN/m²</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="step-actions">
+            <button type="button" class="btn btn-light btn-prev" awPreviousStep>
+              Back to Materials
+            </button>
+            <button type="button" class="btn btn-primary btn-next" awNextStep>
+              Review & Save
+            </button>
+          </div>
+        </aw-wizard-step>
+
+        <!-- Step 3: Review -->
+        <aw-wizard-step stepTitle="Review">
+          <ng-template awWizardStepSymbol>
+            <i class="bx bx-check-circle"></i>
+          </ng-template>
+          
+          <div class="step-container">
+            <div class="step-intro">
+              <h2>Review & Confirm</h2>
+                  </div>
+
+            <div class="review-grid">
+              <!-- Panel Summary -->
+              <div class="review-card">
+                <div class="card-header">
+                  <h3>Panel Summary</h3>
+                </div>
+                <div class="card-content">
+                  <div class="summary-item">
+                    <span class="label">Panel Name</span>
+                    <span class="value">{{selectedSlabPanelProperty.name}}</span>
+                  </div>
+                  <div class="summary-item">
+                    <span class="label">Support Type</span>
+                    <span class="value">{{selectedSlabPanelProperty.panel_support.name}}</span>
+                  </div>
+                  <div class="summary-item">
+                    <span class="label">Dimensions</span>
+                    <span class="value">{{selectedSlabPanelProperty.long_length}} × {{selectedSlabPanelProperty.short_length}} × {{selectedSlabPanelProperty.thickness}} mm</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Material Summary -->
+              <div class="review-card">
+                <div class="card-header">
+                  <h3>Material Properties</h3>
+                </div>
+                <div class="card-content">
+                  <div class="summary-section">
+                    <h4>Concrete</h4>
+                    <div class="summary-item">
+                      <span class="label">Strength</span>
+                      <span class="value">{{mtpForm.value.concrete_strength}} N/mm²</span>
+                    </div>
+                    <div class="summary-item">
+                      <span class="label">Density</span>
+                      <span class="value">{{mtpForm.value.concrete_density}} kN/m³</span>
+                    </div>
+                    <div class="summary-item">
+                      <span class="label">Cover</span>
+                      <span class="value">{{mtpForm.value.concrete_steel_cover}} mm</span>
+                    </div>
+                  </div>
+                  <div class="summary-section">
+                    <h4>Steel</h4>
+                    <div class="summary-item">
+                      <span class="label">Strength</span>
+                      <span class="value">{{mtpForm.value.steel_strength}} N/mm²</span>
+                    </div>
+                    <div class="summary-item">
+                      <span class="label">Density</span>
+                      <span class="value">{{mtpForm.value.steel_density}} kN/m³</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Loading Summary -->
+              <div class="review-card">
+                <div class="card-header">
+                  <h3>Loading Properties</h3>
+                </div>
+                <div class="card-content">
+                  <div class="summary-section">
+                    <h4>Dead Loads</h4>
+                    <div class="summary-item">
+                      <span class="label">Finishes</span>
+                      <span class="value">{{mtpForm.value.dead_loading_finishes}} kN/m²</span>
+                    </div>
+                    <div class="summary-item">
+                      <span class="label">Partitions</span>
+                      <span class="value">{{mtpForm.value.dead_loading_partition}} kN/m²</span>
+                    </div>
+                    <div class="summary-item">
+                      <span class="label">Services</span>
+                      <span class="value">{{mtpForm.value.dead_loading_services}} kN/m²</span>
+                    </div>
+                  </div>
+                  <div class="summary-section">
+                    <h4>Live Loads</h4>
+                    <div class="summary-item">
+                      <span class="label">Imposed</span>
+                      <span class="value">{{mtpForm.value.live_loading_imposed}} kN/m²</span>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+
+              <!-- Results (if available) -->
+              <div class="review-card" *ngIf="selectedMaterialLoadingProperty?.id>0">
+                <div class="card-header">
+                  <h3>Analysis Results</h3>
+                </div>
+                <div class="card-content">
+                  <div class="results-table">
+                    <div class="result-header">
+                      <span>Moment Type</span>
+                      <span>Short Span</span>
+                      <span>Long Span</span>
+                    </div>
+                    <div class="result-row">
+                      <span>Negative (Continuous Edge)</span>
+                      <span class="value">{{selectedMaterialLoadingProperty.negative_short_span | number:'1.3-3'}}</span>
+                      <span class="value">{{selectedMaterialLoadingProperty.negative_long_span | number:'1.3-3'}}</span>
+                    </div>
+                    <div class="result-row">
+                      <span>Positive (Mid-Span)</span>
+                      <span class="value">{{selectedMaterialLoadingProperty.positive_short_span | number:'1.3-3'}}</span>
+                      <span class="value">{{selectedMaterialLoadingProperty.positive_long_span | number:'1.3-3'}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="step-actions">
+            <button type="button" class="btn btn-light btn-prev" awPreviousStep>
+              Back to Loading
+            </button>
+            <button type="submit" class="btn btn-success btn-save" 
+                    [ladda]="loading" (click)="submitMaterialProperties(mtpForm.value)">
+              Save Properties
+            </button>
+          </div>
+          
+          <!-- Alerts -->
+          <div class="alerts-section">
+            <ngb-alert type="success" *ngIf="successmsg" [dismissible]="false">
+              {{successmsg}}
+            </ngb-alert>
+            <ngb-alert type="danger" *ngIf="error" [dismissible]="false">
+              {{ error }}
+            </ngb-alert>
+          </div>
+            </aw-wizard-step>
+          </aw-wizard>
+      </form>
   </div>
 </div>

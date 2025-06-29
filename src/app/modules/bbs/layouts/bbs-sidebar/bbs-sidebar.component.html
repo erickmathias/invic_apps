@@ -1,47 +1,93 @@
-<!-- ========== Left Sidebar Start ========== -->
-
+<!-- Modern BBS Sidebar -->
 <ng-template #contentTemplate>
+  <div id="sidebar-menu" class="bbs-sidebar-menu">
+    <!-- Sidebar Header -->
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <i class="bx bx-building-house"></i>
+        <span>BBS Platform</span>
+      </div>
+    </div>
 
-  <!--- Sidemenu -->
-  <div id="sidebar-menu">
-    <!-- Left Menu Start -->
+    <!-- Navigation Menu -->
     <ul class="metismenu list-unstyled" id="side-menu" #sideMenu>
-      <!-- {{menuItems}} -->
       <ng-container *ngFor="let item of menuItems">
-        <li class="menu-title" *ngIf="item.isTitle">{{ item.label | translate }}</li>
-        <li *ngIf="!item.isTitle && !item.isLayout">
-          <a *ngIf="hasItems(item)" href="javascript:void(0);" class="is-parent"
+        <!-- Menu Title -->
+        <li class="menu-title" *ngIf="item.isTitle">
+          <span class="title-text">{{ item.label | translate }}</span>
+        </li>
+        
+        <!-- Menu Item -->
+        <li *ngIf="!item.isTitle && !item.isLayout" class="menu-item">
+          <!-- Parent Menu Item -->
+          <a *ngIf="hasItems(item)" href="javascript:void(0);" class="menu-link parent-link"
              [ngClass]="{'has-arrow': !item.badge, 'has-dropdown': item.badge}">
-            <i class="bx {{item.icon}}" *ngIf="item.icon"></i>
-            <span> {{ item.label | translate }}</span>
-            <span class="badge rounded-pill float-end bg-{{item.badge.variant}}" *ngIf="item.badge">{{item.badge.text |
-              translate}}</span>
+            <div class="menu-icon">
+              <i class="bx {{item.icon}}" *ngIf="item.icon"></i>
+            </div>
+            <div class="menu-content">
+              <span class="menu-text">{{ item.label | translate }}</span>
+              <span class="badge rounded-pill bg-{{item.badge.variant}}" *ngIf="item.badge">
+                {{item.badge.text | translate}}
+              </span>
+            </div>
+            <div class="menu-arrow">
+              <i class="bx bx-chevron-right"></i>
+            </div>
           </a>
 
-          <a [routerLink]="item.link" *ngIf="!hasItems(item)" class="side-nav-link-ref" routerLinkActive="active">
-            <i class="bx {{ item.icon }}" *ngIf="item.icon"></i>
-            <span> {{ item.label | translate }}</span>
-            <span class="badge rounded-pill bg-{{item.badge.variant}} float-end" *ngIf="item.badge">{{item.badge.text |
-              translate}}</span>
+          <!-- Single Menu Item -->
+          <a [routerLink]="item.link" *ngIf="!hasItems(item)" class="menu-link single-link" 
+              routerLinkActive="active">
+            <div class="menu-icon">
+              <i class="bx {{ item.icon }}" *ngIf="item.icon"></i>
+            </div>
+            <div class="menu-content">
+              <span class="menu-text">{{ item.label | translate }}</span>
+              <span class="badge rounded-pill bg-{{item.badge.variant}}" *ngIf="item.badge">
+                {{item.badge.text | translate}}
+              </span>
+            </div>
           </a>
 
+          <!-- Submenu -->
           <ul *ngIf="hasItems(item)" class="sub-menu" aria-expanded="false">
-            <li *ngFor="let subitem of item.subItems">
-              <a [routerLink]="subitem.link" *ngIf="!hasItems(subitem)" class="side-nav-link-ref"
+            <li *ngFor="let subitem of item.subItems" class="submenu-item">
+              <!-- Single Submenu Item -->
+              <a [routerLink]="subitem.link" *ngIf="!hasItems(subitem)" class="submenu-link"
                  [attr.data-parent]="subitem.parentId" routerLinkActive="active">
-                {{ subitem.label | translate}}
-                <span class="badge rounded-pill bg-{{subitem.badge.variant}} float-end" *ngIf="subitem.badge">{{subitem.badge.text |
-                  translate}}</span>
+                <div class="submenu-icon">
+                  <i class="bx bx-circle" *ngIf="!subitem.icon"></i>
+                  <i class="bx {{subitem.icon}}" *ngIf="subitem.icon"></i>
+                </div>
+                <span class="submenu-text">{{ subitem.label | translate}}</span>
+                <span class="badge rounded-pill bg-{{subitem.badge.variant}}" *ngIf="subitem.badge">
+                  {{subitem.badge.text | translate}}
+                </span>
               </a>
-              <a *ngIf="hasItems(subitem)" class="side-nav-link-a-ref has-arrow" href="javascript:void(0);"
+              
+              <!-- Parent Submenu Item -->
+              <a *ngIf="hasItems(subitem)" class="submenu-link parent-submenu" href="javascript:void(0);"
                  [attr.data-parent]="subitem.parentId">
-                {{ subitem.label | translate}}
+                <div class="submenu-icon">
+                  <i class="bx bx-circle" *ngIf="!subitem.icon"></i>
+                  <i class="bx {{subitem.icon}}" *ngIf="subitem.icon"></i>
+                </div>
+                <span class="submenu-text">{{ subitem.label | translate}}</span>
+                <div class="submenu-arrow">
+                  <i class="bx bx-chevron-right"></i>
+                </div>
               </a>
-              <ul *ngIf="hasItems(subitem)" class="sub-menu mm-collapse" aria-expanded="false">
-                <li *ngFor="let subSubitem of subitem.subItems">
-                  <a [attr.data-parent]="subSubitem.parentId" [routerLink]="subSubitem.link" routerLinkActive="active"
-                     class="side-nav-link-ref">
-                    {{ subSubitem.label | translate }}
+              
+              <!-- Sub-submenu -->
+              <ul *ngIf="hasItems(subitem)" class="sub-submenu mm-collapse" aria-expanded="false">
+                <li *ngFor="let subSubitem of subitem.subItems" class="sub-submenu-item">
+                  <a [attr.data-parent]="subSubitem.parentId" [routerLink]="subSubitem.link" 
+                     routerLinkActive="active" class="sub-submenu-link">
+                    <div class="sub-submenu-icon">
+                      <i class="bx bx-circle"></i>
+                    </div>
+                    <span class="sub-submenu-text">{{ subSubitem.label | translate }}</span>
                   </a>
                 </li>
               </ul>
@@ -52,16 +98,15 @@
     </ul>
   </div>
 </ng-template>
-<!-- Sidebar -->
 
-<div class="vertical-menu">
+<!-- Sidebar Container -->
+<div class="vertical-menu bbs-vertical-menu">
   <ngx-simplebar class="h-100" #componentRef>
-    <div *ngIf="!isCondensed">
+    <div *ngIf="!isCondensed" class="sidebar-content">
       <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
     </div>
-    <div *ngIf="isCondensed">
+    <div *ngIf="isCondensed" class="sidebar-content condensed">
       <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
     </div>
   </ngx-simplebar>
 </div>
-<!-- Left Sidebar End -->

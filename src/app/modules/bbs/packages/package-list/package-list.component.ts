@@ -329,4 +329,15 @@ export class PackageListComponent implements OnInit {
     }
     return "Month(s)";
   }
+
+  getPackageType(packageName: string): string {
+    const name = packageName.toLowerCase();
+    if (name.includes('premium') || name.includes('pro') || name.includes('enterprise')) {
+      return 'premium';
+    } else if (name.includes('standard') || name.includes('business')) {
+      return 'standard';
+    } else {
+      return 'basic';
+    }
+  }
 }

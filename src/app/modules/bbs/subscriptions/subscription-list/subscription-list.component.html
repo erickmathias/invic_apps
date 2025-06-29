@@ -1,322 +1,292 @@
-<div class="container-fluid">
-
+<div class="subscriptions-container">
   <app-page-title title="Subscriptions" [breadcrumbItems]="breadCrumbItems"></app-page-title>
 
-  <!-- end row -->
-  <!--<div class="row mb-mb-2">
-    <div class="col-sm-12">
-      <ngb-alert type="danger"  style="font-size: 16px; text-align: center" *ngIf="packageError" [dismissible]="false">{{ packageError }}</ngb-alert>
-      <div class="text-sm-end" *ngIf="packageError.length < 1">
-        <button type="button" (click)="openModal(content)" class="btn btn-success btn-sm btn-rounded mb-2 me-2"><i class="mdi mdi-plus mr-1"></i>
-          New Project</button>
-      </div>
-    </div>
-  </div>-->
-  <div class="row" style="font-size: 12px;">
-    <div class="col-lg-12">
-      <div class="card">
-        <div class="card-body">
-          <!--<h4 class="card-title mb-4">My Clients</h4>-->
-          <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-tabs nav-tabs-custom">
-            <li [ngbNavItem]="1">
-              <a ngbNavLink>Pending [{{ activitiesLength$ | async }}]</a>
-              <ng-template ngbNavContent>
-
-
-                <div class="row mb-md-2" *ngIf="!loading">
-                  <div class="col-sm-12 col-md-6">
-
-                    <div class="dataTables_length" id="tickets-table_length"><label
-                      class="d-inline-flex align-items-center">Show
-                      <select name="tickets-table_length" aria-controls="tickets-table"
-                              name="pageSize" [(ngModel)]="service.pageSize"
-                              class="custom-select custom-select-sm form-control form-control-sm mx-2">
-                        <option [ngValue]="10">10</option>
-                        <option [ngValue]="25">25</option>
-                        <option [ngValue]="50">50</option>
-                        <option [ngValue]="100">100</option>
-                      </select> entries</label></div>
-                  </div>
-                  <!-- Search -->
-                  <div class="col-sm-12 col-md-6">
-                    <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
-                      class="d-inline-flex align-items-center">Search:
-                      <input type="text" name="searchTerm"
-                             class="form-control form-control-sm ms-2"
-                             aria-controls="tickets-table"
-                             [(ngModel)]="service.searchTerm"></label></div>
-                  </div>
-                  <!-- End search -->
-                </div>
-                <!-- Table -->
-
-                <div class="table-responsive" style="padding-bottom: 70px;">
-                  <table id="basic-datatable" class="table datatables dt-responsive nowrap">
-                    <thead>
-                    <tr>
-                      <th sortable="id" (sort)="onSort($event)">ID</th>
-                      <th sortable="name" (sort)="onSort($event)">MODULE</th>
-                      <th sortable="client" (sort)="onSort($event)">PACK-NAME</th>
-                      <th sortable="prepared_by" (sort)="onSort($event)">MONTHS</th>
-                      <th sortable="date_prepared" (sort)="onSort($event)">AMTBILLED</th>
-                      <th sortable="checked_by" (sort)="onSort($event)">AMTPAID</th>
-                      <th sortable="date_checked" (sort)="onSort($event)">PAID</th>
-                      <th sortable="date_checked" (sort)="onSort($event)">PAIDDATE</th>
-                      <th sortable="date_checked" (sort)="onSort($event)">DUEDATE</th>
-                      <th sortable="reviewed_by" (sort)="onSort($event)">STATUS</th>
-                      <th sortable="date_reviewed" (sort)="onSort($event)">CREATEDDATE</th>
-                      <th>ACTIONS</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let table of activities$ | async; let i = index;">
-                      <td>
-                        {{i+1}}
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="table.package.module" [term]="service.searchTerm"></ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="table.package.name" [term]="service.searchTerm"></ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="table.total_months.toString()" [term]="service.searchTerm"></ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="table.total_amount_billed | number" [term]="service.searchTerm"></ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="table.total_amount_paid | number" [term]="service.searchTerm">
-                        </ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="getPaidState(table.paid_status)" [term]="service.searchTerm">
-                        </ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="table.paid_date | date:'medium'" [term]="service.searchTerm">
-                        </ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="table.due_date | date: 'medium'" [term]="service.searchTerm">
-                        </ngb-highlight>
-                      </td>
-
-                      <td>
-                        <ngb-highlight [result]="getStatus(table.status)" [term]="service.searchTerm">
-                        </ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="table.created_at | date: 'medium'" [term]="service.searchTerm">
-                        </ngb-highlight>
-                      </td>
-                      <td>
-                        <div ngbDropdown placement="bottom-left">
-                          <i class="mdi mdi-dots-vertical dropdown-toggle" ngbDropdownToggle data-toggle="dropdown"
-                             aria-expanded="true"></i>
-                          <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
-                            <a class="dropdown-item" (click)="openSubscriptionPaymentRoute(table)"><i class="mdi mdi-arrow-right"></i>Make Payment</a>
-<!--
-                            <a class="dropdown-item" href="javascript: void(0);"><i class="mdi mdi-delete"></i>Delete</a>
--->
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <div class="card-body" style="text-align: center" *ngIf="loading">
-                  <div class="spinner-border text-primary" role="status">
-                    <span class="sr-only">Loading...</span>
-                  </div>
-                </div>
-
-                <!-- End table -->
-                <div class="row justify-content-md-between align-items-md-center mt-2">
-                  <div class="col-sm-12 col-md-5">
-                    <div class="dataTables_info mb-2" id="tickets-table_info" role="status"
-                         aria-live="polite">
-                      Showing
-                      {{service.startIndex + 1}} to
-                      {{service.endIndex}} of {{service.totalRecords}}
-                      entries
-                    </div>
-                  </div>
-                  <!-- Pagination -->
-                  <div class="col-sm-12 col-md-5">
-                    <div class="text-md-right float-md-end pagination-rounded">
-                      <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page"
-                                      [pageSize]="service.pageSize">
-                      </ngb-pagination>
-                    </div>
-                  </div>
-                  <!-- End Pagination -->
-                </div>
-              </ng-template>
-            </li>
-            <li [ngbNavItem]="2">
-              <a ngbNavLink>Paid [{{ activitiesLength2$ | async }}]</a>
-              <ng-template ngbNavContent>
-
-
-                <div class="row mb-md-2" *ngIf="!loading">
-                  <div class="col-sm-12 col-md-6">
-
-                    <div class="dataTables_length" id="tickets-table_length"><label
-                      class="d-inline-flex align-items-center">Show
-                      <select name="tickets-table_length" aria-controls="tickets-table"
-                              name="pageSize" [(ngModel)]="service.pageSize"
-                              class="custom-select custom-select-sm form-control form-control-sm mx-2">
-                        <option [ngValue]="10">10</option>
-                        <option [ngValue]="25">25</option>
-                        <option [ngValue]="50">50</option>
-                        <option [ngValue]="100">100</option>
-                      </select> entries</label></div>
-                  </div>
-                  <!-- Search -->
-                  <div class="col-sm-12 col-md-6">
-                    <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
-                      class="d-inline-flex align-items-center">Search:
-                      <input type="text" name="searchTerm"
-                             class="form-control form-control-sm ms-2"
-                             aria-controls="tickets-table"
-                             [(ngModel)]="service2.searchTerm"></label></div>
-                  </div>
-                  <!-- End search -->
-                </div>
-                <!-- Table -->
-
-                <div class="table-responsive"  style="padding-bottom: 70px;">
-                  <table id="basic-datatable" class="table datatables dt-responsive nowrap">
-                    <thead>
-                    <tr>
-                      <th sortable="id" (sort)="onSort($event)">ID</th>
-                      <th sortable="name" (sort)="onSort($event)">MODULE</th>
-                      <th sortable="client" (sort)="onSort($event)">PACK-NAME</th>
-                      <th sortable="prepared_by" (sort)="onSort($event)">MONTHS</th>
-                      <th sortable="date_prepared" (sort)="onSort($event)">AMTBILLED</th>
-                      <th sortable="checked_by" (sort)="onSort($event)">AMTPAID</th>
-                      <th sortable="date_checked" (sort)="onSort($event)">PAID</th>
-                      <th sortable="date_checked" (sort)="onSort($event)">PAIDDATE</th>
-                      <th sortable="date_checked" (sort)="onSort($event)">DUEDATE</th>
-                      <th sortable="reviewed_by" (sort)="onSort($event)">STATUS</th>
-                      <th sortable="date_reviewed" (sort)="onSort($event)">CREATEDDATE</th>
-                      <th>ACTIONS</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let table of activities2$ | async; let i = index;">
-                      <td>
-                        {{i+1}}
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="table.package.module" [term]="service.searchTerm"></ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="table.package.name" [term]="service.searchTerm"></ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="table.total_months.toString()" [term]="service.searchTerm"></ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="table.total_amount_billed | number" [term]="service.searchTerm"></ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="table.total_amount_paid | number" [term]="service.searchTerm">
-                        </ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="getPaidState(table.paid_status)" [term]="service.searchTerm">
-                        </ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="table.paid_date | date:'medium'" [term]="service.searchTerm">
-                        </ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="table.due_date | date: 'medium'" [term]="service.searchTerm">
-                        </ngb-highlight>
-                      </td>
-
-                      <td>
-                        <ngb-highlight [result]="getStatus(table.status)" [term]="service.searchTerm">
-                        </ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="table.created_at | date: 'medium'" [term]="service.searchTerm">
-                        </ngb-highlight>
-                      </td>
-                      <td>
-                        <div ngbDropdown placement="bottom-left">
-                          <i class="mdi mdi-dots-vertical dropdown-toggle" ngbDropdownToggle data-toggle="dropdown"
-                             aria-expanded="true"></i>
-                          <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
-                            <a class="dropdown-item" (click)="openSubscriptionPaymentRoute(table)"><i class="mdi mdi-arrow-right"></i>Check Payment</a>
-                            <!--
-                                                        <a class="dropdown-item" href="javascript: void(0);"><i class="mdi mdi-delete"></i>Delete</a>
-                            -->
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <div class="card-body" style="text-align: center" *ngIf="loading">
-                  <div class="spinner-border text-primary" role="status">
-                    <span class="sr-only">Loading...</span>
-                  </div>
-                </div>
-
-                <!-- End table -->
-                <div class="row justify-content-md-between align-items-md-center mt-2">
-                  <div class="col-sm-12 col-md-5">
-                    <div class="dataTables_info mb-2" id="tickets-table_info" role="status"
-                         aria-live="polite">
-                      Showing
-                      {{service2.startIndex + 1}} to
-                      {{service2.endIndex}} of {{service2.totalRecords}}
-                      entries
-                    </div>
-                  </div>
-                  <!-- Pagination -->
-                  <div class="col-sm-12 col-md-5">
-                    <div class="text-md-right float-md-end pagination-rounded">
-                      <ngb-pagination [collectionSize]="total2$ | async" [(page)]="service2.page"
-                                      [pageSize]="service2.pageSize">
-                      </ngb-pagination>
-                    </div>
-                  </div>
-                  <!-- End Pagination -->
-                </div>
-              </ng-template>
-            </li>
-          </ul>
-          <div [ngbNavOutlet]="nav" class="mt-4"></div>
+  <div class="subscriptions-section">
+    <div class="subscriptions-header">
+      <div class="header-content">
+        <div class="page-title">
+          <div class="title-icon">
+            <i class="bx bx-credit-card"></i>
+          </div>
+          <div class="title-text">
+            <h1>Subscription Management</h1>
+            <p>Monitor and manage your package subscriptions</p>
+          </div>
         </div>
       </div>
+    </div>
+
+    <!-- Subscription Tabs -->
+    <div class="subscriptions-tabs">
+      <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-tabs-custom">
+        <li [ngbNavItem]="1">
+          <a ngbNavLink>
+            <i class="bx bx-time"></i>
+            Pending <span class="badge bg-warning">{{ activitiesLength$ | async }}</span>
+          </a>
+          <ng-template ngbNavContent>
+            <div class="tab-content-wrapper">
+              <!-- Table Controls -->
+              <div class="table-controls" *ngIf="!loading">
+                <div class="controls-left">
+                  <div class="page-size-selector">
+                    <label>Show</label>
+                    <select [(ngModel)]="service.pageSize" class="form-select form-select-sm">
+                      <option [ngValue]="10">10</option>
+                      <option [ngValue]="25">25</option>
+                      <option [ngValue]="50">50</option>
+                      <option [ngValue]="100">100</option>
+                    </select>
+                    <span>entries</span>
+                  </div>
+                </div>
+                
+                <div class="controls-right">
+                  <div class="search-box">
+                    <i class="bx bx-search"></i>
+                    <input type="text" 
+                           [(ngModel)]="service.searchTerm"
+                           placeholder="Search subscriptions..."
+                           class="form-control form-control-sm">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Subscription Table -->
+              <div class="table-container" *ngIf="!loading">
+                <div class="table-responsive">
+                  <table class="table table-modern">
+                    <thead>
+                      <tr>
+                        <th sortable="id" (sort)="onSort($event)">#</th>
+                        <th sortable="name" (sort)="onSort($event)">Module</th>
+                        <th sortable="client" (sort)="onSort($event)">Package</th>
+                        <th sortable="prepared_by" (sort)="onSort($event)">Duration</th>
+                        <th sortable="date_prepared" (sort)="onSort($event)">Amount Billed</th>
+                        <th sortable="checked_by" (sort)="onSort($event)">Amount Paid</th>
+                        <th sortable="date_checked" (sort)="onSort($event)">Payment Status</th>
+                        <th sortable="date_checked" (sort)="onSort($event)">Due Date</th>
+                        <th sortable="reviewed_by" (sort)="onSort($event)">Status</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let table of activities$ | async; let i = index;">
+                        <td class="id-cell">{{i+1}}</td>
+                        <td class="module-cell">
+                          <span class="module-badge">{{table.package.module}}</span>
+                        </td>
+                        <td class="package-cell">
+                          <ngb-highlight [result]="table.package.name" [term]="service.searchTerm"></ngb-highlight>
+                        </td>
+                        <td class="duration-cell">
+                          <span class="duration-badge">{{table.total_months}} {{table.total_months === 1 ? 'Month' : 'Months'}}</span>
+                        </td>
+                        <td class="amount-cell">
+                          <span class="amount">TZS {{table.total_amount_billed | number}}</span>
+                        </td>
+                        <td class="amount-cell">
+                          <span class="amount">TZS {{table.total_amount_paid | number}}</span>
+                        </td>
+                        <td class="status-cell">
+                          <span class="status-badge" [ngClass]="getPaidStatusClass(table.paid_status)">
+                            <i [class]="getPaidStatusIcon(table.paid_status)"></i>
+                            {{getPaidState(table.paid_status)}}
+                          </span>
+                        </td>
+                        <td class="date-cell">
+                          <span class="date">{{table.due_date | date:'shortDate'}}</span>
+                        </td>
+                        <td class="status-cell">
+                          <span class="status-badge" [ngClass]="getStatusClass(table.status)">
+                            <i [class]="getStatusIcon(table.status)"></i>
+                            {{getStatus(table.status)}}
+                          </span>
+                        </td>
+                        <td class="actions-cell">
+                          <button class="btn btn-sm btn-primary" (click)="openSubscriptionPaymentRoute(table)">
+                            <i class="bx bx-credit-card"></i>
+                            Pay
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-wrapper">
+                  <div class="pagination-info">
+                    Showing {{service.startIndex + 1}} to {{service.endIndex}} of {{service.totalRecords}} entries
+                  </div>
+                  <div class="pagination-controls">
+                    <ngb-pagination 
+                      [collectionSize]="total$ | async" 
+                      [(page)]="service.page"
+                      [pageSize]="service.pageSize"
+                      class="pagination-modern">
+                    </ngb-pagination>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Loading State -->
+              <div class="loading-container" *ngIf="loading">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+        
+        <li [ngbNavItem]="2">
+          <a ngbNavLink>
+            <i class="bx bx-check-circle"></i>
+            Paid <span class="badge bg-success">{{ activitiesLength2$ | async }}</span>
+          </a>
+          <ng-template ngbNavContent>
+            <div class="tab-content-wrapper">
+              <!-- Table Controls -->
+              <div class="table-controls" *ngIf="!loading">
+                <div class="controls-left">
+                  <div class="page-size-selector">
+                    <label>Show</label>
+                    <select [(ngModel)]="service.pageSize" class="form-select form-select-sm">
+                      <option [ngValue]="10">10</option>
+                      <option [ngValue]="25">25</option>
+                      <option [ngValue]="50">50</option>
+                      <option [ngValue]="100">100</option>
+                    </select>
+                    <span>entries</span>
+                  </div>
+                </div>
+                
+                <div class="controls-right">
+                  <div class="search-box">
+                    <i class="bx bx-search"></i>
+                    <input type="text" 
+                           [(ngModel)]="service2.searchTerm"
+                           placeholder="Search subscriptions..."
+                           class="form-control form-control-sm">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Subscription Table -->
+              <div class="table-container" *ngIf="!loading">
+                <div class="table-responsive">
+                  <table class="table table-modern">
+                    <thead>
+                      <tr>
+                        <th sortable="id" (sort)="onSort($event)">#</th>
+                        <th sortable="name" (sort)="onSort($event)">Module</th>
+                        <th sortable="client" (sort)="onSort($event)">Package</th>
+                        <th sortable="prepared_by" (sort)="onSort($event)">Duration</th>
+                        <th sortable="date_prepared" (sort)="onSort($event)">Amount Billed</th>
+                        <th sortable="checked_by" (sort)="onSort($event)">Amount Paid</th>
+                        <th sortable="date_checked" (sort)="onSort($event)">Payment Status</th>
+                        <th sortable="date_checked" (sort)="onSort($event)">Paid Date</th>
+                        <th sortable="reviewed_by" (sort)="onSort($event)">Status</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let table of activities2$ | async; let i = index;">
+                        <td class="id-cell">{{i+1}}</td>
+                        <td class="module-cell">
+                          <span class="module-badge">{{table.package.module}}</span>
+                        </td>
+                        <td class="package-cell">
+                          <ngb-highlight [result]="table.package.name" [term]="service2.searchTerm"></ngb-highlight>
+                        </td>
+                        <td class="duration-cell">
+                          <span class="duration-badge">{{table.total_months}} {{table.total_months === 1 ? 'Month' : 'Months'}}</span>
+                        </td>
+                        <td class="amount-cell">
+                          <span class="amount">TZS {{table.total_amount_billed | number}}</span>
+                        </td>
+                        <td class="amount-cell">
+                          <span class="amount">TZS {{table.total_amount_paid | number}}</span>
+                        </td>
+                        <td class="status-cell">
+                          <span class="status-badge" [ngClass]="getPaidStatusClass(table.paid_status)">
+                            <i [class]="getPaidStatusIcon(table.paid_status)"></i>
+                            {{getPaidState(table.paid_status)}}
+                          </span>
+                        </td>
+                        <td class="date-cell">
+                          <span class="date">{{table.paid_date | date:'shortDate'}}</span>
+                        </td>
+                        <td class="status-cell">
+                          <span class="status-badge" [ngClass]="getStatusClass(table.status)">
+                            <i [class]="getStatusIcon(table.status)"></i>
+                            {{getStatus(table.status)}}
+                          </span>
+                        </td>
+                        <td class="actions-cell">
+                          <button class="btn btn-sm btn-outline-primary" (click)="openSubscriptionPaymentRoute(table)">
+                            <i class="bx bx-show"></i>
+                            View
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-wrapper">
+                  <div class="pagination-info">
+                    Showing {{service2.startIndex + 1}} to {{service2.endIndex}} of {{service2.totalRecords}} entries
+                  </div>
+                  <div class="pagination-controls">
+                    <ngb-pagination 
+                      [collectionSize]="total2$ | async" 
+                      [(page)]="service2.page"
+                      [pageSize]="service2.pageSize"
+                      class="pagination-modern">
+                    </ngb-pagination>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Loading State -->
+              <div class="loading-container" *ngIf="loading">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+      </ul>
+      <div [ngbNavOutlet]="nav" class="tab-content"></div>
     </div>
   </div>
 </div>
 
+<!-- Subscription Payment Modal -->
 <ng-template #contentSubscriptionPayment role="document" let-modal>
-  <div class="modal-header">
-    <span class="modal-title mt-0">{{subscriptionPaymentTitle}}</span>
-    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
-  </div>
-  <app-pesa-pall-order-request
-    [packageSubscription]="selectedSubscription"
-  ></app-pesa-pall-order-request>
-  <div class="modal-footer">
-    <!--    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
-        <button type="button" class="btn btn-primary" (click)="addProject(projectsForm.value)">Save Client</button>-->
-    <div class="text-sm-end">
-      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">
+        <i class="bx bx-credit-card"></i>
+        {{subscriptionPaymentTitle}}
+      </h5>
+      <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
     </div>
-
+    
+    <div class="modal-body">
+      <app-pesa-pall-order-request [packageSubscription]="selectedSubscription"></app-pesa-pall-order-request>
+    </div>
+    
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">
+        <i class="bx bx-x"></i>
+        Close
+      </button>
+    </div>
   </div>
 </ng-template>
 

@@ -39,6 +39,7 @@ export class MyClientsComponent implements OnInit {
 
   userProfile: UserProfile = JSON.parse(sessionStorage.getItem('user'))
   private modalRef: any;
+  editingClient: boolean;
   constructor(public service: ClientsService,
               private router: Router,
               private profileService: BbsProfileService,

@@ -1,198 +1,220 @@
-<div class="container-fluid">
-
+<div class="packages-container">
   <app-page-title title="Packages" [breadcrumbItems]="breadCrumbItems"></app-page-title>
 
-  <!-- Action Button (Hidden for Now) -->
-  <div class="row mb-2">
-    <div class="col-sm-12">
-      <div class="text-sm-end">
-        <!--<button type="button" (click)="openModal(content)" class="btn btn-success btn-sm btn-rounded mb-2 me-2">
-          <i class="mdi mdi-plus mr-1"></i> Add New Client
-        </button>-->
-      </div>
-    </div>
-  </div>
-
   <!-- Package Section -->
-  <div class="row" style="font-size: 12px;">
-    <div class="col-lg-12">
-      <div class="card">
-        <div class="card-body">
-
-          <!-- Title & Discount Info -->
-          <h4 class="text-center text-dark">Bar Bending Schedules Packages</h4>
-          <h5 class="text-center text-maroon" style="color: maroon; font-style: italic;">
-            Get up to a 10% discount on subscriptions of less than 3 months, and up to a 15% discount on subscriptions of more than 3 months, before tax.
-          </h5>
-
-          <!-- Loading Indicator -->
-          <div class="text-center" *ngIf="loading">
-            <div class="spinner-border text-primary" role="status">
-              <span class="sr-only">Loading...</span>
-            </div>
+  <div class="packages-section">
+    <div class="packages-header">
+      <div class="header-content">
+        <div class="page-title">
+          <div class="title-icon">
+            <i class="bx bx-package"></i>
           </div>
-
-          <!-- Package Cards -->
-          <div class="row justify-content-center">
-            <div class="col-md-3 col-sm-6 col-12 mb-4" *ngFor="let item of packages">
-              <div class="card text-center shadow-sm p-3">
-                <h5 style="color: #333;">{{item.name}} Package</h5>
-                <p class="price" style="font-size: 16px; margin-top: 10px; color: maroon;">Tsh {{item.cost | number}} <br>{{getPeriod(item)}}</p>
-                <ul style="list-style: none; padding: 0; margin-top: 12px; font-size: 14px; color: #2a3042;">
-                  <li style="margin-bottom: 10px;">{{item.description}}</li>
-                  <!--<li style="margin-bottom: 10px;">{{item.max_projects}} Maximum Projects</li>-->
-                  <!--                  <li style="margin-bottom: 10px;">{{watermark(item.watermark)}}</li>-->
-                </ul>
-                <button class="btn btn-secondary" (click)="openOrderSummary(item, content)">Select</button>
-              </div>
-            </div>
-          </div>
-
-        </div> <!-- Card Body End -->
-      </div> <!-- Card End -->
-    </div>
-  </div>
-
-</div>
-
-<ng-template #content role="document" let-modal>
-  <div class="modal-header">
-    <h5 class="modal-title mt-0">{{selectedPackage.module}}-{{selectedPackage.name}} Package Subscription</h5>
-    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
-  </div>
-  <div class="modal-body">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title mb-3">{{selectedPackage.name}} Package Order Summary</h4>
-
-            <div class="table-responsive"   style="padding-bottom: 70px;">
-              <table class="table mb-0">
-                <tbody>
-                <tr>
-                  <td>Term & Period :</td>
-                  <td>{{selectedTerm.factor}} {{getPeriod2(selectedPackage)}}</td>
-                </tr>
-                <tr>
-                  <td>Original Price : </td>
-                  <td>TZS {{selectedTerm.price_og | number}}</td>
-                </tr>
-
-                <tr>
-                  <td>Discount : </td>
-                  <td>- {{selectedTerm.discount | number}}</td>
-                </tr>
-
-                <tr>
-                  <td>Price After Discount : </td>
-                  <td>{{selectedTerm.price_og - selectedTerm.discount | number}}</td>
-                </tr>
-
-                <tr>
-                  <td>Estimated Tax : </td>
-                  <td>TZS {{selectedTerm.tax | number}}</td>
-                </tr>
-               <!-- <tr>
-                  <th>Sub Total:</th>
-                  <th>TZS {{selectedTerm.price | number}}</th>
-                </tr>-->
-                <tr>
-                  <th>Total Price:</th>
-                  <th>TZS {{selectedTerm.price | number}}</th>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-            <!-- end table-responsive -->
+          <div class="title-text">
+            <h1>Bar Bending Schedules Packages</h1>
+            <p>Choose the perfect package for your construction needs</p>
           </div>
         </div>
       </div>
-      <div class="col-md-12">
-        <form [formGroup]="orderForm">
-          <ngb-alert type="success" *ngIf="successmsg" style="text-align: center;"  [dismissible]="false">{{successmsg}}<br><br><button (click)="openSubscriptionPaymentRoute(subsctiption, modal)" class="btn btn-danger text-ce">Click here to Pay...</button></ngb-alert>
+    </div>
 
-          <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert>
-          <div class="row">
+    <!-- Discount Banner -->
+    <div class="discount-banner">
+      <div class="banner-content">
+        <i class="bx bx-gift"></i>
+        <div class="banner-text">
+          <h5>Special Discounts Available</h5>
+          <p>Get up to 10% off for subscriptions under 3 months, and up to 15% off for subscriptions over 3 months (before tax)</p>
+        </div>
+      </div>
+    </div>
 
+    <!-- Loading Indicator -->
+    <div class="loading-container" *ngIf="loading">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
 
-            <div class="col-md-12">
-              <div class="mb-3">
-                <label>Package Type</label>
-                <!--<input type="text" formControlName="client" class="form-control" id="client"
-                       [ngClass]="{ 'is-invalid': submitted && f.country.errors }"
-                       placeholder="Eg. Tanzania">-->
-                <ng-select
-                  formControlName="package"
-                  placeholder="Choose Package"
-                  [clearable]="true"
-                  [searchable]="true"
-                  (change)="onChangePackage($event)"
-                >
-                  <ng-option [value]="value.id"  *ngFor="let value of packages" >
-                    {{value.name}}
-                  </ng-option>
-                </ng-select>
-
-                <div *ngIf="submitted && f.client.errors" class="invalid-feedback">
-                  <div *ngIf="f.client.errors.required">Package is required</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-12">
-              <div class="mb-3">
-                <label>Term & Price</label>
-                <ng-select
-                  formControlName="total_months"
-                  placeholder="Choose Term"
-                  [clearable]="true"
-                  [searchable]="true"
-                  (change)="onChangeTerm($event)"
-                >
-                  <ng-option [value]="value.id"  *ngFor="let value of term" >
-                   {{value.period}} {{getPeriod2(selectedPackage)}} @ {{value.price_og}} {{value.currency}}
-                  </ng-option>
-                </ng-select>
-                <div *ngIf="submitted && f.total_months.errors" class="invalid-feedback">
-                  <div *ngIf="f.prepared_by.errors.required">Term required</div>
-                </div>
-              </div>
-            </div>
-
+    <!-- Package Cards -->
+    <div class="packages-grid" *ngIf="!loading">
+      <div class="package-card" *ngFor="let item of packages">
+        <div class="package-header">
+          <div class="package-title">
+            <h5>{{item.name}} Package</h5>
+            <span class="package-badge" [ngClass]="getPackageType(item.name)">{{getPackageType(item.name)}}</span>
           </div>
-
-          <div class="d-flex flex-wrap gap-2 mt-2">
-            <!--<button type="submit" class="btn btn-primary">Save Profile</button>-->
-            <!--<button type="submit" class="btn btn-secondary">Cancel</button>-->
+          <div class="package-price">
+            <span class="currency">TZS</span>
+            <span class="amount">{{item.cost | number}}</span>
+            <span class="period">/{{getPeriod(item)}}</span>
           </div>
-
-        </form>
-
+        </div>
+        
+        <div class="package-body">
+          <div class="package-description">
+            {{item.description}}
+          </div>
+          
+          <div class="package-features">
+            <div class="feature-item">
+              <i class="bx bx-check"></i>
+              <span>Unlimited Projects</span>
+            </div>
+            <div class="feature-item">
+              <i class="bx bx-check"></i>
+              <span>Professional Support</span>
+            </div>
+            <div class="feature-item">
+              <i class="bx bx-check"></i>
+              <span>Regular Updates</span>
+            </div>
+          </div>
+          
+          <div class="package-actions">
+            <button class="btn btn-primary" (click)="openOrderSummary(item, content)">
+              <i class="bx bx-shopping-cart"></i>
+              Select Package
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="comfirmOrder(orderForm.value)">Save</button>
-    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+</div>
 
+<!-- Order Summary Modal -->
+<ng-template #content role="document" let-modal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">
+        <i class="bx bx-receipt"></i>
+        {{selectedPackage.module}}-{{selectedPackage.name}} Package Subscription
+      </h5>
+      <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    
+    <div class="modal-body">
+      <div class="order-summary">
+        <div class="summary-header">
+          <h4>{{selectedPackage.name}} Package Order Summary</h4>
+        </div>
+
+        <div class="summary-table">
+          <div class="summary-row">
+            <span class="label">Term & Period:</span>
+            <span class="value">{{selectedTerm.factor}} {{getPeriod2(selectedPackage)}}</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Original Price:</span>
+            <span class="value">TZS {{selectedTerm.price_og | number}}</span>
+          </div>
+          <div class="summary-row discount">
+            <span class="label">Discount:</span>
+            <span class="value">- TZS {{selectedTerm.discount | number}}</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Price After Discount:</span>
+            <span class="value">TZS {{selectedTerm.price_og - selectedTerm.discount | number}}</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Estimated Tax:</span>
+            <span class="value">TZS {{selectedTerm.tax | number}}</span>
+          </div>
+          <div class="summary-row total">
+            <span class="label">Total Price:</span>
+            <span class="value">TZS {{selectedTerm.price | number}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-form">
+        <form [formGroup]="orderForm">
+          <ngb-alert type="success" *ngIf="successmsg" [dismissible]="false" class="success-alert">
+            {{successmsg}}
+            <button (click)="openSubscriptionPaymentRoute(subsctiption, modal)" class="btn btn-danger btn-sm">
+              <i class="bx bx-credit-card"></i>
+              Click here to Pay...
+            </button>
+          </ngb-alert>
+
+          <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Package Type</label>
+              <ng-select
+                formControlName="package"
+                placeholder="Choose Package"
+                [clearable]="true"
+                [searchable]="true"
+                (change)="onChangePackage($event)"
+                class="modern-select"
+              >
+                <ng-option [value]="value.id" *ngFor="let value of packages">
+                  {{value.name}}
+                </ng-option>
+              </ng-select>
+              <div *ngIf="submitted && f.client.errors" class="invalid-feedback">
+                <div *ngIf="f.client.errors.required">Package is required</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Term & Price</label>
+              <ng-select
+                formControlName="total_months"
+                placeholder="Choose Term"
+                [clearable]="true"
+                [searchable]="true"
+                (change)="onChangeTerm($event)"
+                class="modern-select"
+              >
+                <ng-option [value]="value.id" *ngFor="let value of term">
+                  {{value.period}} {{getPeriod2(selectedPackage)}} @ {{value.price_og}} {{value.currency}}
+                </ng-option>
+              </ng-select>
+              <div *ngIf="submitted && f.total_months.errors" class="invalid-feedback">
+                <div *ngIf="f.prepared_by.errors.required">Term required</div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="comfirmOrder(orderForm.value)">
+        <i class="bx bx-check"></i>
+        Confirm Order
+      </button>
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">
+        <i class="bx bx-x"></i>
+        Cancel
+      </button>
+    </div>
   </div>
 </ng-template>
 
+<!-- Subscription Payment Modal -->
 <ng-template #contentSubscriptionPayment role="document" let-modal>
-  <div class="modal-header">
-    <span class="modal-title mt-0">{{subscriptionPaymentTitle}}</span>
-    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
-  </div>
-  <app-pesa-pall-order-request
-    [packageSubscription]="selectedSubscription"
-  ></app-pesa-pall-order-request>
-  <div class="modal-footer">
-    <!--    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
-        <button type="button" class="btn btn-primary" (click)="addProject(projectsForm.value)">Save Client</button>-->
-    <div class="text-sm-end">
-      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="modal-title">
+        <i class="bx bx-credit-card"></i>
+        {{subscriptionPaymentTitle}}
+      </span>
+      <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
     </div>
-
+    
+    <div class="modal-body">
+      <app-pesa-pall-order-request [packageSubscription]="selectedSubscription"></app-pesa-pall-order-request>
+    </div>
+    
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">
+        <i class="bx bx-x"></i>
+        Close
+      </button>
+    </div>
   </div>
 </ng-template>

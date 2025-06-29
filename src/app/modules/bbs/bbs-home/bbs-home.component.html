@@ -1,71 +1,247 @@
-<div class="container-fluid">
-  <div class="row mb-4">
-    <div class="col-lg-12">
-      <div class="d-flex align-items-center">
-        <img [src]="preview" alt="" class="avatar-sm rounded">
-        <div class="ms-3 flex-grow-1">
-          <h5 class="mb-2 card-title">{{userProfile.name}}</h5>
-          <p class="text-muted mb-0">{{userProfile.country}}</p>
-        </div>
-        <!--<div>
-          <a href="javascript:void(0);" class="btn btn-primary"><i class="bx bx-plus align-middle"></i> Add New Jobs</a>
-        </div>-->
-      </div>
-    </div><!--end col-->
-  </div><!--end row-->
-
-  <div class="row">
-    <div class="col-lg-3">
-      <div class="card mini-stats-wid">
-        <div class="card-body">
-          <div class="d-flex">
-            <div class="flex-grow-1">
-              <p class="text-muted fw-medium">Current Subscription</p>
-              <h5 class="mb-0">Package: {{subcription?.package}}</h5>
-            </div>
-
-            <div class="flex-shrink-0 align-self-center">
-
+<div class="bbs-dashboard">
+  <!-- Welcome Section -->
+  <div class="welcome-section mb-4">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <div class="welcome-content">
+            <div class="user-profile-card">
+              <div class="profile-avatar">
+                <img [src]="preview" alt="Profile" class="avatar-img">
+                <div class="status-indicator online"></div>
+              </div>
+              <div class="profile-info">
+                <h2 class="welcome-title">Welcome back, {{userProfile.name}}!</h2>
+                <p class="welcome-subtitle">{{userProfile.country}} • Engineering Professional</p>
+                <div class="profile-stats">
+                  <div class="stat-item">
+                    <i class="bx bx-building-house"></i>
+                    <span>{{userProfile?.clients?.length || 0}} Clients</span>
+                  </div>
+                  <div class="stat-item">
+                    <i class="bx bx-folder"></i>
+                    <span>{{userProfile?.projects?.length || 0}} Projects</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="card-body border-top py-3">
-          <p class="mb-0"> <span class=""><i class="bx bx-trending-up align-bottom me-1"></i> Due Date: </span> {{subcription?.due_date | date:'medium'}}</p>
-        </div>
-      </div>
-    </div><!--end col-->
-
-    <div class="col-lg-3">
-      <div class="card mini-stats-wid">
-        <div class="card-body">
-          <div class="d-flex">
-            <div class="flex-grow-1">
-              <p class="text-muted fw-medium">My Clients</p>
-              <h4 class="mb-0">{{userProfile?.clients?.length}}</h4>
-            </div>
-
+        <div class="col-lg-4">
+          <div class="quick-actions">
+            <button class="btn btn-primary btn-lg action-btn">
+              <i class="bx bx-plus"></i>
+              <span>New Project</span>
+            </button>
+            <button class="btn btn-outline-primary btn-lg action-btn">
+              <i class="bx bx-user-plus"></i>
+              <span>Add Client</span>
+            </button>
           </div>
         </div>
-        <div class="card-body border-top py-3">
-          <p class="mb-0"> <span class="badge badge-soft-success me-1"><i class="bx bx-trending-up align-bottom me-1"></i> 0%</span> Increase last month</p>
-        </div>
       </div>
-    </div><!--end col-->
-    <div class="col-lg-3">
-      <div class="card mini-stats-wid">
-        <div class="card-body">
-          <div class="d-flex">
-            <div class="flex-grow-1">
-              <p class="text-muted fw-medium">My Projects</p>
-              <h4 class="mb-0">{{userProfile?.projects?.length}}</h4>
-            </div>
+    </div>
+  </div>
 
+  <!-- Dashboard Stats -->
+  <div class="stats-section mb-4">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Subscription Card -->
+        <div class="col-lg-3 col-md-6 mb-3">
+          <div class="stat-card subscription-card">
+            <div class="card-header">
+              <div class="card-icon">
+                <i class="bx bx-crown"></i>
+              </div>
+              <div class="card-badge">
+                <span class="badge bg-primary">Active</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Current Subscription</h3>
+              <div class="card-value">{{subcription?.package || 'Basic Plan'}}</div>
+              <div class="card-meta">
+                <i class="bx bx-calendar"></i>
+                <span>Due: {{subcription?.due_date | date:'MMM dd, yyyy'}}</span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="progress">
+                <div class="progress-bar" style="width: 75%"></div>
+              </div>
+              <small>75% of period used</small>
+            </div>
           </div>
         </div>
-        <div class="card-body border-top py-3">
-          <p class="mb-0"> <span class="badge badge-soft-success me-1"><i class="bx bx-trending-up align-bottom me-1"></i> 0%</span> Increase last month</p>
+
+        <!-- Clients Card -->
+        <div class="col-lg-3 col-md-6 mb-3">
+          <div class="stat-card clients-card">
+            <div class="card-header">
+              <div class="card-icon">
+                <i class="bx bx-group"></i>
+              </div>
+              <div class="card-trend">
+                <i class="bx bx-trending-up"></i>
+                <span>+12%</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">My Clients</h3>
+              <div class="card-value">{{userProfile?.clients?.length || 0}}</div>
+              <div class="card-meta">
+                <i class="bx bx-time"></i>
+                <span>Active this month</span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="metric">
+                <span class="metric-label">New Clients</span>
+                <span class="metric-value">+3</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Projects Card -->
+        <div class="col-lg-3 col-md-6 mb-3">
+          <div class="stat-card projects-card">
+            <div class="card-header">
+              <div class="card-icon">
+                <i class="bx bx-folder-open"></i>
+              </div>
+              <div class="card-trend">
+                <i class="bx bx-trending-up"></i>
+                <span>+8%</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">My Projects</h3>
+              <div class="card-value">{{userProfile?.projects?.length || 0}}</div>
+              <div class="card-meta">
+                <i class="bx bx-time"></i>
+                <span>In progress</span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="metric">
+                <span class="metric-label">Completed</span>
+                <span class="metric-value">{{userProfile?.projects?.length || 0}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Revenue Card -->
+        <div class="col-lg-3 col-md-6 mb-3">
+          <div class="stat-card revenue-card">
+            <div class="card-header">
+              <div class="card-icon">
+                <i class="bx bx-dollar-circle"></i>
+              </div>
+              <div class="card-trend">
+                <i class="bx bx-trending-up"></i>
+                <span>+15%</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Total Revenue</h3>
+              <div class="card-value">$24,500</div>
+              <div class="card-meta">
+                <i class="bx bx-time"></i>
+                <span>This month</span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="metric">
+                <span class="metric-label">Growth</span>
+                <span class="metric-value">+15%</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div><!--end col-->
-    </div><!--end col-->
-  </div><!--end row-->
+    </div>
+  </div>
+
+  <!-- Recent Activity & Quick Actions -->
+  <div class="activity-section">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Recent Projects -->
+        <div class="col-lg-8 mb-4">
+          <div class="content-card">
+            <div class="card-header">
+              <h4 class="card-title">
+                <i class="bx bx-folder"></i>
+                Recent Projects
+              </h4>
+              <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            <div class="card-body">
+              <div class="project-list">
+                <div class="project-item" *ngFor="let project of userProfile?.projects?.slice(0, 3); let i = index">
+                  <div class="project-icon">
+                    <i class="bx bx-building-house"></i>
+                  </div>
+                  <div class="project-info">
+                    <h5 class="project-name">{{project?.name || 'Project ' + (i + 1)}}</h5>
+                    <p class="project-description">{{project?.description || 'Engineering project in progress'}}</p>
+                    <div class="project-meta">
+                      <span class="project-status active">Active</span>
+                      <span class="project-date">Updated 2 days ago</span>
+                    </div>
+                  </div>
+                  <div class="project-actions">
+                    <button class="btn btn-sm btn-outline-primary">View</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Tools -->
+        <div class="col-lg-4 mb-4">
+          <div class="content-card">
+            <div class="card-header">
+              <h4 class="card-title">
+                <i class="bx bx-tools"></i>
+                Quick Tools
+              </h4>
+            </div>
+            <div class="card-body">
+              <div class="tools-grid">
+                <a href="#" class="tool-item">
+                  <div class="tool-icon">
+                    <i class="bx bx-calculator"></i>
+                  </div>
+                  <span class="tool-name">Calculator</span>
+                </a>
+                <a href="#" class="tool-item">
+                  <div class="tool-icon">
+                    <i class="bx bx-line-chart"></i>
+                  </div>
+                  <span class="tool-name">Analytics</span>
+                </a>
+                <a href="#" class="tool-item">
+                  <div class="tool-icon">
+                    <i class="bx bx-file"></i>
+                  </div>
+                  <span class="tool-name">Reports</span>
+                </a>
+                <a href="#" class="tool-item">
+                  <div class="tool-icon">
+                    <i class="bx bx-cog"></i>
+                  </div>
+                  <span class="tool-name">Settings</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

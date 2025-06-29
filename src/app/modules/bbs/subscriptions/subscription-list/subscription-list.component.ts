@@ -155,5 +155,40 @@ export class SubscriptionListComponent implements OnInit {
     this.router.navigate(['/subscriptions/order-request/2-pay'], { queryParams: { id: model.id } });
   }
 
+  // Status badge methods for modern UI
+  getPaidStatusClass(paid_status: number): string {
+    if(paid_status === 1){
+      return 'paid';
+    }else {
+      return 'unpaid';
+    }
+  }
 
+  getPaidStatusIcon(paid_status: number): string {
+    if(paid_status === 1){
+      return 'bx bx-check-circle';
+    }else {
+      return 'bx bx-x-circle';
+    }
+  }
+
+  getStatusClass(status: number): string {
+    if(status === 1){
+      return 'active';
+    }else if (status === 2){
+      return 'expired';
+    }else {
+      return 'pending';
+    }
+  }
+
+  getStatusIcon(status: number): string {
+    if(status === 1){
+      return 'bx bx-check-circle';
+    }else if (status === 2){
+      return 'bx bx-time';
+    }else {
+      return 'bx bx-clock';
+    }
+  }
 }

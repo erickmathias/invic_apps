@@ -123,4 +123,18 @@ export class UsersComponent implements OnInit {
       return 'N/A';
     }
   }
+
+  getRoleClass(role: number) {
+    if (role === 1){
+      return 'role-admin';
+    }else if(role === 2){
+      return 'role-company';
+    }else if (role === 3){
+      return 'role-individual';
+    }else if (role === 4){
+      return 'role-student';
+    }else {
+      return 'role-unknown';
+    }
+  }
 }

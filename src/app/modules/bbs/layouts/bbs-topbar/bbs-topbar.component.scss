@@ -1,0 +1,327 @@
+// Modern BBS Topbar Styles - Compact Version
+.bbs-topbar {
+  background: #ffffff;
+  border-bottom: 1px solid #e9ecef;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.06);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 60px;
+  
+  .navbar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 1rem;
+    
+    .navbar-brand-box {
+      .logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        
+        img {
+          transition: all 0.3s ease;
+        }
+        
+        &:hover img {
+          transform: scale(1.02);
+        }
+      }
+    }
+    
+    .mobile-menu-btn {
+      background: transparent;
+      border: none;
+      color: #6c757d;
+      font-size: 1.1rem;
+      padding: 0.4rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: #f8f9fa;
+        color: #1e3c72;
+      }
+    }
+    
+    .app-search {
+      margin-left: 1.5rem;
+      
+      .position-relative {
+        position: relative;
+        
+        .search-input {
+          background: #f8f9fa;
+          border: 2px solid transparent;
+          border-radius: 20px;
+          padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+          font-size: 0.85rem;
+          transition: all 0.3s ease;
+          min-width: 250px;
+          
+          &:focus {
+            background: #ffffff;
+            border-color: #1e3c72;
+            box-shadow: 0 0 0 0.2rem rgba(30, 60, 114, 0.25);
+            outline: none;
+          }
+          
+          &::placeholder {
+            color: #6c757d;
+          }
+        }
+        
+        .search-icon {
+          position: absolute;
+          left: 0.75rem;
+          top: 50%;
+          transform: translateY(-50%);
+          color: #6c757d;
+          font-size: 1rem;
+          pointer-events: none;
+        }
+      }
+    }
+    
+    .d-flex {
+      gap: 0.4rem;
+      
+      .header-item {
+        background: transparent;
+        border: none;
+        color: #6c757d;
+        padding: 0.4rem;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        position: relative;
+        
+        &:hover {
+          background: #f8f9fa;
+          color: #1e3c72;
+        }
+        
+        &.noti-icon {
+          font-size: 1.1rem;
+        }
+      }
+      
+      .language-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.4rem 0.75rem;
+        border-radius: 16px;
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        font-size: 0.8rem;
+        font-weight: 500;
+        
+        &:hover {
+          background: #e9ecef;
+          border-color: #1e3c72;
+        }
+        
+        img {
+          border-radius: 2px;
+        }
+      }
+      
+      .user-profile-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.4rem 0.75rem;
+        border-radius: 20px;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border: 1px solid #e9ecef;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+          transform: translateY(-1px);
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-profile-user {
+          width: 30px;
+          height: 30px;
+          border: 2px solid #ffffff;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        span {
+          font-weight: 600;
+          color: #2c3e50;
+          font-size: 0.85rem;
+        }
+        
+        i {
+          color: #6c757d;
+          font-size: 0.8rem;
+        }
+      }
+      
+      .right-bar-toggle {
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        color: #ffffff;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        &:hover {
+          transform: rotate(180deg);
+          box-shadow: 0 3px 10px rgba(30, 60, 114, 0.3);
+        }
+        
+        i {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}
+
+// Dropdown Styles
+.dropdown-menu {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  padding: 0.4rem 0;
+  
+  &.user-dropdown {
+    min-width: 180px;
+    
+    .dropdown-header {
+      padding: 0.6rem 0.75rem;
+      background: #f8f9fa;
+      border-bottom: 1px solid #e9ecef;
+      
+      h6 {
+        color: #2c3e50;
+        font-weight: 600;
+        font-size: 0.85rem;
+      }
+    }
+    
+    .dropdown-item {
+      padding: 0.6rem 0.75rem;
+      color: #495057;
+      font-weight: 500;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: #f8f9fa;
+        color: #1e3c72;
+        transform: translateX(3px);
+      }
+      
+      i {
+        width: 18px;
+        text-align: center;
+      }
+      
+      &.text-danger:hover {
+        background: #fee;
+        color: #dc3545;
+      }
+    }
+    
+    .dropdown-divider {
+      margin: 0.4rem 0;
+      border-color: #e9ecef;
+    }
+  }
+  
+  .dropdown-item {
+    padding: 0.6rem 0.75rem;
+    color: #495057;
+    font-weight: 500;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background: #f8f9fa;
+      color: #1e3c72;
+    }
+    
+    &.active {
+      background: #1e3c72;
+      color: #ffffff;
+    }
+    
+    img {
+      border-radius: 2px;
+    }
+  }
+}
+
+// Mobile Responsive
+@media (max-width: 1199.98px) {
+  .bbs-topbar {
+    .navbar-header {
+      .app-search {
+        .position-relative {
+          .search-input {
+            min-width: 200px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 991.98px) {
+  .bbs-topbar {
+    .navbar-header {
+      padding: 0 0.75rem;
+      
+      .app-search {
+        margin-left: 1rem;
+        
+        .position-relative {
+          .search-input {
+            min-width: 180px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767.98px) {
+  .bbs-topbar {
+    height: 55px;
+    
+    .navbar-header {
+      padding: 0 0.5rem;
+      
+      .app-search {
+        display: none;
+      }
+      
+      .d-flex {
+        gap: 0.2rem;
+        
+        .language-btn {
+          display: none;
+        }
+        
+        .user-profile-btn {
+          padding: 0.4rem;
+          
+          span, i {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

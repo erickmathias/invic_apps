@@ -74,12 +74,12 @@ export class ProjectsService {
   // tslint:disable-next-line: variable-name
   private _state: State = {
     page: 1,
-    pageSize: 10,
+    pageSize: 5,
     searchTerm: '',
     sortColumn: '',
     sortDirection: '',
     startIndex: 1,
-    endIndex: 10,
+    endIndex: 5,
     totalRecords: 0
   };
   // activitiesData: Activities[] = [];

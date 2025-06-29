@@ -1,432 +1,507 @@
-<div class="row">
-  <div class="col-md-8">
-
-    <div class="row">
-      <div class="col-md-12">
-        <form [formGroup]="memberForm" style="font-size:10px;">
-          <ngb-alert type="success" *ngIf="successmsg" [dismissible]="false">{{successmsg}}</ngb-alert>
-
-          <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert>
-          <div class="row">
-            <fieldset class="form-group">
-              <legend style="font-size: 12px; font-weight: bold; color: maroon;">Member Details</legend>
-            </fieldset>
-            <div class="col-md-3">
-              <div class="mb-3">
-                <label for="name">Member Name</label>
-                <input type="text" formControlName="name" class="form-control input-sm" id="name"
-                       [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
-                       placeholder="Eg. Bottom Slab .." style="height: 22px;padding: 1px 5px; font-size: 12px; line-height: 1.5;">
-                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-                  <div *ngIf="f.name.errors.required">Name is required</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-2">
-              <div class="mb-3">
-                <label for="bar_mark">Bar Mark</label>
-                <input type="text" formControlName="bar_mark" class="form-control" id="bar_mark"
-                       [ngClass]="{ 'is-invalid': submitted && f.bar_mark.errors }"
-                       placeholder="Enter Mark" style="height: 22px;padding: 1px 5px; font-size: 12px; line-height: 1.5;">
-                <div *ngIf="submitted && f.bar_mark.errors" class="invalid-feedback">
-                  <div *ngIf="f.bar_mark.errors.required">Bar mark is required</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-2">
-              <div class="mb-3">
-                <label for="bar_size">Bar-Size</label>
-                <select class="form-control input-sm" required="required" style="height: 22px;padding: 1px 5px; font-size: 12px; line-height: 1.5;" id="bar_size" formControlName="bar_size">
-                  <option value="" selected>Choose Size</option>
-                  <option value="{{selectedElement.steel_type.name}}{{value}}" *ngFor="let value of barSizes">{{selectedElement.steel_type.name}}{{value}}</option>
-                </select>
-                <div *ngIf="submitted && f.bar_size.errors" class="invalid-feedback">
-                  <div *ngIf="f.bar_size.errors.required">Bar size is required</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-2">
-              <div class="mb-3">
-                <label for="total_members">Total Members</label>
-                <input type="number" formControlName="total_members" class="form-control" id="total_members"
-                       [ngClass]="{ 'is-invalid': submitted && f.total_members.errors }"
-                       placeholder="Eg. 10" style="height: 22px;padding: 1px 5px; font-size: 12px; line-height: 1.5;">
-                <div *ngIf="submitted && f.total_members.errors" class="invalid-feedback">
-                  <div *ngIf="f.total_members.errors.required">Total Members is required</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-2">
-              <div class="mb-3">
-                <label for="number_of_bars">No Of Bars</label>
-                <input type="number" formControlName="number_of_bars" class="form-control" id="number_of_bars"
-                       [ngClass]="{ 'is-invalid': submitted && f.number_of_bars.errors }"
-                       placeholder="Eg. 4" style="height: 22px;padding: 1px 5px; font-size: 12px; line-height: 1.5;">
-                <div *ngIf="submitted && f.number_of_bars.errors" class="invalid-feedback">
-                  <div *ngIf="f.number_of_bars.errors.required">No Of Bars is required</div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="row">
-            <fieldset class="form-group">
-              <legend style="font-size: 12px; font-weight: bold; color: maroon;">Shape Code & Dimensions</legend>
-            </fieldset>
-            <div class="col-md-3">
-              <div class="mb-3">
-                <label for="name">Shape Code</label>
-                <select class="form-control input-sm" (change)="onChangeShapeCode($event)" required="required" style="height: 22px;padding: 1px 5px; font-size: 12px; line-height: 1.5;" id="shape_code" formControlName="shape_code">
-                  <option value="">Choose Shape Code</option>
-                  <option value="{{value.id}}" *ngFor="let value of shapeCodes">{{value.shape_code}}</option>
-                </select>
-                <span style="cursor: pointer; color: darkgreen; font-weight: bold; font-style: oblique;" (click)="openViewShapes(viewScodes)"><i class="fa fa-eye"></i> CLICK-TO-VIEW-&-SELECT-SHAPES</span>
-
-                <div *ngIf="submitted && f.shape_code.errors" class="invalid-feedback">
-                  <div *ngIf="f.shape_code.errors.required">Shape is required</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-2" *ngIf="show_len_a">
-              <div class="mb-3">
-                <label for="length_a">Length A [mm]</label>
-                <input type="number" formControlName="length_a" class="form-control" id="length_a"
-                       [ngClass]="{ 'is-invalid': submitted && f.length_a.errors }"
-                       placeholder="Eg. 15.5" style="height: 22px;padding: 1px 5px; font-size: 12px; line-height: 1.5;">
-                <div *ngIf="submitted && f.length_a.errors" class="invalid-feedback">
-                  <div *ngIf="f.length_a.errors.required">Len A is required</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-2" *ngIf="show_len_b">
-              <div class="mb-3">
-                <label>Length B [mm]</label>
-                <input type="number" formControlName="length_b" class="form-control" id="length_b"
-                       [ngClass]="{ 'is-invalid': submitted && f.length_b.errors }"
-                       placeholder="Eg. 15.5" style="height: 22px;padding: 1px 5px; font-size: 12px; line-height: 1.5;">
-                <div *ngIf="submitted && f.length_b.errors" class="invalid-feedback">
-                  <div *ngIf="f.length_b.errors.required">Len B is required</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-2" *ngIf="show_len_c">
-              <div class="mb-3">
-                <label for="length_c">Length C [mm]</label>
-                <input type="number" formControlName="length_c" class="form-control" id="length_c"
-                       [ngClass]="{ 'is-invalid': submitted && f.length_c.errors }"
-                       placeholder="Eg. 15.5" style="height: 22px;padding: 1px 5px; font-size: 12px; line-height: 1.5;">
-                <div *ngIf="submitted && f.length_c.errors" class="invalid-feedback">
-                  <div *ngIf="f.length_c.errors.required">Len C is required</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-2" *ngIf="show_len_d">
-              <div class="mb-3">
-                <label for="length_d">Length D [mm]</label>
-                <input type="number" formControlName="length_d" class="form-control" id="length_d"
-                       [ngClass]="{ 'is-invalid': submitted && f.length_d.errors }"
-                       placeholder="Eg. 15.5" style="height: 22px;padding: 1px 5px; font-size: 12px; line-height: 1.5;">
-                <div *ngIf="submitted && f.length_d.errors" class="invalid-feedback">
-                  <div *ngIf="f.length_d.errors.required">Len D is required</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-2" *ngIf="show_len_e">
-              <div class="mb-3">
-                <label for="length_e">Length E [mm]</label>
-                <input type="number" formControlName="length_e" class="form-control" id="length_e"
-                       [ngClass]="{ 'is-invalid': submitted && f.length_e.errors }"
-                       placeholder="Eg. 15.5" style="height: 22px;padding: 1px 5px; font-size: 12px; line-height: 1.5;">
-                <div *ngIf="submitted && f.length_e.errors" class="invalid-feedback">
-                  <div *ngIf="f.name.errors.required">Len E is required</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-2" *ngIf="show_len_f">
-              <div class="mb-3">
-                <label for="name">Length F [mm]</label>
-                <input type="number" formControlName="length_f" class="form-control" id="length_f"
-                       [ngClass]="{ 'is-invalid': submitted && f.length_f.errors }"
-                       placeholder="Eg. 15.5" style="height: 22px;padding: 1px 5px; font-size: 12px; line-height: 1.5;">
-                <div *ngIf="submitted && f.length_f.errors" class="invalid-feedback">
-                  <div *ngIf="f.length_f.errors.required">Len F is required</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-2" *ngIf="show_len_r">
-              <div class="mb-3">
-                <label for="length_f">Length R [mm]</label>
-                <input type="number" formControlName="length_r" class="form-control" id="length_r"
-                       [ngClass]="{ 'is-invalid': submitted && f.length_r.errors }"
-                       placeholder="Eg. 15.5" style="height: 22px;padding: 1px 5px; font-size: 12px; line-height: 1.5;"> <div *ngIf="submitted && f.length_r.errors" class="invalid-feedback">
-                <div *ngIf="f.length_r.errors.required">Len R is required</div>
-              </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="row" *ngIf="packageError.length < 1">
-            <div class="col-md-4" style="text-align: left;">
-              <button type="submit" (click)="resetMemberForm()" disabled class="btn btn-outline-success btn-sm"><i class="fa fa-file-import"></i> Import Members</button>
-            </div>
-            <div class="col-md-4" style="text-align: center;">
-              <button type="submit" (click)="resetMemberForm()" class="btn btn-danger btn-sm"><i class="fa fa-redo"></i> Reset</button> || ||
-              <button [ladda]="buttonloading" *ngIf="!updatebtn" type="submit" (click)="registerElementMember(memberForm.value)" class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save</button>
-              <button [ladda]="buttonloading" *ngIf="updatebtn" type="submit" (click)="updateElementMember(memberForm.value)" class="btn btn-primary btn-sm"><i class="fa fa-save"></i> Update</button>]
-
-              <!--
-                            <button class="btn btn-primary w-sm" [ladda]="loading2" (click)="testClick()" type="submit" >Hello</button>
-              -->
-
-            </div>
-            <div class="col-md-4" style="text-align: left;"></div>
-          </div>
-
-        </form>
-      </div>
+<div class="element-members-page">
+  <!-- Error Alert -->
+  <div class="row mb-3" *ngIf="packageError">
+    <div class="col-12">
+      <ngb-alert type="danger" [dismissible]="false" class="text-center">
+        {{ packageError }}
+      </ngb-alert>
     </div>
-
-
   </div>
 
-  <div class="col-md-4">
-    <fieldset class="form-group">
-      <legend style="font-size: 12px; font-weight: bold; color: maroon;">Shape Code & Dimensions {{scode_id}}</legend>
+  <!-- Main Content -->
+  <div class="row">
+    <!-- Form Section -->
+    <div class="col-lg-8">
+      <div class="form-card">
+        <div class="card-header">
+          <h5 class="card-title">
+            <i class="mdi mdi-account-plus"></i>
+            Add New Member
+          </h5>
+        </div>
+        
+        <div class="card-body">
+          <form [formGroup]="memberForm" class="member-form">
+            <!-- Alerts -->
+            <ngb-alert type="success" *ngIf="successmsg" [dismissible]="false">
+              <i class="mdi mdi-check-circle"></i>
+              {{successmsg}}
+            </ngb-alert>
 
-      <div class="card" id="shape-59" *ngIf="scode_id > 0">
-        <!--<img class="img-thumbnail" src="https://bbs.invic.co.tz/storage/images/shapecodes/{{scode_id}}.jpg" alt=""/>-->
-        <img class="img-thumbnail" src="assets/images/shapecodes/{{scode_id}}.jpg" alt=""/>
-      </div>
-    </fieldset>
-  </div>
-</div>
+            <ngb-alert type="danger" *ngIf="error" [dismissible]="false">
+              <i class="mdi mdi-alert-circle"></i>
+              {{ error }}
+            </ngb-alert>
 
-
-<div class="row" *ngIf="packageError">
-  <div class="col-md-12" style="font-size: 16px; text-align: center">
-    <ngb-alert type="danger" *ngIf="packageError" [dismissible]="false">{{ packageError }}</ngb-alert>
-  </div>
-</div>
-
-<div class="row" style="font-size: 10px;">
-  <div class="col-lg-12">
-    <div class="card">
-      <div class="card-body">
-
-
-        <!--<h4 class="card-title mb-4">My Clients</h4>-->
-        <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-tabs nav-tabs-custom">
-          <li [ngbNavItem]="1">
-            <a ngbNavLink>Element members</a>
-            <ng-template ngbNavContent>
-
-              <div class="row mb-md-2" *ngIf="!loading">
-                <div class="col-sm-12 col-md-6">
-                  <div class="dataTables_length" id="tickets-table_length"><label
-                    class="d-inline-flex align-items-center">Show
-                    <select style="height: 22px;padding: 1px 5px; font-size: 12px; line-height: 1.5;" name="tickets-table_length" aria-controls="tickets-table"
-                            name="pageSize" [(ngModel)]="service.pageSize"
-                            class="custom-select custom-select-sm form-control form-control-sm mx-2">
-                      <option [ngValue]="10">10</option>
-                      <option [ngValue]="25">25</option>
-                      <option [ngValue]="50">50</option>
-                      <option [ngValue]="100">100</option>
-                    </select> entries</label>
-                    <button type="submit" (click)="resetMemberForm()" disabled class="btn btn-default btn-sm"><i class="fa fa-file-export"></i> Export</button>
-                  </div>
-                </div>
-                <!-- Search -->
-                <div class="col-sm-12 col-md-6">
-
-                  <div id="tickets-table_filter" class="dataTables_filter text-md-end">
-                    <label class="d-inline-flex align-items-center">Search:
-                    <input type="text" name="searchTerm" style="height: 22px;padding: 1px 5px; font-size: 12px; line-height: 1.5;"
-                           class="form-control form-control-sm ms-2"
-                           aria-controls="tickets-table"
-                           [(ngModel)]="service.searchTerm">
-                    </label>
-                  </div>
-                </div>
-                <!-- End search -->
-              </div>
-              <!-- Table -->
-              <div class="table-responsive" style="padding-bottom: 50px; overflow: scroll;">
-              <table id="basic-datatable" class="table datatables dt-responsive nowrap">
-                <thead>
-                <tr>
-                  <th sortable="id" (sort)="onSort($event)">#</th>
-                  <th sortable="name" (sort)="onSort($event)">MemberName</th>
-                  <th sortable="client" (sort)="onSort($event)">BarMark</th>
-                  <th sortable="bar_size" (sort)="onSort($event)">BarSize</th>
-                  <th sortable="total_members" (sort)="onSort($event)">TotalMembers</th>
-                  <th sortable="number_of_bars" (sort)="onSort($event)">NoOfBars@</th>
-                  <th sortable="total_length_of_bars" (sort)="onSort($event)">TotalBarLength</th>
-                  <th sortable="shape_code" (sort)="onSort($event)">ShapeCode</th>
-                  <th sortable="dx" (sort)="onSort($event)">Dx</th>
-                  <th sortable="length_a" (sort)="onSort($event)">A(mm)</th>
-                  <th sortable="length_b" (sort)="onSort($event)">B(mm)</th>
-                  <th sortable="length_c" (sort)="onSort($event)">C(mm)</th>
-                  <th sortable="length_d" (sort)="onSort($event)">D(mm)</th>
-                  <th sortable="length_e" (sort)="onSort($event)">E(mm)</th>
-                  <th sortable="length_f" (sort)="onSort($event)">F(mm)</th>
-                  <th sortable="length_e" (sort)="onSort($event)">R(mm)</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let table of activities$ | async; let i = index;" style="cursor: pointer;" (click)="editMember(table)" title="Click To Edit Member: {{table.name}}">
-                  <td>
-                    {{i+1}}
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="table.name" [term]="service.searchTerm">
-                    </ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="table.bar_mark" [term]="service.searchTerm">
-                    </ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="table.bar_size" [term]="service.searchTerm">
-                    </ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="table.total_members" [term]="service.searchTerm">
-                    </ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="table.number_of_bars" [term]="service.searchTerm">
-                    </ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="table.total_length_of_bars" [term]="service.searchTerm">
-                    </ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="table.shape_code.shape_code" [term]="service.searchTerm">
-                    </ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="table.dx" [term]="service.searchTerm">
-                    </ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="table.length_a" [term]="service.searchTerm">
-                    </ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="table.length_b" [term]="service.searchTerm">
-                    </ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="table.length_c" [term]="service.searchTerm">
-                    </ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="table.length_d" [term]="service.searchTerm">
-                    </ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="table.length_e" [term]="service.searchTerm">
-                    </ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="table.length_f" [term]="service.searchTerm">
-                    </ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="table.length_r" [term]="service.searchTerm">
-                    </ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="" [term]="service.searchTerm">
-                    </ngb-highlight>
-                  </td>
-                  <td>
-                    <div ngbDropdown placement="bottom-left">
-                      <i class="mdi mdi-dots-vertical dropdown-toggle" ngbDropdownToggle data-toggle="dropdown"
-                         aria-expanded="true"></i>
-                      <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
-                        <a class="dropdown-item" (click)="deleteMember(table)" href="javascript: void(0);"><i class="mdi mdi-delete"></i>Delete</a>
-                      </div>
+            <!-- Member Details Section -->
+            <div class="form-section">
+              <h6 class="section-title">
+                <i class="mdi mdi-account-details"></i>
+                Member Details
+              </h6>
+              
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="name" class="form-label">Member Name</label>
+                    <input type="text" formControlName="name" class="form-control form-control-sm" id="name"
+                           [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+                           placeholder="Eg. Bottom Slab">
+                    <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                      <div *ngIf="f.name.errors.required">Name is required</div>
                     </div>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-
-                <div class="card-body" style="text-align: center" *ngIf="loading">
-                  <div class="spinner-border text-primary" role="status">
-                    <span class="sr-only">Loading...</span>
                   </div>
                 </div>
 
-              </div>
-              <!-- End table -->
-              <div class="row justify-content-md-between align-items-md-center mt-2">
-                <div class="col-sm-12 col-md-5">
-                  <div class="dataTables_info mb-2" id="tickets-table_info" role="status"
-                       aria-live="polite">
-                    Showing
-                    {{service.startIndex + 1}} to
-                    {{service.endIndex}} of {{service.totalRecords}}
-                    entries
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="bar_mark" class="form-label">Bar Mark</label>
+                    <input type="text" formControlName="bar_mark" class="form-control form-control-sm" id="bar_mark"
+                           [ngClass]="{ 'is-invalid': submitted && f.bar_mark.errors }"
+                           placeholder="Enter Mark">
+                    <div *ngIf="submitted && f.bar_mark.errors" class="invalid-feedback">
+                      <div *ngIf="f.bar_mark.errors.required">Bar mark is required</div>
+                    </div>
                   </div>
                 </div>
-                <!-- Pagination -->
-                <div class="col-sm-12 col-md-5">
-                  <div class="text-md-right float-md-end pagination-rounded">
-                    <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page"
-                                    [pageSize]="service.pageSize">
-                    </ngb-pagination>
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="bar_size" class="form-label">Bar Size</label>
+                    <select class="form-control form-control-sm" id="bar_size" formControlName="bar_size">
+                      <option value="">Choose Size</option>
+                      <option value="{{selectedElement.steel_type.name}}{{value}}" *ngFor="let value of barSizes">
+                        {{selectedElement.steel_type.name}}{{value}}
+                      </option>
+                    </select>
+                    <div *ngIf="submitted && f.bar_size.errors" class="invalid-feedback">
+                      <div *ngIf="f.bar_size.errors.required">Bar size is required</div>
+                    </div>
                   </div>
                 </div>
-                <!-- End Pagination -->
+
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label for="total_members" class="form-label">Total Members</label>
+                    <input type="number" formControlName="total_members" class="form-control form-control-sm" id="total_members"
+                           [ngClass]="{ 'is-invalid': submitted && f.total_members.errors }"
+                           placeholder="Eg. 10">
+                    <div *ngIf="submitted && f.total_members.errors" class="invalid-feedback">
+                      <div *ngIf="f.total_members.errors.required">Total Members is required</div>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </ng-template>
-          </li>
-        </ul>
-        <div [ngbNavOutlet]="nav" class="mt-4"></div>
+
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="number_of_bars" class="form-label">No. Of Bars</label>
+                    <input type="number" formControlName="number_of_bars" class="form-control form-control-sm" id="number_of_bars"
+                           [ngClass]="{ 'is-invalid': submitted && f.number_of_bars.errors }"
+                           placeholder="Eg. 4">
+                    <div *ngIf="submitted && f.number_of_bars.errors" class="invalid-feedback">
+                      <div *ngIf="f.number_of_bars.errors.required">No. Of Bars is required</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Shape Code & Dimensions Section -->
+            <div class="form-section">
+              <h6 class="section-title">
+                <i class="mdi mdi-shape"></i>
+                Shape Code & Dimensions
+              </h6>
+              
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="shape_code" class="form-label">Shape Code</label>
+                    <select class="form-control form-control-sm" id="shape_code" formControlName="shape_code" (change)="onChangeShapeCode($event)">
+                      <option value="">Choose Shape Code</option>
+                      <option value="{{value.id}}" *ngFor="let value of shapeCodes">{{value.shape_code}}</option>
+                    </select>
+                    <div class="shape-viewer">
+                      <span class="view-shapes-link" (click)="openViewShapes(viewScodes)">
+                        <i class="mdi mdi-eye"></i>
+                        View & Select Shapes
+                      </span>
+                    </div>
+                    <div *ngIf="submitted && f.shape_code.errors" class="invalid-feedback">
+                      <div *ngIf="f.shape_code.errors.required">Shape is required</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-2" *ngIf="show_len_a">
+                  <div class="form-group">
+                    <label for="length_a" class="form-label">Length A (mm)</label>
+                    <input type="number" formControlName="length_a" class="form-control form-control-sm" id="length_a"
+                           [ngClass]="{ 'is-invalid': submitted && f.length_a.errors }"
+                           placeholder="Eg. 15.5">
+                    <div *ngIf="submitted && f.length_a.errors" class="invalid-feedback">
+                      <div *ngIf="f.length_a.errors.required">Len A is required</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-2" *ngIf="show_len_b">
+                  <div class="form-group">
+                    <label for="length_b" class="form-label">Length B (mm)</label>
+                    <input type="number" formControlName="length_b" class="form-control form-control-sm" id="length_b"
+                           [ngClass]="{ 'is-invalid': submitted && f.length_b.errors }"
+                           placeholder="Eg. 15.5">
+                    <div *ngIf="submitted && f.length_b.errors" class="invalid-feedback">
+                      <div *ngIf="f.length_b.errors.required">Len B is required</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-2" *ngIf="show_len_c">
+                  <div class="form-group">
+                    <label for="length_c" class="form-label">Length C (mm)</label>
+                    <input type="number" formControlName="length_c" class="form-control form-control-sm" id="length_c"
+                           [ngClass]="{ 'is-invalid': submitted && f.length_c.errors }"
+                           placeholder="Eg. 15.5">
+                    <div *ngIf="submitted && f.length_c.errors" class="invalid-feedback">
+                      <div *ngIf="f.length_c.errors.required">Len C is required</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-2" *ngIf="show_len_d">
+                  <div class="form-group">
+                    <label for="length_d" class="form-label">Length D (mm)</label>
+                    <input type="number" formControlName="length_d" class="form-control form-control-sm" id="length_d"
+                           [ngClass]="{ 'is-invalid': submitted && f.length_d.errors }"
+                           placeholder="Eg. 15.5">
+                    <div *ngIf="submitted && f.length_d.errors" class="invalid-feedback">
+                      <div *ngIf="f.length_d.errors.required">Len D is required</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2" *ngIf="show_len_e">
+                  <div class="form-group">
+                    <label for="length_e" class="form-label">Length E (mm)</label>
+                    <input type="number" formControlName="length_e" class="form-control form-control-sm" id="length_e"
+                           [ngClass]="{ 'is-invalid': submitted && f.length_e.errors }"
+                           placeholder="Eg. 15.5">
+                    <div *ngIf="submitted && f.length_e.errors" class="invalid-feedback">
+                      <div *ngIf="f.length_e.errors.required">Len E is required</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-2" *ngIf="show_len_f">
+                  <div class="form-group">
+                    <label for="length_f" class="form-label">Length F (mm)</label>
+                    <input type="number" formControlName="length_f" class="form-control form-control-sm" id="length_f"
+                           [ngClass]="{ 'is-invalid': submitted && f.length_f.errors }"
+                           placeholder="Eg. 15.5">
+                    <div *ngIf="submitted && f.length_f.errors" class="invalid-feedback">
+                      <div *ngIf="f.length_f.errors.required">Len F is required</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-2" *ngIf="show_len_r">
+                  <div class="form-group">
+                    <label for="length_r" class="form-label">Length R (mm)</label>
+                    <input type="number" formControlName="length_r" class="form-control form-control-sm" id="length_r"
+                           [ngClass]="{ 'is-invalid': submitted && f.length_r.errors }"
+                           placeholder="Eg. 15.5">
+                    <div *ngIf="submitted && f.length_r.errors" class="invalid-feedback">
+                      <div *ngIf="f.length_r.errors.required">Len R is required</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="form-actions" *ngIf="packageError.length < 1">
+              <div class="actions-left">
+                <button type="button" (click)="resetMemberForm()" disabled class="btn btn-outline-secondary btn-sm">
+                  <i class="mdi mdi-file-import"></i>
+                  Import Members
+                </button>
+              </div>
+              
+              <div class="actions-center">
+                <button type="button" (click)="resetMemberForm()" class="btn btn-outline-danger btn-sm">
+                  <i class="mdi mdi-refresh"></i>
+                  Reset
+                </button>
+                <button [ladda]="buttonloading" *ngIf="!updatebtn" type="button" (click)="registerElementMember(memberForm.value)" class="btn btn-success btn-sm">
+                  <i class="mdi mdi-content-save"></i>
+                  Save
+                </button>
+                <button [ladda]="buttonloading" *ngIf="updatebtn" type="button" (click)="updateElementMember(memberForm.value)" class="btn btn-primary btn-sm">
+                  <i class="mdi mdi-content-save-edit"></i>
+                  Update
+                </button>
+              </div>
+              
+              <div class="actions-right">
+                <button type="button" (click)="resetMemberForm()" disabled class="btn btn-outline-secondary btn-sm">
+                  <i class="mdi mdi-file-export"></i>
+                  Export
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<ng-template #viewScodes role="document" let-modal>
-  <div class="modal-header">
-    <span class="modal-title mt-0">PREVIEW/SELECT {{selectedElement.std_code.name}} S-TYPE {{selectedElement.steel_type.name}} SHAPES</span>
-    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
-  </div>
-  <div class="modal-body">
-    <div class="row">
-      <div class="col-md-6 col-xl-3" *ngFor="let item of shapeCodes" style="cursor: pointer;" (click)="onSelectShape(item, modal)">
-        <div class="card">
-          <img class="card-img-top img-fluid" src="assets/images/shapecodes/{{item.id}}.jpg" alt="Card image cap">
-          <div class="card-body">
-            <h4 class="card-title mt-0">Shape Code #: {{item.shape_code}}</h4>
+    <!-- Shape Preview Section -->
+    <div class="col-lg-4">
+      <div class="shape-preview-card">
+        <div class="card-header">
+          <h6 class="card-title">
+            <i class="mdi mdi-image"></i>
+            Shape Preview
+          </h6>
+        </div>
+        
+        <div class="card-body">
+          <div class="shape-preview" *ngIf="scode_id > 0">
+            <img class="shape-image" src="assets/images/shapecodes/{{scode_id}}.jpg" alt="Shape Code {{scode_id}}"/>
+          </div>
+          <div class="no-shape" *ngIf="scode_id <= 0">
+            <i class="mdi mdi-image-off"></i>
+            <p>Select a shape code to preview</p>
           </div>
         </div>
-      </div><!-- end col -->
+      </div>
     </div>
   </div>
-  <div class="modal-footer">
-    <div class="text-sm-end">
-      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
-    </div>
 
+  <!-- Members Table Section -->
+  <div class="members-table-section">
+    <div class="row">
+      <div class="col-12">
+        <div class="table-card">
+          <div class="card-header">
+            <h5 class="card-title">
+              <i class="mdi mdi-account-group"></i>
+              Element Members
+            </h5>
+            <div class="card-actions">
+              <div class="search-box">
+                <i class="mdi mdi-magnify"></i>
+                <input type="text" [(ngModel)]="service.searchTerm" placeholder="Search members...">
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <!-- Table Controls -->
+            <div class="table-controls">
+              <div class="controls-left">
+                <div class="entries-selector">
+                  <label>Show</label>
+                  <select name="pageSize" [(ngModel)]="service.pageSize" class="form-select form-select-sm">
+                    <option [ngValue]="5">5</option>
+                    <option [ngValue]="10">10</option>
+                    <option [ngValue]="25">25</option>
+                    <option [ngValue]="50">50</option>
+                    <option [ngValue]="100">100</option>
+                  </select>
+                  <span>entries</span>
+                </div>
+              </div>
+
+              <div class="controls-right">
+                <div class="table-info">
+                  Showing {{service.startIndex + 1}} to {{service.endIndex}} of {{service.totalRecords}} entries
+                </div>
+              </div>
+            </div>
+
+            <!-- Members Table -->
+            <div class="table-responsive">
+              <table class="table table-hover members-table">
+                <thead>
+                  <tr>
+                    <th class="text-center" style="width: 50px;">
+                      <span>#</span>
+                    </th>
+                    <th>
+                      <span>Member Name</span>
+                    </th>
+                    <th>
+                      <span>Bar Mark</span>
+                    </th>
+                    <th>
+                      <span>Bar Size</span>
+                    </th>
+                    <th>
+                      <span>Total Members</span>
+                    </th>
+                    <th>
+                      <span>No. Of Bars</span>
+                    </th>
+                    <th>
+                      <span>Total Bar Length</span>
+                    </th>
+                    <th>
+                      <span>Shape Code</span>
+                    </th>
+                    <th>
+                      <span>Dimensions</span>
+                    </th>
+                    <th class="text-center" style="width: 80px;">
+                      <span>Actions</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let member of activities$ | async; let i = index;" class="member-row" (click)="editMember(member)" title="Click To Edit Member: {{member.name}}">
+                    <td class="text-center">
+                      <span class="id-badge">{{i+1}}</span>
+                    </td>
+                    <td>
+                      <div class="member-name">
+                        <ngb-highlight [result]="member.name" [term]="service.searchTerm"></ngb-highlight>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="bar-mark">
+                        <ngb-highlight [result]="member.bar_mark" [term]="service.searchTerm"></ngb-highlight>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="bar-size">
+                        <ngb-highlight [result]="member.bar_size" [term]="service.searchTerm"></ngb-highlight>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="total-members">
+                        <ngb-highlight [result]="member.total_members" [term]="service.searchTerm"></ngb-highlight>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="number-of-bars">
+                        <ngb-highlight [result]="member.number_of_bars" [term]="service.searchTerm"></ngb-highlight>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="total-length">
+                        <ngb-highlight [result]="member.total_length_of_bars" [term]="service.searchTerm"></ngb-highlight>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="shape-code">
+                        <ngb-highlight [result]="member.shape_code.shape_code" [term]="service.searchTerm"></ngb-highlight>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="dimensions">
+                        <div class="dimension-item" *ngIf="member.length_a">
+                          <span class="dim-label">A:</span>
+                          <span class="dim-value">{{member.length_a}}mm</span>
+                        </div>
+                        <div class="dimension-item" *ngIf="member.length_b">
+                          <span class="dim-label">B:</span>
+                          <span class="dim-value">{{member.length_b}}mm</span>
+                        </div>
+                        <div class="dimension-item" *ngIf="member.length_c">
+                          <span class="dim-label">C:</span>
+                          <span class="dim-value">{{member.length_c}}mm</span>
+                        </div>
+                        <div class="dimension-item" *ngIf="member.length_d">
+                          <span class="dim-label">D:</span>
+                          <span class="dim-value">{{member.length_d}}mm</span>
+                        </div>
+                        <div class="dimension-item" *ngIf="member.length_e">
+                          <span class="dim-label">E:</span>
+                          <span class="dim-value">{{member.length_e}}mm</span>
+                        </div>
+                        <div class="dimension-item" *ngIf="member.length_f">
+                          <span class="dim-label">F:</span>
+                          <span class="dim-value">{{member.length_f}}mm</span>
+                        </div>
+                        <div class="dimension-item" *ngIf="member.length_r">
+                          <span class="dim-label">R:</span>
+                          <span class="dim-value">{{member.length_r}}mm</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="text-center">
+                      <div class="action-buttons">
+                        <button class="btn btn-sm btn-outline-danger" (click)="deleteMember(member); $event.stopPropagation()" title="Delete">
+                          <i class="mdi mdi-delete"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Loading State -->
+            <div class="loading-container" *ngIf="loading">
+              <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination-wrapper">
+              <ngb-pagination
+                [collectionSize]="total$ | async"
+                [(page)]="service.page"
+                [pageSize]="service.pageSize"
+                [boundaryLinks]="true"
+                [maxSize]="5"
+                class="pagination-sm">
+              </ngb-pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Shape Codes Modal -->
+<ng-template #viewScodes role="document" let-modal>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="mdi mdi-shape"></i>
+          Preview/Select {{selectedElement.std_code.name}} S-TYPE {{selectedElement.steel_type.name}} Shapes
+        </h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="shapes-grid">
+          <div class="shape-card" *ngFor="let item of shapeCodes" (click)="onSelectShape(item, modal)">
+            <div class="shape-image">
+              <img src="assets/images/shapecodes/{{item.id}}.jpg" alt="Shape Code {{item.shape_code}}">
+            </div>
+            <div class="shape-info">
+              <h6 class="shape-code">Shape Code #{{item.shape_code}}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-sm" (click)="modal.close('Close click')">
+          <i class="mdi mdi-close"></i>
+          Close
+        </button>
+      </div>
+    </div>
   </div>
 </ng-template>
 

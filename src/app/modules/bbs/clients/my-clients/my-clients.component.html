@@ -1,232 +1,263 @@
-<div class="container-fluid">
+<div class="bbs-clients-page">
+  <div class="container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+      <app-page-title title="Client Management" [breadcrumbItems]="breadCrumbItems"></app-page-title>
 
-  <app-page-title title="Clients" [breadcrumbItems]="breadCrumbItems"></app-page-title>
-
-  <!-- end row -->
-  <div class="row mb-mb-2">
-    <div class="col-sm-12">
-      <div class="text-sm-end">
-        <button type="button" (click)="openModal(content)" class="btn btn-success btn-sm btn-rounded mb-2 me-2"><i class="mdi mdi-plus mr-1"></i>
-          Add New Client</button>
+      <div class="header-actions">
+        <button type="button" (click)="openModal(content)" class="btn btn-primary btn-sm">
+          <i class="bx bx-plus"></i>
+          <span>Add Client</span>
+        </button>
       </div>
     </div>
-  </div>
-  <div class="row" style="font-size: 12px;">
-    <div class="col-lg-12">
-      <div class="card">
-        <div class="card-body">
 
-
-          <!--<h4 class="card-title mb-4">My Clients</h4>-->
-          <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-tabs nav-tabs-custom">
-            <li [ngbNavItem]="1">
-              <a ngbNavLink>All</a>
-              <ng-template ngbNavContent>
-
-                <div class="row mb-md-2">
-                  <div class="col-sm-12 col-md-6">
-                    <div class="dataTables_length" id="tickets-table_length"><label
-                      class="d-inline-flex align-items-center">Show
-                      <select name="tickets-table_length" aria-controls="tickets-table"
-                              name="pageSize" [(ngModel)]="service.pageSize"
-                              class="custom-select custom-select-sm form-control form-control-sm mx-2">
-                        <option [ngValue]="10">10</option>
-                        <option [ngValue]="25">25</option>
-                        <option [ngValue]="50">50</option>
-                        <option [ngValue]="100">100</option>
-                      </select> entries</label></div>
-                  </div>
-                  <!-- Search -->
-                  <div class="col-sm-12 col-md-6">
-                    <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
-                      class="d-inline-flex align-items-center">Search:
-                      <input type="text" name="searchTerm"
-                             class="form-control form-control-sm ms-2"
-                             aria-controls="tickets-table"
-                             [(ngModel)]="service.searchTerm"></label></div>
-                  </div>
-                  <!-- End search -->
+    <!-- Clients Dashboard -->
+    <div class="clients-dashboard">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="content-card">
+            <div class="card-header">
+              <h5 class="card-title">
+                <i class="bx bx-group"></i>
+                My Clients
+              </h5>
+              <div class="card-actions">
+                <div class="search-box">
+                  <i class="bx bx-search"></i>
+                  <input type="text" [(ngModel)]="service.searchTerm" placeholder="Search clients...">
                 </div>
-                <!-- Table -->
-                <div class="table-responsive" style="padding-bottom: 70px;">
-                  <table id="basic-datatable" class="table datatables dt-responsive nowrap">
+              </div>
+            </div>
+
+            <div class="card-body">
+              <!-- Filters and Controls -->
+              <div class="table-controls">
+                <div class="controls-left">
+                  <div class="entries-selector">
+                    <label>Show</label>
+                    <select name="pageSize" [(ngModel)]="service.pageSize" class="form-select form-select-sm">
+                      <option [ngValue]="10">10</option>
+                      <option [ngValue]="25">25</option>
+                      <option [ngValue]="50">50</option>
+                      <option [ngValue]="100">100</option>
+                    </select>
+                    <span>entries</span>
+                  </div>
+                </div>
+
+                <div class="controls-right">
+                  <div class="table-info">
+                    Showing {{service.startIndex + 1}} to {{service.endIndex}} of {{service.totalRecords}} entries
+                  </div>
+                </div>
+              </div>
+
+              <!-- Clients Table -->
+              <div class="table-responsive">
+                <table class="table table-hover clients-table">
                   <thead>
-                  <tr>
-                    <th sortable="id" (sort)="onSort($event)">ID</th>
-                    <th sortable="name" (sort)="onSort($event)">NAME</th>
-                    <th sortable="name" (sort)="onSort($event)">EMAIL</th>
-                    <th sortable="name" (sort)="onSort($event)">MOBILE</th>
-                    <th sortable="postal_address" (sort)="onSort($event)">ADDRESS</th>
-                    <th sortable="street_name" (sort)="onSort($event)">STREET</th>
-                    <th sortable="municipal" (sort)="onSort($event)">MUNICIPAL</th>
-                    <th sortable="region" (sort)="onSort($event)">REGION</th>
-                    <th sortable="country" (sort)="onSort($event)">COUNTRY</th>
-                    <th>ACTIONS</th>
-                  </tr>
+                    <tr>
+                      <th class="text-center" style="width: 60px;">
+                        <span>#</span>
+                      </th>
+                      <th>
+                        <span>Client</span>
+                      </th>
+                      <th>
+                        <span>Contact</span>
+                      </th>
+                      <th>
+                        <span>Location</span>
+                      </th>
+                      <th class="text-center" style="width: 100px;">
+                        <span>Actions</span>
+                      </th>
+                    </tr>
                   </thead>
                   <tbody>
-                  <tr *ngFor="let table of activities$ | async; let i=index;">
-                    <td>
-                      {{i+1}}
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="table.name" [term]="service.searchTerm">
-                      </ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="table.email" [term]="service.searchTerm">
-                      </ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="table.mobile" [term]="service.searchTerm">
-                      </ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="table.postal_address" [term]="service.searchTerm">
-                      </ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="table.street" [term]="service.searchTerm">
-                      </ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="table.municipal" [term]="service.searchTerm">
-                      </ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="table.region" [term]="service.searchTerm">
-                      </ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="table.country" [term]="service.searchTerm">
-                      </ngb-highlight>
-                    </td>
-                    <td>
-                      <div ngbDropdown placement="bottom-left">
-                        <i class="mdi mdi-dots-vertical dropdown-toggle" ngbDropdownToggle data-toggle="dropdown"
-                           aria-expanded="true"></i>
-                        <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
-                          <a class="dropdown-item" (click)="editClient(content, table)"><i class="mdi mdi-table-edit"></i>Edit</a>
-                          <a class="dropdown-item" href="javascript: void(0);"><i
-                            class="mdi mdi-delete"></i>Delete</a>
+                    <tr *ngFor="let client of activities$ | async; let i=index;" class="client-row">
+                      <td class="text-center">
+                        <span class="id-badge">{{i+1}}</span>
+                      </td>
+                      <td>
+                        <div class="client-info">
+                          <div class="client-avatar">
+                            <i class="bx bx-user"></i>
+                          </div>
+                          <div class="client-details">
+                            <div class="client-name">
+                              <ngb-highlight [result]="client.name" [term]="service.searchTerm"></ngb-highlight>
+                            </div>
+                            <div class="client-address">
+                              <ngb-highlight [result]="client.postal_address" [term]="service.searchTerm"></ngb-highlight>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                  </tr>
+                      </td>
+                      <td>
+                        <div class="contact-info">
+                          <div class="contact-item">
+                            <i class="bx bx-envelope"></i>
+                            <ngb-highlight [result]="client.email" [term]="service.searchTerm"></ngb-highlight>
+                          </div>
+                          <div class="contact-item">
+                            <i class="bx bx-phone"></i>
+                            <ngb-highlight [result]="client.mobile" [term]="service.searchTerm"></ngb-highlight>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="location-info">
+                          <div class="location-item">
+                            <i class="bx bx-map"></i>
+                            <ngb-highlight [result]="client.region" [term]="service.searchTerm"></ngb-highlight>
+                          </div>
+                          <div class="location-item">
+                            <i class="bx bx-globe"></i>
+                            <ngb-highlight [result]="client.country" [term]="service.searchTerm"></ngb-highlight>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <div class="action-buttons">
+                          <button class="btn btn-sm btn-outline-primary" (click)="editClient(content, client)" title="Edit">
+                            <i class="bx bx-edit"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-danger" title="Delete">
+                            <i class="bx bx-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
-                </div>
-                <!-- End table -->
-                <div class="row justify-content-md-between align-items-md-center mt-2">
-                  <div class="col-sm-12 col-md-5">
-                    <div class="dataTables_info mb-2" id="tickets-table_info" role="status"
-                         aria-live="polite">
-                      Showing
-                      {{service.startIndex + 1}} to
-                      {{service.endIndex}} of {{service.totalRecords}}
-                      entries
-                    </div>
-                  </div>
-                  <!-- Pagination -->
-                  <div class="col-sm-12 col-md-5">
-                    <div class="text-md-right float-md-end pagination-rounded">
-                      <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page"
-                                      [pageSize]="service.pageSize">
-                      </ngb-pagination>
-                    </div>
-                  </div>
-                  <!-- End Pagination -->
-                </div>
-              </ng-template>
-            </li>
-          </ul>
-          <div [ngbNavOutlet]="nav" class="mt-4"></div>
+              </div>
+
+              <!-- Pagination -->
+              <div class="pagination-wrapper">
+                <ngb-pagination
+                  [collectionSize]="total$ | async"
+                  [(page)]="service.page"
+                  [pageSize]="service.pageSize"
+                  [boundaryLinks]="true"
+                  [maxSize]="5"
+                  class="pagination-sm">
+                </ngb-pagination>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Client Modal -->
 <ng-template #content role="document" let-modal>
-  <div class="modal-header">
-    <h5 class="modal-title mt-0">New Client</h5>
-    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
-  </div>
-  <div class="modal-body">
-    <div class="row">
-      <div class="col-12">
-        <form [formGroup]="clientForm">
-          <ngb-alert type="success" *ngIf="successmsg" [dismissible]="false">{{successmsg}}</ngb-alert>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="bx bx-user-plus"></i>
+          {{ editingClient ? 'Edit Client' : 'Add New Client' }}
+        </h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
 
-          <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert>
+      <div class="modal-body">
+        <form [formGroup]="clientForm" class="client-form">
+          <!-- Alerts -->
+          <ngb-alert type="success" *ngIf="successmsg" [dismissible]="false">
+            <i class="bx bx-check-circle"></i>
+            {{successmsg}}
+          </ngb-alert>
+
+          <ngb-alert type="danger" *ngIf="error" [dismissible]="false">
+            <i class="bx bx-error-circle"></i>
+            {{ error }}
+          </ngb-alert>
+
+          <!-- Form Fields -->
           <div class="row">
-
             <div class="col-md-6">
-              <div class="mb-3">
-                <label for="name">Client Name</label>
-                <input type="text" formControlName="name" class="form-control" id="name"
+              <div class="form-group">
+                <label for="name" class="form-label">
+                  <i class="bx bx-user"></i>
+                  Client Name
+                </label>
+                <input type="text" formControlName="name" class="form-control form-control-sm" id="name"
                        [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
-                       placeholder="Eg. INVIC GROUP">
+                       placeholder="Enter client name">
                 <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-                  <div *ngIf="f.name.errors.required">Name is required</div>
+                  <div *ngIf="f.name.errors.required">Client name is required</div>
                 </div>
               </div>
             </div>
 
             <div class="col-md-6">
-              <div class="mb-3">
-                <label for="country">Country</label>
-                <input type="text" formControlName="country" class="form-control" id="country"
+              <div class="form-group">
+                <label for="email" class="form-label">
+                  <i class="bx bx-envelope"></i>
+                  Email Address
+                </label>
+                <input type="email" formControlName="email" class="form-control form-control-sm" id="email"
+                       [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                       placeholder="Enter email address">
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                  <div *ngIf="f.email.errors.required">Email is required</div>
+                  <div *ngIf="f.email.errors.email">Please enter a valid email address</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="mobile" class="form-label">
+                  <i class="bx bx-phone"></i>
+                  Phone Number
+                  <small class="text-muted">(Choose dial code, don't start with 0)</small>
+                </label>
+                <input type="text" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'tz'}"
+                       (keypress)="numericOnly($event)" (countryChange)="onCountryChange($event)"
+                       formControlName="mobile" class="form-control form-control-sm" id="mobile"
+                       [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"
+                       placeholder="Enter phone number">
+                <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+                  <div *ngIf="f.mobile.errors.required">Phone number is required</div>
+                  <div *ngIf="f.mobile.errors.minlength">Phone must be at least 10 digits</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="country" class="form-label">
+                  <i class="bx bx-globe"></i>
+                  Country
+                </label>
+                <input type="text" formControlName="country" class="form-control form-control-sm" id="country"
                        [ngClass]="{ 'is-invalid': submitted && f.country.errors }"
-                       placeholder="Eg. Tanzania">
+                       placeholder="Enter country">
                 <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
                   <div *ngIf="f.country.errors.required">Country is required</div>
                 </div>
               </div>
             </div>
-
           </div>
 
-                  <div class="row">
-
-                    <div class="col-md-6">
-                      <div class="mb-3">
-                        <label for="mobile">Telephone Number [<span style="color: darkred; font-size: 10px;">Choose Dial Code, Dont Start with Zero (0)</span>]</label><br>
-                        <input type="text" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'tz'}" (keypress)="numericOnly($event)" (countryChange)="onCountryChange($event)" formControlName="mobile"
-                               [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"
-                               class="form-control" id="mobile" placeholder="Eg. 765992233">
-                        <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
-                          <div *ngIf="f.mobile.errors.required">Phone Number is required</div>
-                          <div *ngIf="f.mobile.errors.minlength">Phone must be at least 10 numbers.</div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-6">
-                      <div class="mb-3">
-                        <label for="email">Email</label>
-                        <input type="email" formControlName="email"
-                               [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-                               class="form-control" id="email" placeholder="Eg. info@invic.co.tz">
-                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                          <div *ngIf="f.email.errors.required">Email is required</div>
-                          <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
-                        </div>
-
-                      </div>
-                    </div>
-
-
-                  </div>
-
           <div class="row">
-
             <div class="col-md-6">
-              <div class="mb-3">
-                <label for="region">Region</label>
-                <input type="text" formControlName="region" class="form-control" id="region"
+              <div class="form-group">
+                <label for="region" class="form-label">
+                  <i class="bx bx-map"></i>
+                  Region
+                </label>
+                <input type="text" formControlName="region" class="form-control form-control-sm" id="region"
                        [ngClass]="{ 'is-invalid': submitted && f.region.errors }"
-                       placeholder="Eg. Mwanza">
+                       placeholder="Enter region">
                 <div *ngIf="submitted && f.region.errors" class="invalid-feedback">
                   <div *ngIf="f.region.errors.required">Region is required</div>
                 </div>
@@ -234,59 +265,65 @@
             </div>
 
             <div class="col-md-6">
-              <div class="mb-3">
-                <label for="municipal">Municipal</label>
-                <input type="text" formControlName="municipal" class="form-control" id="municipal"
+              <div class="form-group">
+                <label for="municipal" class="form-label">
+                  <i class="bx bx-building"></i>
+                  Municipal
+                </label>
+                <input type="text" formControlName="municipal" class="form-control form-control-sm" id="municipal"
                        [ngClass]="{ 'is-invalid': submitted && f.municipal.errors }"
-                       placeholder="Eg. Ilemela">
+                       placeholder="Enter municipal">
                 <div *ngIf="submitted && f.municipal.errors" class="invalid-feedback">
                   <div *ngIf="f.municipal.errors.required">Municipal is required</div>
                 </div>
               </div>
             </div>
-
           </div>
 
           <div class="row">
-
             <div class="col-md-6">
-              <div class="mb-3">
-                <label for="postal_address">Postal Address</label>
-                <input type="text" formControlName="postal_address" class="form-control" id="postal_address"
+              <div class="form-group">
+                <label for="postal_address" class="form-label">
+                  <i class="bx bx-home"></i>
+                  Postal Address
+                </label>
+                <input type="text" formControlName="postal_address" class="form-control form-control-sm" id="postal_address"
                        [ngClass]="{ 'is-invalid': submitted && f.postal_address.errors }"
-                       placeholder="Enter Address">
+                       placeholder="Enter postal address">
                 <div *ngIf="submitted && f.postal_address.errors" class="invalid-feedback">
-                  <div *ngIf="f.postal_address.errors.required">Address is required</div>
+                  <div *ngIf="f.postal_address.errors.required">Postal address is required</div>
                 </div>
               </div>
             </div>
 
             <div class="col-md-6">
-              <div class="mb-3">
-                <label for="postal_address">Street</label>
-                <input type="text" formControlName="street" class="form-control" id="street"
+              <div class="form-group">
+                <label for="street" class="form-label">
+                  <i class="bx bx-map-pin"></i>
+                  Street
+                </label>
+                <input type="text" formControlName="street" class="form-control form-control-sm" id="street"
                        [ngClass]="{ 'is-invalid': submitted && f.street.errors }"
-                       placeholder="Enter Street">
+                       placeholder="Enter street name">
                 <div *ngIf="submitted && f.street.errors" class="invalid-feedback">
                   <div *ngIf="f.street.errors.required">Street is required</div>
                 </div>
               </div>
             </div>
-
           </div>
-
-          <div class="d-flex flex-wrap gap-2 mt-2">
-            <!--<button type="submit" class="btn btn-primary">Save Profile</button>-->
-            <!--<button type="submit" class="btn btn-secondary">Cancel</button>-->
-          </div>
-
         </form>
+      </div>
 
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" (click)="modal.close('Close click')">
+          <i class="bx bx-x"></i>
+          Cancel
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="addClient(clientForm.value)">
+          <i class="bx bx-save"></i>
+          {{ editingClient ? 'Update Client' : 'Save Client' }}
+        </button>
       </div>
     </div>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
-    <button type="button" class="btn btn-primary" (click)="addClient(clientForm.value)">Save Client</button>
   </div>
 </ng-template>

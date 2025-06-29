@@ -1,122 +1,145 @@
-<div class="modal-body" *ngIf="showPaymentPanel">
-  <div class="row">
-
-    <div class="col-md-7">
-
-      <div class="col-md-12">
-        <div class="card shadow-sm border-0">
-          <div class="card-header bg-default text-white text-center">
-            <h5 class="mb-0">Invoice Summary</h5>
+<div class="payment-container">
+  <!-- Payment Panel -->
+  <div class="payment-panel" *ngIf="showPaymentPanel">
+    <div class="payment-content">
+      <!-- Invoice Summary Card -->
+      <div class="invoice-summary">
+        <div class="summary-header">
+          <div class="header-icon">
+            <i class="bx bx-receipt"></i>
           </div>
-          <div class="card-body p-4">
-            <table class="table table-borderless mb-0">
-              <tr>
-                <td>Package: {{packageSubscription.package.name}}</td>
-                <td>Amount Billed: {{packageSubscription.total_amount_billed}}</td>
-              </tr>
-              <tr>
-                <td>Subscription Period: {{packageSubscription.total_months}}</td>
-                <td>Created Date: {{packageSubscription.created_at | date:'mediumDate'}}</td>
-              </tr>
-             <!-- <tr>
-                <td class="fw-bold">Status:
-                  <span class="badge" [ngClass]="{
-              'bg-success': packageSubscription.paid_status == 1,
-              'bg-warning': packageSubscription.paid_status == 0,
-              'bg-danger': packageSubscription.paid_status == 0
-            }">{{packageSubscription.paid_status}}</span>
-                </td>
-              </tr>-->
-            </table>
+          <div class="header-text">
+            <h4>Payment Summary</h4>
+            <p>Complete your subscription payment</p>
+          </div>
+        </div>
+        
+        <div class="summary-details">
+          <div class="detail-row">
+            <div class="detail-item">
+              <span class="label">Package</span>
+              <span class="value">{{packageSubscription.package.name}}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Amount</span>
+              <span class="value amount">TZS {{packageSubscription.total_amount_billed | number}}</span>
+            </div>
+          </div>
+          
+          <div class="detail-row">
+            <div class="detail-item">
+              <span class="label">Duration</span>
+              <span class="value">{{packageSubscription.total_months}} {{packageSubscription.total_months === 1 ? 'Month' : 'Months'}}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Created</span>
+              <span class="value">{{packageSubscription.created_at | date:'shortDate'}}</span>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="col-md-12">
-        <iframe
-          [src]="url"
-          width="100%"
-          height="500px"
-          frameborder="0"
-          allowfullscreen>
-        </iframe>
+      <!-- Payment Gateway -->
+      <div class="payment-gateway">
+        <div class="gateway-header">
+          <h5>
+            <i class="bx bx-credit-card"></i>
+            Secure Payment Gateway
+          </h5>
+        </div>
+        
+        <div class="gateway-frame">
+          <iframe
+            [src]="url"
+            width="100%"
+            height="500px"
+            frameborder="0"
+            allowfullscreen>
+          </iframe>
+        </div>
       </div>
-
     </div>
-
   </div>
-</div>
 
-<div class="modal-body" *ngIf="showFailedPanel">
-  <div class="row">
-
-    <div class="col-md-7">
-
-      <div class="col-md-12">
-        <div class="card shadow-sm border-0">
-          <div class="card-header bg-default text-white text-center">
-            <h5 class="mb-0">Invoice Summary</h5>
+  <!-- Failed Panel -->
+  <div class="failed-panel" *ngIf="showFailedPanel">
+    <div class="failed-content">
+      <div class="error-card">
+        <div class="error-header">
+          <div class="error-icon">
+            <i class="bx bx-x-circle"></i>
           </div>
-          <div class="card-body p-4">
-            <table class="table table-borderless mb-0">
-               <tr>
-                 <td class="fw-bold" colspan="2">
-                   <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert>
-<!--                   <span class="badge" [ngClass]="'bg-danger'">{{ error }}</span>-->
-                 </td>
-               </tr>
-            </table>
+          <div class="error-text">
+            <h4>Payment Failed</h4>
+            <p>There was an issue processing your payment</p>
+          </div>
+        </div>
+        
+        <div class="error-details">
+          <ngb-alert type="danger" *ngIf="error" [dismissible]="false" class="error-alert">
+            <i class="bx bx-error"></i>
+            {{ error }}
+          </ngb-alert>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Panel -->
+  <div class="success-panel" *ngIf="showSuccessPanel">
+    <div class="success-content">
+      <div class="success-card">
+        <div class="success-header">
+          <div class="success-icon">
+            <i class="bx bx-check-circle"></i>
+          </div>
+          <div class="success-text">
+            <h4>Payment Successful</h4>
+            <p>Your subscription has been activated</p>
+          </div>
+        </div>
+        
+        <div class="success-details">
+          <div class="detail-row">
+            <div class="detail-item">
+              <span class="label">Package</span>
+              <span class="value">{{packageSubscription.package.name}}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Amount Paid</span>
+              <span class="value amount">TZS {{packageSubscription.total_amount_billed | number}}</span>
+            </div>
+          </div>
+          
+          <div class="detail-row">
+            <div class="detail-item">
+              <span class="label">Duration</span>
+              <span class="value">{{packageSubscription.total_months}} {{packageSubscription.total_months === 1 ? 'Month' : 'Months'}}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Paid Date</span>
+              <span class="value">{{packageSubscription.paid_date | date:'shortDate'}}</span>
+            </div>
+          </div>
+          
+          <div class="status-row">
+            <div class="status-badge success">
+              <i class="bx bx-check"></i>
+              Payment Completed
+            </div>
           </div>
         </div>
       </div>
-
     </div>
-
   </div>
 
-</div>
-
-<div class="modal-body" *ngIf="showSuccessPanel">
-  <div class="row">
-
-    <div class="col-md-7">
-
-      <div class="col-md-12">
-        <div class="card shadow-sm border-0">
-          <div class="card-header bg-default text-white text-center">
-            <h5 class="mb-0">Invoice Summary</h5>
-          </div>
-          <div class="card-body p-4">
-            <table class="table table-borderless mb-0">
-              <tr>
-                <td>Package: {{packageSubscription.package.name}}</td>
-                <td>Amount Billed: {{packageSubscription.total_amount_billed}}</td>
-              </tr>
-              <tr>
-                <td>Subscription Period: {{packageSubscription.total_months}}</td>
-                <td>Created Date: {{packageSubscription.created_at | date:'mediumDate'}}</td>
-              </tr>
-              <tr>
-                <td class="fw-bold">Status:
-                  <span class="badge" [ngClass]="'bg-success'">Completed</span>
-                </td>
-                <td>Paid Date Date: {{packageSubscription.paid_date | date:'mediumDate'}}</td>
-              </tr>
-            </table>
-          </div>
-        </div>
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="loading">
+    <div class="loading-content">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Processing payment...</span>
       </div>
-
+      <p class="loading-text">Processing your payment...</p>
     </div>
-
-  </div>
-
-</div>
-
-
-
-<div class="card-body" style="text-align: center" *ngIf="loading">
-  <div class="spinner-border text-primary" role="status">
-    <span class="sr-only">Loading...</span>
   </div>
 </div>

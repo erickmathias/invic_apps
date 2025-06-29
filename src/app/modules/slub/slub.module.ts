@@ -6,10 +6,12 @@ import { SlabFooterComponent } from './layout/slab-footer/slab-footer.component'
 import { SlabLayoutComponent } from './layout/slab-layout/slab-layout.component';
 import { SlabSidebarComponent } from './layout/slab-sidebar/slab-sidebar.component';
 import { SlabTopbarComponent } from './layout/slab-topbar/slab-topbar.component';
+import { SlabHomeComponent } from './slab-home/slab-home.component';
 import {NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
 import {TranslateModule} from "@ngx-translate/core";
 import {SimplebarAngularModule} from "simplebar-angular";
 import {NgSelectModule} from "@ng-select/ng-select";
+import { BbsModule } from '../bbs/bbs.module';
 
 
 @NgModule({
@@ -17,7 +19,8 @@ import {NgSelectModule} from "@ng-select/ng-select";
     SlabFooterComponent,
     SlabLayoutComponent,
     SlabSidebarComponent,
-    SlabTopbarComponent
+    SlabTopbarComponent,
+    SlabHomeComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +28,8 @@ import {NgSelectModule} from "@ng-select/ng-select";
     NgbDropdownModule,
     TranslateModule,
     SimplebarAngularModule,
-    NgSelectModule
+    NgSelectModule,
+    BbsModule
   ]
 })
 export class SlubModule { }
