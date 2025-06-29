@@ -1,0 +1,418 @@
+// Modern Footer Styles
+.modern-footer {
+  position: relative;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #667eea 100%);
+  color: #ffffff;
+  margin-top: auto;
+  overflow: hidden;
+}
+
+// Footer Wave Animation
+.footer-wave {
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  color: #ffffff;
+  z-index: 1;
+  
+  svg {
+    width: 100%;
+    height: 100%;
+    animation: wave 6s ease-in-out infinite;
+  }
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-20px);
+  }
+}
+
+// Footer Content
+.footer-content {
+  position: relative;
+  z-index: 2;
+  padding: 3rem 0 2rem;
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+}
+
+// Footer Sections Grid
+.footer-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+// Footer Section
+.footer-section {
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -0.5rem;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: linear-gradient(90deg, #ffd700, #ffed4e);
+      border-radius: 2px;
+    }
+  }
+}
+
+// Company Section
+.company-section {
+  .section-header {
+    margin-bottom: 1.5rem;
+  }
+  
+  .company-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    
+    i {
+      font-size: 2rem;
+      color: #ffd700;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.5rem;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+  
+  .company-description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 1.5rem;
+  }
+  
+  .social-links {
+    display: flex;
+    gap: 0.75rem;
+    
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: #ffffff;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      
+      i {
+        font-size: 1.1rem;
+      }
+      
+      &:hover {
+        background: linear-gradient(135deg, #ffd700, #ffed4e);
+        color: #1e3c72;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+      }
+    }
+  }
+}
+
+// Footer Links
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  
+  li {
+    margin-bottom: 0.75rem;
+    
+    .footer-link {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      position: relative;
+      padding-left: 0;
+      
+      &::before {
+        content: '→';
+        position: absolute;
+        left: -1rem;
+        opacity: 0;
+        transition: all 0.3s ease;
+        color: #ffd700;
+      }
+      
+      &:hover {
+        color: #ffffff;
+        padding-left: 1rem;
+        
+        &::before {
+          opacity: 1;
+          left: 0;
+        }
+      }
+    }
+  }
+}
+
+// Contact Section
+.contact-section {
+  .contact-info {
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+      
+      .contact-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 35px;
+        height: 35px;
+        background: rgba(255, 215, 0, 0.2);
+        border-radius: 8px;
+        flex-shrink: 0;
+        
+        i {
+          font-size: 1rem;
+          color: #ffd700;
+        }
+      }
+      
+      .contact-details {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        
+        .contact-label {
+          font-size: 0.75rem;
+          color: rgba(255, 255, 255, 0.6);
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          font-weight: 600;
+        }
+        
+        .contact-value {
+          color: rgba(255, 255, 255, 0.9);
+          text-decoration: none;
+          font-size: 0.9rem;
+          font-weight: 500;
+          transition: all 0.3s ease;
+          
+          &:hover {
+            color: #ffd700;
+            transform: translateX(2px);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Footer Bottom
+.footer-bottom {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem 0;
+  
+  .footer-bottom-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    
+    .copyright {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .footer-bottom-links {
+      display: flex;
+      gap: 1.5rem;
+      
+      .bottom-link {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: all 0.3s ease;
+        position: relative;
+        
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          width: 0;
+          height: 1px;
+          background: #ffd700;
+          transition: width 0.3s ease;
+        }
+        
+        &:hover {
+          color: #ffffff;
+          
+          &::after {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .footer-content {
+    padding: 2rem 0 1.5rem;
+  }
+  
+  .footer-sections {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .footer-section {
+    text-align: center;
+    
+    .section-title::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  
+  .company-section {
+    .social-links {
+      justify-content: center;
+    }
+  }
+  
+  .footer-bottom {
+    .footer-bottom-content {
+      flex-direction: column;
+      text-align: center;
+      
+      .footer-bottom-links {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-content {
+    padding: 1.5rem 0 1rem;
+  }
+  
+  .footer-sections {
+    gap: 1rem;
+  }
+  
+  .footer-bottom {
+    padding: 1rem 0;
+    
+    .footer-bottom-links {
+      gap: 1rem;
+      
+      .bottom-link {
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+// Animation Classes
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.footer-section {
+  animation: fadeInUp 0.6s ease-out;
+  
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+  &:nth-child(4) { animation-delay: 0.4s; }
+}
+
+// Hover Effects
+.footer-section:hover {
+  transform: translateY(-2px);
+  transition: transform 0.3s ease;
+}
+
+// Focus States
+.footer-link:focus,
+.contact-value:focus,
+.bottom-link:focus {
+  outline: 2px solid #ffd700;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+// Loading States
+.social-link:active {
+  transform: scale(0.95);
+}
+
+// Custom Scrollbar for Footer
+.modern-footer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modern-footer::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.modern-footer::-webkit-scrollbar-thumb {
+  background: rgba(255, 215, 0, 0.5);
+  border-radius: 3px;
+}
+
+.modern-footer::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 215, 0, 0.7);
+}

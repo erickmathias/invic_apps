@@ -1,17 +1,136 @@
-<footer class="footer">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-6" style="font-style: normal; font-size: 16px; color: darkblue; font-weight: bold;">
-              <i class="bx bx-mail-send"></i><a href="javascript:void(0);" (click)="sendEmail('sales@invic.co.tz')"> info@invic.co.tz </a> |
-              <i class="bx bx-mail-send"></i><a href="javascript:void(0);" (click)="sendEmail('sales@invic.co.tz')"> sales@invic.co.tz </a> |
-              <i class="bx bx-phone-call"></i><a href="javascript:void(0);"> +255 793 046 345 </a> |
-              <i class="bx bxl-whatsapp"></i><a href="javascript:void(0);"> +255 793 046 345 </a>
+<footer class="modern-footer">
+  <div class="footer-wave">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path fill="currentColor" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+    </svg>
+  </div>
+  
+  <div class="footer-content">
+    <div class="container">
+      <div class="footer-sections">
+        <!-- Company Info Section -->
+        <div class="footer-section company-section">
+          <div class="section-header">
+            <div class="company-logo">
+              <i class="bx bx-cube-alt"></i>
+              <span class="logo-text">INVIC</span>
             </div>
-            <div class="col-sm-6">
-                <div class="text-sm-end d-none d-sm-block">
-                  {{year}} © INVIC
-                </div>
-            </div>
+            <p class="company-description">
+              Leading engineering solutions provider specializing in structural analysis, 
+              design optimization, and innovative construction technologies.
+            </p>
+          </div>
+          
+          <div class="social-links">
+            <a href="#" class="social-link" title="Facebook">
+              <i class="bx bxl-facebook"></i>
+            </a>
+            <a href="#" class="social-link" title="LinkedIn">
+              <i class="bx bxl-linkedin"></i>
+            </a>
+            <a href="#" class="social-link" title="Twitter">
+              <i class="bx bxl-twitter"></i>
+            </a>
+            <a href="#" class="social-link" title="Instagram">
+              <i class="bx bxl-instagram"></i>
+            </a>
+          </div>
         </div>
+
+        <!-- Quick Links Section -->
+        <div class="footer-section links-section">
+          <h3 class="section-title">Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="#" class="footer-link">Home</a></li>
+            <li><a href="#" class="footer-link">About Us</a></li>
+            <li><a href="#" class="footer-link">Services</a></li>
+            <li><a href="#" class="footer-link">Projects</a></li>
+            <li><a href="#" class="footer-link">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Services Section -->
+        <div class="footer-section services-section">
+          <h3 class="section-title">Our Services</h3>
+          <ul class="footer-links">
+            <li><a href="#" class="footer-link">Structural Analysis</a></li>
+            <li><a href="#" class="footer-link">Design Optimization</a></li>
+            <li><a href="#" class="footer-link">Construction Planning</a></li>
+            <li><a href="#" class="footer-link">Project Management</a></li>
+            <li><a href="#" class="footer-link">Consulting</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="footer-section contact-section">
+          <h3 class="section-title">Get In Touch</h3>
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="bx bx-envelope"></i>
+              </div>
+              <div class="contact-details">
+                <span class="contact-label">Email</span>
+                <a href="javascript:void(0);" (click)="sendEmail('info@invic.co.tz')" class="contact-value">
+                  info@invic.co.tz
+                </a>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="bx bx-envelope"></i>
+              </div>
+              <div class="contact-details">
+                <span class="contact-label">Sales</span>
+                <a href="javascript:void(0);" (click)="sendEmail('sales@invic.co.tz')" class="contact-value">
+                  sales@invic.co.tz
+                </a>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="bx bx-phone"></i>
+              </div>
+              <div class="contact-details">
+                <span class="contact-label">Phone</span>
+                <a href="tel:+255793046345" class="contact-value">
+                  +255 793 046 345
+                </a>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="bx bxl-whatsapp"></i>
+              </div>
+              <div class="contact-details">
+                <span class="contact-label">WhatsApp</span>
+                <a href="https://wa.me/255793046345" target="_blank" class="contact-value">
+                  +255 793 046 345
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="footer-bottom-content">
+        <div class="copyright">
+          <span>&copy; {{year}} INVIC. All rights reserved.</span>
+        </div>
+        <div class="footer-bottom-links">
+          <a href="#" class="bottom-link">Privacy Policy</a>
+          <a href="#" class="bottom-link">Terms of Service</a>
+          <a href="#" class="bottom-link">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </footer>
