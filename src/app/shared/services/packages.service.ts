@@ -38,4 +38,8 @@ export class PackagesService {
   checkOrderPaymentStatus(data: { OrderTrackingId: string; OrderMerchantReference: string }) {
     return this.http.post<any[]>(`${this.authUrl}/packages/subscription/order-request-status`, data);
   }
+
+  pushManualSettlement(data: { subscriptionId: number; receiptNumber: string }) {
+    return this.http.post<any[]>(`${this.authUrl}/packages/subscription/order-manual-settlement`, data);
+  }
 }

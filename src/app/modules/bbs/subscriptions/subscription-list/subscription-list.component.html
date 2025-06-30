@@ -40,11 +40,11 @@
                     <span>entries</span>
                   </div>
                 </div>
-                
+
                 <div class="controls-right">
                   <div class="search-box">
                     <i class="bx bx-search"></i>
-                    <input type="text" 
+                    <input type="text"
                            [(ngModel)]="service.searchTerm"
                            placeholder="Search subscriptions..."
                            class="form-control form-control-sm">
@@ -108,6 +108,10 @@
                             <i class="bx bx-credit-card"></i>
                             Pay
                           </button>
+                          <button *ngIf="userProfile.role == 1" class="btn btn-sm btn-warning ms-1" (click)="openManualPaymentModal(table, manualPaymentModal)">
+                            <i class="bx bx-edit"></i>
+                            Manual Pay
+                          </button>
                         </td>
                       </tr>
                     </tbody>
@@ -120,8 +124,8 @@
                     Showing {{service.startIndex + 1}} to {{service.endIndex}} of {{service.totalRecords}} entries
                   </div>
                   <div class="pagination-controls">
-                    <ngb-pagination 
-                      [collectionSize]="total$ | async" 
+                    <ngb-pagination
+                      [collectionSize]="total$ | async"
                       [(page)]="service.page"
                       [pageSize]="service.pageSize"
                       class="pagination-modern">
@@ -139,7 +143,7 @@
             </div>
           </ng-template>
         </li>
-        
+
         <li [ngbNavItem]="2">
           <a ngbNavLink>
             <i class="bx bx-check-circle"></i>
@@ -161,11 +165,11 @@
                     <span>entries</span>
                   </div>
                 </div>
-                
+
                 <div class="controls-right">
                   <div class="search-box">
                     <i class="bx bx-search"></i>
-                    <input type="text" 
+                    <input type="text"
                            [(ngModel)]="service2.searchTerm"
                            placeholder="Search subscriptions..."
                            class="form-control form-control-sm">
@@ -241,8 +245,8 @@
                     Showing {{service2.startIndex + 1}} to {{service2.endIndex}} of {{service2.totalRecords}} entries
                   </div>
                   <div class="pagination-controls">
-                    <ngb-pagination 
-                      [collectionSize]="total2$ | async" 
+                    <ngb-pagination
+                      [collectionSize]="total2$ | async"
                       [(page)]="service2.page"
                       [pageSize]="service2.pageSize"
                       class="pagination-modern">
@@ -276,17 +280,59 @@
       </h5>
       <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
     </div>
-    
+
     <div class="modal-body">
       <app-pesa-pall-order-request [packageSubscription]="selectedSubscription"></app-pesa-pall-order-request>
     </div>
-    
+
     <div class="modal-footer">
       <button type="button" class="btn btn-light" (click)="modal.close('Close click')">
         <i class="bx bx-x"></i>
         Close
       </button>
     </div>
+  </div>
+</ng-template>
+
+<!-- Manual Payment Modal -->
+<ng-template #manualPaymentModal let-modal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">
+        <i class="bx bx-edit"></i>
+        Manual Payment
+      </h5>
+      <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <form (ngSubmit)="submitManualPayment(modal)">
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="receiptNumber" class="form-label">Receipt Number</label>
+          <input type="text" id="receiptNumber" class="form-control" [(ngModel)]="manualPaymentReceiptNumber" name="receiptNumber" required placeholder="Eg. 123WER45FS33">
+        </div>
+        <!-- Alerts -->
+        <ngb-alert type="success" *ngIf="successmsg" [dismissible]="false">
+          <i class="mdi mdi-check-circle"></i>
+          {{successmsg}}
+        </ngb-alert>
+
+        <ngb-alert type="danger" *ngIf="error" [dismissible]="false">
+          <i class="mdi mdi-alert-circle"></i>
+          {{ error }}
+        </ngb-alert>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-sm" (click)="modal.close('Close click')">
+          <i class="bx bx-x"></i>
+          Close
+        </button>
+        <button [ladda]="buttonloading" type="submit" class="btn btn-sm btn-primary btn-sm">
+          <i class="bx bx-check"></i>
+          Submit
+        </button>
+
+      </div>
+    </form>
   </div>
 </ng-template>
 

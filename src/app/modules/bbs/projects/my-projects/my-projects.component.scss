@@ -75,39 +75,37 @@
       }
     }
 
-    .card-actions {
-      .search-box {
-        position: relative;
-        
-        input {
-          background: #ffffff;
-          border: 1px solid #dee2e6;
-          border-radius: 6px;
-          padding: 0.375rem 0.75rem 0.375rem 2rem;
-          font-size: 0.875rem;
-          width: 250px;
-          transition: all 0.2s ease;
+    .search-box {
+      position: relative;
+      
+      input {
+        background: #ffffff;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+        padding: 0.375rem 0.75rem 0.375rem 2rem;
+        font-size: 0.875rem;
+        width: 250px;
+        transition: all 0.2s ease;
 
-          &:focus {
-            border-color: #1e3c72;
-            box-shadow: 0 0 0 0.2rem rgba(30, 60, 114, 0.15);
-            outline: none;
-          }
-
-          &::placeholder {
-            color: #6c757d;
-          }
+        &:focus {
+          border-color: #1e3c72;
+          box-shadow: 0 0 0 0.2rem rgba(30, 60, 114, 0.15);
+          outline: none;
         }
 
-        i {
-          position: absolute;
-          left: 0.75rem;
-          top: 50%;
-          transform: translateY(-50%);
+        &::placeholder {
           color: #6c757d;
-          font-size: 0.875rem;
-          pointer-events: none;
         }
+      }
+
+      i {
+        position: absolute;
+        left: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c757d;
+        font-size: 0.875rem;
+        pointer-events: none;
       }
     }
   }
@@ -124,39 +122,35 @@
       background: #ffffff;
       border-bottom: 1px solid #e9ecef;
 
-      .controls-left {
-        .entries-selector {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
+      .entries-selector {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        color: #6c757d;
+
+        label {
+          margin: 0;
+          font-weight: 500;
+        }
+
+        .form-select {
+          width: auto;
+          padding: 0.25rem 0.5rem;
           font-size: 0.875rem;
-          color: #6c757d;
+          border-radius: 4px;
+          border: 1px solid #dee2e6;
+        }
 
-          label {
-            margin: 0;
-            font-weight: 500;
-          }
-
-          .form-select {
-            width: auto;
-            padding: 0.25rem 0.5rem;
-            font-size: 0.875rem;
-            border-radius: 4px;
-            border: 1px solid #dee2e6;
-          }
-
-          span {
-            font-weight: 500;
-          }
+        span {
+          font-weight: 500;
         }
       }
 
-      .controls-right {
-        .table-info {
-          font-size: 0.875rem;
-          color: #6c757d;
-          font-weight: 500;
-        }
+      .table-info {
+        font-size: 0.875rem;
+        color: #6c757d;
+        font-weight: 500;
       }
     }
 
@@ -650,12 +644,8 @@
       gap: 1rem;
       align-items: stretch;
 
-      .card-actions {
-        .search-box {
-          input {
-            width: 100%;
-          }
-        }
+      .search-box input {
+        width: 100%;
       }
     }
 

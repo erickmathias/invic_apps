@@ -16,45 +16,41 @@
 .subscriptions-header {
   margin-bottom: 2rem;
 
-  .header-content {
-    .page-title {
+  .page-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    .title-icon {
+      width: 45px;
+      height: 45px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
       display: flex;
       align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 1.25rem;
+      box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+    }
 
-      .title-icon {
-        width: 45px;
-        height: 45px;
-        border-radius: 12px;
-        background: linear-gradient(135deg, #1e3c72, #2a5298);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #ffffff;
-        font-size: 1.25rem;
-        box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
-      }
+    .title-text h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #2c3e50;
+      margin: 0;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-      .title-text {
-        h1 {
-          font-size: 1.75rem;
-          font-weight: 700;
-          color: #2c3e50;
-          margin: 0;
-          background: linear-gradient(135deg, #1e3c72, #2a5298);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-
-        p {
-          color: #6c757d;
-          font-size: 0.95rem;
-          margin: 0.25rem 0 0 0;
-          font-weight: 500;
-        }
-      }
+    .title-text p {
+      color: #6c757d;
+      font-size: 0.95rem;
+      margin: 0.25rem 0 0 0;
+      font-weight: 500;
     }
   }
 }
@@ -124,13 +120,150 @@
   }
 
   .tab-content {
-    padding: 0;
-  }
-}
+    padding: 2rem;
 
-// Tab Content Wrapper
-.tab-content-wrapper {
-  padding: 1.5rem;
+    .subscription-card {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #e9ecef;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      margin-bottom: 1.5rem;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .card-header {
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        padding: 1.5rem;
+        border-bottom: 1px solid #e9ecef;
+
+        .subscription-info {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .subscription-details {
+            .subscription-name {
+              font-size: 1.25rem;
+              font-weight: 700;
+              color: #2c3e50;
+              margin: 0 0 0.5rem 0;
+            }
+
+            .subscription-description {
+              color: #6c757d;
+              font-size: 0.9rem;
+              margin: 0;
+            }
+          }
+
+          .subscription-status {
+            .status-badge {
+              padding: 0.5rem 1rem;
+              border-radius: 20px;
+              font-size: 0.8rem;
+              font-weight: 600;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+
+              &.active {
+                background: #d4edda;
+                color: #155724;
+              }
+
+              &.expired {
+                background: #f8d7da;
+                color: #721c24;
+              }
+
+              &.pending {
+                background: #fff3cd;
+                color: #856404;
+              }
+            }
+          }
+        }
+      }
+
+      .card-body {
+        padding: 1.5rem;
+
+        .subscription-details-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 1.5rem;
+          margin-bottom: 1.5rem;
+
+          .detail-item {
+            .detail-label {
+              font-size: 0.8rem;
+              color: #6c757d;
+              font-weight: 600;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+              margin-bottom: 0.5rem;
+            }
+
+            .detail-value {
+              font-size: 1rem;
+              color: #2c3e50;
+              font-weight: 600;
+            }
+          }
+        }
+
+        .subscription-actions {
+          display: flex;
+          gap: 1rem;
+          justify-content: flex-end;
+
+          .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            &:hover {
+              transform: translateY(-1px);
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            }
+
+            i {
+              font-size: 1rem;
+            }
+          }
+
+          .btn-primary {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            border: none;
+            color: white;
+
+            &:hover {
+              background: linear-gradient(135deg, #1a3366, #244a8a);
+            }
+          }
+
+          .btn-outline-secondary {
+            border: 2px solid #6c757d;
+            color: #6c757d;
+            background: transparent;
+
+            &:hover {
+              background: #6c757d;
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 // Table Controls
@@ -211,6 +344,9 @@
 
 // Table Container
 .table-container {
+  width: 100%;
+  overflow-x: auto;
+
   .table-responsive {
     border-radius: 12px;
     overflow: hidden;
@@ -218,6 +354,9 @@
   }
 
   .table-modern {
+    width: 100%;
+    min-width: 1200px;
+    table-layout: auto;
     margin: 0;
     background: #ffffff;
 
@@ -366,6 +505,7 @@
           &.actions-cell {
             width: 100px;
             text-align: center;
+            white-space: nowrap;
 
             .btn {
               padding: 0.4rem 0.75rem;
@@ -566,12 +706,10 @@
   }
 
   .subscriptions-header {
-    .header-content {
-      .page-title {
-        .title-text {
-          h1 {
-            font-size: 1.5rem;
-          }
+    .page-title {
+      .title-text {
+        h1 {
+          font-size: 1.5rem;
         }
       }
     }
@@ -598,32 +736,26 @@
   }
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
   .subscriptions-container {
-    padding: 0.5rem 0;
-  }
-
-  .subscriptions-section {
-    padding: 0 0.5rem;
+    padding: 1rem 0;
   }
 
   .subscriptions-header {
-    .header-content {
-      .page-title {
-        flex-direction: column;
-        text-align: center;
-        gap: 0.75rem;
+    .page-title {
+      flex-direction: column;
+      text-align: center;
+      gap: 0.75rem;
 
-        .title-icon {
-          width: 40px;
-          height: 40px;
-          font-size: 1.1rem;
-        }
+      .title-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+      }
 
-        .title-text {
-          h1 {
-            font-size: 1.25rem;
-          }
+      .title-text {
+        h1 {
+          font-size: 1.5rem;
         }
       }
     }
@@ -636,7 +768,7 @@
       .nav-item {
         .nav-link {
           padding: 0.75rem 1rem;
-          font-size: 0.85rem;
+          font-size: 0.8rem;
 
           i {
             font-size: 1rem;
@@ -644,10 +776,34 @@
         }
       }
     }
-  }
 
-  .tab-content-wrapper {
-    padding: 1rem;
+    .tab-content {
+      padding: 1rem;
+
+      .subscription-card {
+        .card-header .subscription-info {
+          flex-direction: column;
+          gap: 1rem;
+          text-align: center;
+        }
+
+        .card-body {
+          .subscription-details-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+          }
+
+          .subscription-actions {
+            flex-direction: column;
+
+            .btn {
+              width: 100%;
+              justify-content: center;
+            }
+          }
+        }
+      }
+    }
   }
 
   .table-container {

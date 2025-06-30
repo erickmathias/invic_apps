@@ -16,6 +16,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {UIModule} from "../../../shared/ui/ui.module";
 import {MembersModule} from "../members/members.module";
 import {PagesModule} from "../../../pages/pages.module";
+import {LaddaModule} from "angular2-ladda";
 
 
 @NgModule({
@@ -25,22 +26,23 @@ import {PagesModule} from "../../../pages/pages.module";
     exports: [
         SubscriptionListComponent
     ],
-  imports: [
-    CommonModule,
-    SubscriptionsRoutingModule,
-    ElementsModule,
-    NgSelectModule,
-    NgbAlertModule,
-    NgbDatepickerModule,
-    NgbDropdownModule,
-    NgbNavModule,
-    NgbPaginationModule,
-    NgbTypeaheadModule,
-    ReactiveFormsModule,
-    UIModule,
-    FormsModule,
-    MembersModule,
-    PagesModule
-  ]
+    imports: [
+        CommonModule,
+        SubscriptionsRoutingModule,
+        ElementsModule,
+        NgSelectModule,
+        NgbAlertModule,
+        NgbDatepickerModule,
+        NgbDropdownModule,
+        NgbNavModule,
+        NgbPaginationModule,
+        NgbTypeaheadModule,
+        ReactiveFormsModule,
+        UIModule,
+        FormsModule,
+        MembersModule,
+        PagesModule,
+        LaddaModule
+    ]
 })
 export class SubscriptionsModule { }

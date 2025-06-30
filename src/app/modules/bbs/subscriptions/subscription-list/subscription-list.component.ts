@@ -62,19 +62,16 @@ export class SubscriptionListComponent implements OnInit {
     this.total2$ = service2.total$;
   }
 
+
   ngOnInit(): void {
     this.breadCrumbItems = [{ label: 'Package' }, { label: 'Subscriptions', active: true }];
     console.log('selected id '+this.userId)
     console.log('user profile '+this.userProfile)
-/*    if(this.userId > 0){
-      this.loadPendingPackageSubscriptions(this.userId);
-      this.loadPaidPackageSubscriptions(this.userId);
-    }else {
-      this.loadPendingPackageSubscriptions(this.userProfile.id);
-      this.loadPaidPackageSubscriptions(this.userProfile.id);
-    }*/
+
     this.loadPendingPackageSubscriptions(this.userId);
     this.loadPaidPackageSubscriptions(this.userId);
+
+
   }
 
   loadPendingPackageSubscriptions(userid: number){
@@ -156,6 +153,9 @@ export class SubscriptionListComponent implements OnInit {
   }
 
   // Status badge methods for modern UI
+  manualPaymentReceiptNumber: string;
+  buttonloading: boolean;
+  successmsg: string;
   getPaidStatusClass(paid_status: number): string {
     if(paid_status === 1){
       return 'paid';
@@ -190,5 +190,36 @@ export class SubscriptionListComponent implements OnInit {
     }else {
       return 'bx bx-clock';
     }
+  }
+
+  submitManualPayment(modal: any) {
+    this.buttonloading = true;
+    this.error = '';
+    this.successmsg = '';
+    const data = {
+      'subscriptionId': this.selectedSubscription.id,
+      'receiptNumber': this.manualPaymentReceiptNumber,
+    }
+
+    this.subscriptions.push(
+      this.packageService.pushManualSettlement(data).subscribe(
+        (response: any) => {
+          console.log(response);
+          this.service2.responceData = response.data;
+          this.buttonloading = false;
+          this.successmsg = response.message;
+        },
+        error=> {
+          this.error = error ? error : '';
+          this.buttonloading = false;
+        }
+      )
+    );
+
+  }
+
+  openManualPaymentModal(table: PackageSubscription, content: any) {
+    this.selectedSubscription = table;
+    this.modalService.open(content, { size: 'lg', centered: false });
   }
 }
