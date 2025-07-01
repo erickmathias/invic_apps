@@ -50,7 +50,6 @@ export class ElementMembersComponent implements OnInit {
   packageError = '';
   private subcription: any;
   buttonloading: boolean;
-  public selectedShapeCode: any;
   constructor(
     public service: MembersService,
     private router: Router,
@@ -148,13 +147,12 @@ export class ElementMembersComponent implements OnInit {
   onChangeShapeCode(event) {
     const option = event.target.value || 0;
     this.scode_id = option;
-    this.selectedShapeCode = this.shapeCodes.find(code => code.id == option);
+
     this.showHideBarLength(parseInt(option));
   }
 
   onSelectShape(item: BbsFormulas, modal: any) {
     this.scode_id = item.id;
-    this.selectedShapeCode = item;
     this.showHideBarLength(item.id);
     this.memberForm.get('shape_code').setValue(item.id);
     modal.close('Close click')
@@ -162,7 +160,6 @@ export class ElementMembersComponent implements OnInit {
 
   editMember(table: Members) {
     this.scode_id = table.shape_code.id;
-    this.selectedShapeCode = this.shapeCodes.find(code => code.id == this.scode_id);
     this.showHideBarLength(this.scode_id);
     this.memberForm.get('bar_mark').setValue(table.bar_mark);
     this.memberForm.get('name').setValue(table.name);

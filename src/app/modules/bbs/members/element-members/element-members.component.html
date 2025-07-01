@@ -19,7 +19,7 @@
             Add New Member
           </h5>
         </div>
-        
+
         <div class="card-body">
           <form [formGroup]="memberForm" class="member-form">
             <!-- Alerts -->
@@ -39,7 +39,7 @@
                 <i class="mdi mdi-account-details"></i>
                 Member Details
               </h6>
-              
+
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
@@ -53,7 +53,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-2">
                   <div class="form-group">
                     <label for="bar_mark" class="form-label">Bar Mark</label>
                     <input type="text" formControlName="bar_mark" class="form-control form-control-sm" id="bar_mark"
@@ -65,7 +65,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-2">
                   <div class="form-group">
                     <label for="bar_size" class="form-label">Bar Size</label>
                     <select class="form-control form-control-sm" id="bar_size" formControlName="bar_size">
@@ -91,10 +91,8 @@
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-2">
                   <div class="form-group">
                     <label for="number_of_bars" class="form-label">No. Of Bars</label>
                     <input type="number" formControlName="number_of_bars" class="form-control form-control-sm" id="number_of_bars"
@@ -106,6 +104,7 @@
                   </div>
                 </div>
               </div>
+
             </div>
 
             <!-- Shape Code & Dimensions Section -->
@@ -114,9 +113,9 @@
                 <i class="mdi mdi-shape"></i>
                 Shape Code & Dimensions
               </h6>
-              
+
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-2">
                   <div class="form-group">
                     <label for="shape_code" class="form-label">Shape Code</label>
                     <select class="form-control form-control-sm" id="shape_code" formControlName="shape_code" (change)="onChangeShapeCode($event)">
@@ -182,9 +181,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="row">
                 <div class="col-md-2" *ngIf="show_len_e">
                   <div class="form-group">
                     <label for="length_e" class="form-label">Length E (mm)</label>
@@ -221,6 +218,7 @@
                   </div>
                 </div>
               </div>
+
             </div>
 
             <!-- Form Actions -->
@@ -231,7 +229,7 @@
                   Import Members
                 </button>
               </div>
-              
+
               <div class="actions-center">
                 <button type="button" (click)="resetMemberForm()" class="btn btn-outline-danger btn-sm">
                   <i class="mdi mdi-refresh"></i>
@@ -246,7 +244,7 @@
                   Update
                 </button>
               </div>
-              
+
               <div class="actions-right">
                 <button type="button" (click)="resetMemberForm()" disabled class="btn btn-outline-secondary btn-sm">
                   <i class="mdi mdi-file-export"></i>
@@ -268,10 +266,16 @@
             Shape Preview
           </h6>
         </div>
-        
+
         <div class="card-body">
           <div class="shape-preview" *ngIf="scode_id > 0">
-            <img class="shape-image" src="assets/images/shapecodes/{{scode_id}}.jpg" alt="Shape Code {{scode_id}}"/>
+            <div class="shape-image shape-preview-image">
+              <img src="assets/images/shapecodes/{{scode_id}}.jpg" alt="Shape Code {{scode_id}}"/>
+            </div>
+            <div class="shape-insights mt-3 text-center">
+              <div class="shape-code-label mb-1"><strong>Shape Code:</strong> {{scode_id}}</div>
+              <div class="shape-description mb-1" *ngIf="selectedShapeCode?.description">{{selectedShapeCode.description}}</div>
+            </div>
           </div>
           <div class="no-shape" *ngIf="scode_id <= 0">
             <i class="mdi mdi-image-off"></i>
@@ -481,7 +485,7 @@
         </h5>
         <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')"></button>
       </div>
-      
+
       <div class="modal-body">
         <div class="shapes-grid">
           <div class="shape-card" *ngFor="let item of shapeCodes" (click)="onSelectShape(item, modal)">
@@ -494,7 +498,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="modal-footer">
         <button type="button" class="btn btn-light btn-sm" (click)="modal.close('Close click')">
           <i class="mdi mdi-close"></i>
